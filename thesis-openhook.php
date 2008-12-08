@@ -3,7 +3,7 @@
 Plugin Name: Thesis OpenHook
 Plugin URI: http://rickbeckman.com/thesis-openhook/
 Description: This plugin allows you to insert arbitrary content into the many hooks that the Thesis Theme Framework provides. Never again edit a file! Based on <a href="http://xentek.net/code/wordpress/plugins/k2-hook-up/">K2 Hook Up</a> and GPLed.
-Version: 1.0
+Version: 1.1
 Author: Rick Beckman
 Author URI: http://rickbeckman.com/
 
@@ -480,8 +480,12 @@ function openhook_footer() {
 	}
 	echo $val;
 	
-	if (get_option('openhook_footer_debug_info') && current_user_can('level_10'))
-		echo '<p>', get_num_queries(), __(' queries. '); timer_stop(1); _e('seconds.'); echo '</p>';
+	if (get_option('openhook_footer_debug_info') && current_user_can('level_10')) {
+		echo '<p>', get_num_queries(), __(' queries. ');
+		timer_stop(1);
+		_e('seconds.');
+		echo '</p>';
+	}
 
 }
 

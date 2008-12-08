@@ -29,9 +29,9 @@ if (!empty($_POST)) {
 	if (isset($_POST['openhook_custom_css']) && current_user_can('level_10')) {
 		$contents = stripslashes($_POST['openhook_custom_css']);
 		$custom_css = ABSPATH . '/wp-content/themes/thesis/custom/custom.css';
-		$custom_css = fopen($custom_css, 'w') or die ('Error editing.');
-		fwrite($custom_css, $contents);
-		fclose($custom_css) or die ('Error closing file.');
+		$custom_css = @fopen($custom_css, 'w') or die ('Error editing.');
+		@fwrite($custom_css, $contents);
+		@fclose($custom_css) or die ('Error closing file.');
 	}
 
 	update_option('openhook_before_html',						$_POST['openhook_before_html']);
@@ -213,11 +213,11 @@ if (!empty($_POST)) {
 }
 
 // Get custom.css contents
-if (current_user_can('level_10') && file_exists(ABSPATH . '/wp-content/themes/thesis/custom/custom.css')) {
+if (current_user_can('level_10') && is_writable(ABSPATH . '/wp-content/themes/thesis/custom/custom.css')) {
 	$filename = ABSPATH . '/wp-content/themes/thesis/custom/custom.css';
-	$handle = fopen($filename, 'r');
-	$contents = fread($handle, filesize($filename));
-	fclose($handle);
+	$handle = @fopen($filename, 'r');
+	$contents = @fread($handle, filesize($filename));
+	@fclose($handle);
 }
 
 // Pull option values for checkbox pre-ticking.
@@ -698,7 +698,7 @@ div.grippie { background: #eee url(/<?php echo $path; ?>/grippie.png) no-repeat 
 		</div>
 
 		<div class="tablenav">
-			<div class="alignleft"><input type="submit" name="submit" value="<?php _e('Update Options »', 'k2hookup') ?>" class="button-secondary" /></div>
+			<div class="alignleft"><input type="submit" name="submit" value="<?php _e('Little Ass Save Button »', 'k2hookup') ?>" class="button-secondary" /></div>
 			<div class="alignright"><a href="http://rickbeckman.com/" title="Kingdom Geek">Visit Kingdom Geek</a></div>
 		</div>
 
