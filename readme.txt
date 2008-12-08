@@ -44,7 +44,11 @@ Likewise, custom_functions.php will be processed *after* Thesis OpenHook, so you
 
 = Why can't I modify custom.css via OpenHook? =
 
-This feature is in the works.
+Assuming all of the following things... Yes you can!
+
+* Thesis must be installed in `wp-content/themes/thesis/`
+* `custom.css` must exist and be writable by the Web server
+* User must be an administrator (level 10)
 
 = Where can I get Thesis? =
 
