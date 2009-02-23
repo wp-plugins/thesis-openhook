@@ -25,6 +25,9 @@ Author URI: http://rickbeckman.org/
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
+// Localization.
+load_plugin_textdomain('thesis_openhook', dirname(__FILE__));
+
 // Define our functions, hook/unhook all our actions.
 include('functions.php');
 include('actions.php');
