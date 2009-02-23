@@ -1,8 +1,8 @@
 === Thesis OpenHook ===
 Contributors: KingdomGeek
-Tags: theme, customization, functions, display, Thesis
-Requires at least: 2.6
-Tested up to: 2.6.3
+Tags: theme, customization, functions, display, Thesis, diythemes
+Requires at least: 2.7
+Tested up to: 2.7.1
 Stable tag: 1.1
 
 This plugin allows you to insert arbitrary content into the many hooks that the Thesis Theme Framework provides. Never again edit a file!
@@ -45,10 +45,9 @@ Likewise, custom_functions.php will be processed *after* Thesis OpenHook, so you
 
 Assuming all of the following things... Yes you can!
 
-* Thesis must be installed in `wp-content/themes/thesis/`
 * `custom.css` must exist and be writable by the Web server
-* User must be an administrator (level 10)
+* User must be allowed to edit themes
 
 = Where can I get Thesis? =
 
-<a href="http://get-thesis.com/">Get-Thesis.com</a>
+You want to take your blog to the next level? Good for you! Grab Thesis at <a href="http://get-thesis.com/">Get-Thesis.com</a>.
