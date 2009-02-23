@@ -1,6 +1,6 @@
 <?php
 
-add_action('admin_init', 'reg_our_settings');
+add_action('admin_init', 'openhook_settings');
 add_action('admin_menu', 'add_openhook_options_page');
 
 add_action('thesis_hook_before_html', 'openhook_before_html');

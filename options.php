@@ -36,9 +36,31 @@ function openhook_option($option) {
 }
 
 /**
+ * Get custom.css contents
+ *
+ * @since 1.1
+ */
+$filename = TEMPLATEPATH . '/custom/custom.css';
+if (is_writable($filename)) {
+	$handle = @fopen($filename, 'r');
+	$contents = @fread($handle, filesize($filename));
+	@fclose($handle);
+	$custom_edit = true;
+}
+else
+	$contents = $handle = $custom_edit = '';
+
+/**
  * Handle posted content
  */
 if (!empty($_POST)) {
+	if (isset($_POST['custom_css'])) {
+		$contents = stripslashes($_POST['custom_css']);
+		$custom_css = @fopen($filename, 'w');
+		@fwrite($custom_css, $contents);
+		@fclose($custom_css);
+	}
+
 	update_option('openhook_before_html', $_POST['openhook_before_html']);
 	update_option('openhook_before_html_php', $_POST['openhook_before_html_php']);
 
@@ -203,6 +225,7 @@ if (!empty($_POST)) {
 
 	echo '<div id="message" class="updated fade"><p><strong>' . __('Thesis customizations have been saved. You should now check your site to ensure everything is working as expected, and thank you for using Thesis with OpenHook!') . '</strong></p></div>' . "\n";
 }
+
 ?>
 
 <div class="wrap">
@@ -211,6 +234,7 @@ if (!empty($_POST)) {
 	<p><?php printf(__('Be prepared to get hooked up! This plugin allows you to insert any content you want into any of the custom hooks within the <a href="%1$s">Thesis theme</a>. The hook names are pretty self explanatory, but if you need more help determining where they show up in your mark-up, <a href="%2$s" title="Thesis Hooks Reference">check the manual</a>.'), 'http://get-thesis.com/', 'http://diythemes.com/thesis/rtfm/hooks/'); ?></p>
 	<p><?php printf(__('Got questions? Is something broke? Just want to say thanks? <a href="%s" title="Thesis OpenHook Release Page">Stop on by!</a>', 'thesis_openhook'), 'http://rickbeckman.org/thesis-openhook/'); ?></p>
 	<p><?php printf(__('OpenHook is released for free to the Thesis community, but if you’d like to encourage its development, would you consider bribing me with <a href="%s">something off of my wishlist</a>? Muchos gracias!', 'thesis_openhook'), 'http://www.amazon.com/wishlist/366L8REQVLCN3'); ?></p>
+<?php if (!$custom_edit) { ?>	<p><?php _e('Unfortunately, your <code>custom.css</code> file does not appear to be editable by the server, so you will not be able to edit it via the OpenHook interface. Sorry for the inconvenience.', 'thesis_openhook'); ?></p><?php } ?>
 	<p><strong><?php _e('Insert any <abbr title="Hypertext Markup Language">HTML</abbr>, <abbr title="Cascading Style Sheets">CSS</abbr>, JavaScript or <abbr title="PHP: Hypertext Preprocessor">PHP</abbr> you like.', 'thesis_openhook'); ?></strong>
 		<br /><small><?php _e('Your <abbr title="PHP: Hypertext Preprocessor">PHP</abbr> code must be enclosed within <abbr title="PHP: Hypertext Preprocessor">PHP</abbr> tags, and you have to enable the “Execute <abbr title="PHP: Hypertext Preprocessor">PHP</abbr> on this hook” option for each hook separately.', 'thesis_openhook'); ?></small></p>
 
@@ -219,6 +243,19 @@ if (!empty($_POST)) {
 			<?php settings_fields('thesis_openhook'); ?>
 		</div>
 		<table class="form-table">
+			<?php if ($custom_edit) { ?>
+			<tr valign="top">
+				<th scope="row"><h3 id="custom_style">Custom Stylesheet</h3></th>
+				<td>
+					<fieldset>
+						<legend class="hidden"><code>custom.css</code></legend>
+						<p><label for="custom.css">By editing this, you are physically modifying your Thesis <code>custom.css</code> file. Use caution, and make sure you have a backup in case you need it! Also, it goes without saying that <strong>only <abbr title="Cascading Style Sheets">CSS</abbr></strong> can be used in this box!</label></p>
+						<textarea id="custom_css" name="custom_css" rows="10" cols="50" class="large-text code"><?php echo stripslashes(htmlspecialchars($contents)); ?></textarea>
+					</fieldset>
+					<p class="submit"><input type="submit" class="button-primary" value="<?php _e('Little Ass Save Button', 'thesis_openhook'); ?>" /></p>
+				</td>
+			</tr>
+			<?php } ?>
 			<tr valign="top">
 				<th scope="row"><h3 id="before_html">Before <abbr title="Hypertext Markup Language">HTML</abbr></h3></th>
 				<td>
