@@ -1,5 +1,8 @@
 <?php
 
+add_action('admin_init', 'reg_our_settings');
+add_action('admin_menu', 'add_openhook_options_page');
+
 add_action('thesis_hook_before_html', 'openhook_before_html');
 add_action('thesis_hook_after_html', 'openhook_after_html');
 add_action('thesis_hook_before_header', 'openhook_before_header');

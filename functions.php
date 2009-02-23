@@ -1,5 +1,109 @@
 <?php
 
+/**
+ * Add nav panel link.
+ *
+ * Adds the Thesis OpenHook management page to the admin panel
+ * navigation menu.
+ *
+ * @since 1.0
+ */
+function add_openhook_options_page() {
+	add_theme_page(__('Thesis OpenHook', 'thesis_openhook'), __('Thesis OpenHook', 'thesis_openhook'), 'edit_themes', dirname(__FILE__) . '/options.php');
+}
+
+/**
+ * Register OpenHook settings.
+ *
+ * @since 2.0
+ */
+function openhook_settings() {
+	register_setting('thesis_options', 'openhook_before_html');
+	register_setting('thesis_options', 'openhook_before_html_php');
+	register_setting('thesis_options', 'openhook_after_html');
+	register_setting('thesis_options', 'openhook_after_html_php');
+	register_setting('thesis_options', 'openhook_after_html_footer_scripts');
+	register_setting('thesis_options', 'openhook_after_html_ie_clear');
+	register_setting('thesis_options', 'openhook_before_header');
+	register_setting('thesis_options', 'openhook_before_header_php');
+	register_setting('thesis_options', 'openhook_before_header_nav_menu');
+	register_setting('thesis_options', 'openhook_after_header');
+	register_setting('thesis_options', 'openhook_after_header_php');
+	register_setting('thesis_options', 'openhook_header');
+	register_setting('thesis_options', 'openhook_header_php');
+	register_setting('thesis_options', 'openhook_header_default_header');
+	register_setting('thesis_options', 'openhook_before_title');
+	register_setting('thesis_options', 'openhook_before_title_php');
+	register_setting('thesis_options', 'openhook_after_title');
+	register_setting('thesis_options', 'openhook_after_title_php');
+	register_setting('thesis_options', 'openhook_before_content');
+	register_setting('thesis_options', 'openhook_before_content_php');
+	register_setting('thesis_options', 'openhook_after_content');
+	register_setting('thesis_options', 'openhook_after_content_php');
+	register_setting('thesis_options', 'openhook_after_content_post_navigation');
+	register_setting('thesis_options', 'openhook_after_content_prev_next_posts');
+	register_setting('thesis_options', 'openhook_before_post');
+	register_setting('thesis_options', 'openhook_before_post_php');
+	register_setting('thesis_options', 'openhook_after_post');
+	register_setting('thesis_options', 'openhook_after_post_php');
+	register_setting('thesis_options', 'openhook_after_post_trackback_rdf');
+	register_setting('thesis_options', 'openhook_after_post_post_tags');
+	register_setting('thesis_options', 'openhook_after_post_comments_link');
+	register_setting('thesis_options', 'openhook_before_headline');
+	register_setting('thesis_options', 'openhook_before_headline_php');
+	register_setting('thesis_options', 'openhook_after_headline');
+	register_setting('thesis_options', 'openhook_after_headline_php');
+	register_setting('thesis_options', 'openhook_byline_item');
+	register_setting('thesis_options', 'openhook_byline_item_php');
+	register_setting('thesis_options', 'openhook_before_comment_meta');
+	register_setting('thesis_options', 'openhook_before_comment_meta_php');
+	register_setting('thesis_options', 'openhook_after_comment_meta');
+	register_setting('thesis_options', 'openhook_after_comment_meta_php');
+	register_setting('thesis_options', 'openhook_comment_form');
+	register_setting('thesis_options', 'openhook_comment_form_php');
+	register_setting('thesis_options', 'openhook_comment_form_show_subscription_checkbox');
+	register_setting('thesis_options', 'openhook_archives_template');
+	register_setting('thesis_options', 'openhook_archives_template_php');
+	register_setting('thesis_options', 'openhook_archives_template_archives_template');
+	register_setting('thesis_options', 'openhook_archive_info_default_archive_info');
+	register_setting('thesis_options', 'openhook_custom_template');
+	register_setting('thesis_options', 'openhook_custom_template_php');
+	register_setting('thesis_options', 'openhook_custom_template_custom_template_sample');
+	register_setting('thesis_options', 'openhook_archive_info');
+	register_setting('thesis_options', 'openhook_archive_info_php');
+	register_setting('thesis_options', 'openhook_404_title');
+	register_setting('thesis_options', 'openhook_404_title_php');
+	register_setting('thesis_options', 'openhook_404_title_404_title');
+	register_setting('thesis_options', 'openhook_404_content');
+	register_setting('thesis_options', 'openhook_404_content_php');
+	register_setting('thesis_options', 'openhook_404_content_404_content');
+	register_setting('thesis_options', 'openhook_before_sidebars');
+	register_setting('thesis_options', 'openhook_before_sidebars_php');
+	register_setting('thesis_options', 'openhook_after_sidebars');
+	register_setting('thesis_options', 'openhook_after_sidebars_php');
+	register_setting('thesis_options', 'openhook_after_multimedia_box');
+	register_setting('thesis_options', 'openhook_after_multimedia_box_php');
+	register_setting('thesis_options', 'openhook_multimedia_box');
+	register_setting('thesis_options', 'openhook_multimedia_box_php');
+	register_setting('thesis_options', 'openhook_before_sidebar_1');
+	register_setting('thesis_options', 'openhook_before_sidebar_1_php');
+	register_setting('thesis_options', 'openhook_after_sidebar_1');
+	register_setting('thesis_options', 'openhook_after_sidebar_1_php');
+	register_setting('thesis_options', 'openhook_before_sidebar_2');
+	register_setting('thesis_options', 'openhook_before_sidebar_2_php');
+	register_setting('thesis_options', 'openhook_after_sidebar_2');
+	register_setting('thesis_options', 'openhook_after_sidebar_2_php');
+	register_setting('thesis_options', 'openhook_before_footer');
+	register_setting('thesis_options', 'openhook_before_footer_php');
+	register_setting('thesis_options', 'openhook_after_footer');
+	register_setting('thesis_options', 'openhook_after_footer_php');
+	register_setting('thesis_options', 'openhook_footer');
+	register_setting('thesis_options', 'openhook_footer_php');
+	register_setting('thesis_options', 'openhook_footer_thesis_attribution');
+	register_setting('thesis_options', 'openhook_footer_admin_link');
+	register_setting('thesis_options', 'openhook_footer_debug_info');
+}
+
 function openhook_remove_actions() {
 	if (get_option('openhook_after_html_footer_scripts'))
 		remove_action('thesis_hook_after_html', 'thesis_footer_scripts');
