@@ -36,12 +36,27 @@ function openhook_settings() {
 	register_setting('thesis_options', 'openhook_before_title_php');
 	register_setting('thesis_options', 'openhook_after_title');
 	register_setting('thesis_options', 'openhook_after_title_php');
+	register_setting('thesis_options', 'openhook_before_content_box');
+	register_setting('thesis_options', 'openhook_before_content_box_php');
+	register_setting('thesis_options', 'openhook_after_content_box');
+	register_setting('thesis_options', 'openhook_after_content_box_php');
 	register_setting('thesis_options', 'openhook_before_content');
 	register_setting('thesis_options', 'openhook_before_content_php');
 	register_setting('thesis_options', 'openhook_after_content');
 	register_setting('thesis_options', 'openhook_after_content_php');
 	register_setting('thesis_options', 'openhook_after_content_post_navigation');
 	register_setting('thesis_options', 'openhook_after_content_prev_next_posts');
+	register_setting('thesis_options', 'openhook_feature_box');
+	register_setting('thesis_options', 'openhook_feature_box_php');
+	register_setting('thesis_options', 'openhook_before_post_box');
+	register_setting('thesis_options', 'openhook_before_post_box_php');
+	register_setting('thesis_options', 'openhook_before_post_box_add_post_image');
+	register_setting('thesis_options', 'openhook_after_post_box');
+	register_setting('thesis_options', 'openhook_after_post_box_php');
+	register_setting('thesis_options', 'openhook_before_teasers_box');
+	register_setting('thesis_options', 'openhook_before_teasers_box_php');
+	register_setting('thesis_options', 'openhook_after_teasers_box');
+	register_setting('thesis_options', 'openhook_after_teasers_box_php');
 	register_setting('thesis_options', 'openhook_before_post');
 	register_setting('thesis_options', 'openhook_before_post_php');
 	register_setting('thesis_options', 'openhook_after_post');
@@ -49,10 +64,23 @@ function openhook_settings() {
 	register_setting('thesis_options', 'openhook_after_post_trackback_rdf');
 	register_setting('thesis_options', 'openhook_after_post_post_tags');
 	register_setting('thesis_options', 'openhook_after_post_comments_link');
+	register_setting('thesis_options', 'openhook_before_teaser_box');
+	register_setting('thesis_options', 'openhook_before_teaser_box_php');
+	register_setting('thesis_options', 'openhook_before_teaser_box_add_thumb');
+	register_setting('thesis_options', 'openhook_after_teaser_box');
+	register_setting('thesis_options', 'openhook_after_teaser_box_php');
+	register_setting('thesis_options', 'openhook_before_teaser');
+	register_setting('thesis_options', 'openhook_before_teaser_php');
+	register_setting('thesis_options', 'openhook_after_teaser');
+	register_setting('thesis_options', 'openhook_after_teaser_php');
 	register_setting('thesis_options', 'openhook_before_headline');
 	register_setting('thesis_options', 'openhook_before_headline_php');
 	register_setting('thesis_options', 'openhook_after_headline');
 	register_setting('thesis_options', 'openhook_after_headline_php');
+	register_setting('thesis_options', 'openhook_before_teaser_headline');
+	register_setting('thesis_options', 'openhook_before_teaser_headline_php');
+	register_setting('thesis_options', 'openhook_after_teaser_headline');
+	register_setting('thesis_options', 'openhook_after_teaser_headline_php');
 	register_setting('thesis_options', 'openhook_byline_item');
 	register_setting('thesis_options', 'openhook_byline_item_php');
 	register_setting('thesis_options', 'openhook_before_comment_meta');
@@ -69,6 +97,8 @@ function openhook_settings() {
 	register_setting('thesis_options', 'openhook_custom_template');
 	register_setting('thesis_options', 'openhook_custom_template_php');
 	register_setting('thesis_options', 'openhook_custom_template_custom_template_sample');
+	register_setting('thesis_options', 'openhook_faux_admin');
+	register_setting('thesis_options', 'openhook_faux_admin_php');
 	register_setting('thesis_options', 'openhook_archive_info');
 	register_setting('thesis_options', 'openhook_archive_info_php');
 	register_setting('thesis_options', 'openhook_404_title');
@@ -113,12 +143,16 @@ function openhook_remove_actions() {
 		remove_action('thesis_hook_before_header', 'thesis_nav_menu');
 	if (get_option('openhook_header_default_header'))
 		remove_action('thesis_hook_header', 'thesis_default_header');
+	if (get_option('openhook_before_post_box_add_post_image'))
+		remove_action('thesis_hook_before_post_box', 'thesis_add_post_image');
 	if (get_option('openhook_after_post_trackback_rdf'))
 		remove_action('thesis_hook_after_post', 'thesis_trackback_rdf');
 	if (get_option('openhook_after_post_post_tags'))
 		remove_action('thesis_hook_after_post', 'thesis_post_tags');
 	if (get_option('openhook_after_post_comments_link'))
 		remove_action('thesis_hook_after_post', 'thesis_comments_link');
+	if (get_option('openhook_before_teaser_box_add_thumb'))
+		remove_action('thesis_hook_before_teaser_box', 'thesis_add_thumb');
 	if (get_option('openhook_after_content_post_navigation'))
 		remove_action('thesis_hook_after_content', 'thesis_post_navigation');
 	if (get_option('openhook_after_content_prev_next_posts'))
@@ -219,6 +253,38 @@ function openhook_after_title() {
 	echo $val;
 }
 
+/**
+ * Before content box
+ *
+ * @since 2.0
+ */
+function openhook_before_content_box() {
+	$val = stripslashes(get_option('openhook_before_content_box'));
+	if (get_option('openhook_before_content_box_php')) {
+		ob_start();
+		eval("?>$val<?php ");
+		$val = ob_get_contents();
+		ob_end_clean();
+	}
+	echo $val;
+}
+
+/**
+ * After content box
+ *
+ * @since 2.0
+ */
+function openhook_after_content_box() {
+	$val = stripslashes(get_option('openhook_after_content_box'));
+	if (get_option('openhook_after_content_box_php')) {
+		ob_start();
+		eval("?>$val<?php ");
+		$val = ob_get_contents();
+		ob_end_clean();
+	}
+	echo $val;
+}
+
 function openhook_before_content() {
 	$val = stripslashes(get_option('openhook_before_content'));
 	if (get_option('openhook_before_content_php')) {
@@ -233,6 +299,86 @@ function openhook_before_content() {
 function openhook_after_content() {
 	$val = stripslashes(get_option('openhook_after_content'));
 	if (get_option('openhook_after_content_php')) {
+		ob_start();
+		eval("?>$val<?php ");
+		$val = ob_get_contents();
+		ob_end_clean();
+	}
+	echo $val;
+}
+
+/**
+ * Feature box
+ *
+ * @since 2.0
+ */
+function openhook_feature_box() {
+	$val = stripslashes(get_option('openhook_feature_box'));
+	if (get_option('openhook_feature_box_php')) {
+		ob_start();
+		eval("?>$val<?php ");
+		$val = ob_get_contents();
+		ob_end_clean();
+	}
+	echo $val;
+}
+
+/**
+ * Before post box
+ *
+ * @since 2.0
+ */
+function openhook_before_post_box() {
+	$val = stripslashes(get_option('openhook_before_post_box'));
+	if (get_option('openhook_before_post_box_php')) {
+		ob_start();
+		eval("?>$val<?php ");
+		$val = ob_get_contents();
+		ob_end_clean();
+	}
+	echo $val;
+}
+
+/**
+ * After post box
+ *
+ * @since 2.0
+ */
+function openhook_after_post_box() {
+	$val = stripslashes(get_option('openhook_after_post_box'));
+	if (get_option('openhook_after_post_box_php')) {
+		ob_start();
+		eval("?>$val<?php ");
+		$val = ob_get_contents();
+		ob_end_clean();
+	}
+	echo $val;
+}
+
+/**
+ * Before teasers box
+ *
+ * @since 2.0
+ */
+function openhook_before_teasers_box() {
+	$val = stripslashes(get_option('openhook_before_teasers_box'));
+	if (get_option('openhook_before_teasers_box_php')) {
+		ob_start();
+		eval("?>$val<?php ");
+		$val = ob_get_contents();
+		ob_end_clean();
+	}
+	echo $val;
+}
+
+/**
+ * After teasers box
+ *
+ * @since 2.0
+ */
+function openhook_after_teasers_box() {
+	$val = stripslashes(get_option('openhook_after_teasers_box'));
+	if (get_option('openhook_after_teasers_box_php')) {
 		ob_start();
 		eval("?>$val<?php ");
 		$val = ob_get_contents();
@@ -263,6 +409,70 @@ function openhook_after_post() {
 	echo $val;
 }
 
+/**
+ * Before teaser box
+ *
+ * @since 2.0
+ */
+function openhook_before_teaser_box() {
+	$val = stripslashes(get_option('openhook_before_teaser_box'));
+	if (get_option('openhook_before_teaser_box_php')) {
+		ob_start();
+		eval("?>$val<?php ");
+		$val = ob_get_contents();
+		ob_end_clean();
+	}
+	echo $val;
+}
+
+/**
+ * After teaser box
+ *
+ * @since 2.0
+ */
+function openhook_after_teaser_box() {
+	$val = stripslashes(get_option('openhook_after_teaser_box'));
+	if (get_option('openhook_after_teaser_box_php')) {
+		ob_start();
+		eval("?>$val<?php ");
+		$val = ob_get_contents();
+		ob_end_clean();
+	}
+	echo $val;
+}
+
+/**
+ * Before teaser
+ *
+ * @since 2.0
+ */
+function openhook_before_teaser() {
+	$val = stripslashes(get_option('openhook_before_teaser'));
+	if (get_option('openhook_before_teaser_php')) {
+		ob_start();
+		eval("?>$val<?php ");
+		$val = ob_get_contents();
+		ob_end_clean();
+	}
+	echo $val;
+}
+
+/**
+ * After teaser
+ *
+ * @since 2.0
+ */
+function openhook_after_teaser() {
+	$val = stripslashes(get_option('openhook_after_teaser'));
+	if (get_option('openhook_after_teaser_php')) {
+		ob_start();
+		eval("?>$val<?php ");
+		$val = ob_get_contents();
+		ob_end_clean();
+	}
+	echo $val;
+}
+
 function openhook_before_headline() {
 	$val = stripslashes(get_option('openhook_before_headline'));
 	if (get_option('openhook_before_headline_php')) {
@@ -277,6 +487,38 @@ function openhook_before_headline() {
 function openhook_after_headline() {
 	$val = stripslashes(get_option('openhook_after_headline'));
 	if (get_option('openhook_after_headline_php')) {
+		ob_start();
+		eval("?>$val<?php ");
+		$val = ob_get_contents();
+		ob_end_clean();
+	}
+	echo $val;
+}
+
+/**
+ * Before teaser headline
+ *
+ * @since 2.0
+ */
+function openhook_before_teaser_headline() {
+	$val = stripslashes(get_option('openhook_before_teaser_headline'));
+	if (get_option('openhook_before_teaser_headline_php')) {
+		ob_start();
+		eval("?>$val<?php ");
+		$val = ob_get_contents();
+		ob_end_clean();
+	}
+	echo $val;
+}
+
+/**
+ * After teaser headline
+ *
+ * @since 2.0
+ */
+function openhook_after_teaser_headline() {
+	$val = stripslashes(get_option('openhook_after_teaser_headline'));
+	if (get_option('openhook_after_teaser_headline_php')) {
 		ob_start();
 		eval("?>$val<?php ");
 		$val = ob_get_contents();
@@ -354,6 +596,22 @@ function openhook_archives_template() {
 function openhook_custom_template() {
 	$val = stripslashes(get_option('openhook_custom_template'));
 	if (get_option('openhook_custom_template_php')) {
+		ob_start();
+		eval("?>$val<?php ");
+		$val = ob_get_contents();
+		ob_end_clean();
+	}
+	echo $val;
+}
+
+/**
+ * Before teasers box
+ *
+ * @since 2.0
+ */
+function openhook_faux_admin() {
+	$val = stripslashes(get_option('openhook_faux_admin'));
+	if (get_option('openhook_faux_admin_php')) {
 		ob_start();
 		eval("?>$val<?php ");
 		$val = ob_get_contents();
