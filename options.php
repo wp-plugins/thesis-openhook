@@ -23,6 +23,9 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 // Assign plugin path.
 $path = PLUGINDIR . '/' . dirname(plugin_basename(__FILE__));
 
+if (!current_user_can('edit_themes'))
+	wp_die(__('<p>Sorry, but you do not have permission to edit the appearance of this site. You should suggest changes to the site administrator. Thank you.</p>'));
+
 // If this is a POST, we need to update the options to the newly submitted values.
 if (!empty($_POST)) {
 
@@ -274,15 +277,6 @@ $openhook_footer_thesis_attribution		= get_option('openhook_footer_thesis_attrib
 $openhook_footer_admin_link				= get_option('openhook_footer_admin_link');
 $openhook_footer_debug_info				= get_option('openhook_footer_debug_info');
 ?>
-<script type="text/javascript" src="/<?php echo $path; ?>/jquery.textarearesizer.compressed.js"></script>
-<script type="text/javascript">
-<!--//--><![CDATA[//><!--
-	/* jQuery textarea resizer plugin usage */
-	jQuery(document).ready(function() {
-		jQuery('textarea.resizable:not(.processed)').TextAreaResizer();
-	});
-//--><!]]>
-</script>
 <style type="text/css" media="screen">
 /* //<![CDATA[ */ <!--
 label.head { display: block; font-weight: bold; font-size: 120%; margin-bottom: 5px; width: 720px; padding: 5px; }
@@ -298,13 +292,13 @@ div.grippie { background: #eee url(/<?php echo $path; ?>/grippie.png) no-repeat 
 <div class="wrap">
 	<h2><?php _e('Thesis OpenHook', 'thesis_openhook'); ?></h2>
 	<p><?php _e('Be prepared to get hooked up! This plugin allows you to insert any content you want into any of the custom hooks within the <a href="http://get-thesis.com/">Thesis theme</a>.', 'thesis_openhook')?> <?php _e('The hook names are pretty self explanatory, but if you need more help determining where they show up in your mark-up,', 'thesis_openhook');?> <a href="http://diythemes.com/thesis/rtfm/hooks/" title="<?php _e('Thesis Hooks Reference', 'thesis_openhook'); ?>"><?php _e('check the manual', 'thesis_openhook'); ?></a>.</p>
-	<p><?php _e('Got questions? Just ask me! ', 'thesis_openhook'); ?><a href="http://rickbeckman.com/thesis-openhook/" title="<?php _e('Thesis OpenHook Release Page', 'thesis_openhook'); ?>"><?php _e('Thesis OpenHook Home', 'thesis_openhook'); ?></a>.</p>
+	<p><?php _e('Got questions? Just ask me! ', 'thesis_openhook'); ?><a href="http://rickbeckman.org/thesis-openhook/" title="<?php _e('Thesis OpenHook Release Page', 'thesis_openhook'); ?>"><?php _e('Thesis OpenHook Home', 'thesis_openhook'); ?></a>.</p>
 	<p class="info"><strong><?php _e('Insert any <abbr title="Hypertext Markup Language" class="initialism">HTML</abbr>, <abbr title="Cascading Style Sheets" class="initialism">CSS</abbr>, JavaScript or <abbr title="PHP: Hypertext Preprocessor" class="initialism">PHP</abbr> you like.', 'thesis_openhook'); ?></strong>
 	<br /><small><?php _e('Your <abbr title="PHP: Hypertext Preprocessor" class="initialism">PHP</abbr> code must be enclosed within <abbr title="PHP: Hypertext Preprocessor" class="initialism">PHP</abbr> tags, and you have to enable the “Execute <abbr title="PHP: Hypertext Preprocessor" class="initialism">PHP</abbr> on this hook” option for each hook separately.', 'thesis_openhook'); ?></small>
 	</p>
 	
 
-	<form method="post" action="" id="k2hookup-settings">
+	<form method="post" action="" id="thesis-openhook-settings">
 		<?php wp_nonce_field('update-options'); ?>
 		<input type="hidden" name="action" value="update" />
 <?php if ($contents) { ?>
