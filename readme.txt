@@ -1,10 +1,9 @@
 === Thesis OpenHook ===
 Contributors: KingdomGeek
-Donate link: http://tinyurl.com/5jyam4
 Tags: theme, customization, functions, display, Thesis
 Requires at least: 2.6
 Tested up to: 2.6.3
-Stable tag: trunk
+Stable tag: 1.1
 
 This plugin allows you to insert arbitrary content into the many hooks that the Thesis Theme Framework provides. Never again edit a file!
 
