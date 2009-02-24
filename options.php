@@ -337,7 +337,7 @@ if (!empty($_POST)) {
 						<textarea id="openhook_after_header" name="openhook_after_header" rows="10" cols="50" class="large-text code"><?php openhook_option('openhook_after_header'); ?></textarea>
 						<p>
 							<label for="openhook_after_header_php">
-								<input<?php checked('1', get_option('openhook_after_header_php')); ?> value="1" id="openhook_after_header_php" name="openhook_after_html_php" type="checkbox" />
+								<input<?php checked('1', get_option('openhook_after_header_php')); ?> value="1" id="openhook_after_header_php" name="openhook_after_header_php" type="checkbox" />
 								<?php _e('Execute <abbr title="PHP: Hypertext Preprocessor">PHP</abbr> on this hook', 'thesis_openhook'); ?>
 							</label>
 						</p>
