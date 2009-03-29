@@ -3,7 +3,7 @@ Contributors: KingdomGeek
 Tags: theme, customization, functions, display, Thesis, diythemes
 Requires at least: 2.7
 Tested up to: 2.7.1
-Stable tag: 2.0.1
+Stable tag: 2.0.2
 
 This plugin allows you to insert arbitrary content into the many hooks that the Thesis Theme Framework provides. Never again edit a file!
 
