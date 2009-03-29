@@ -61,9 +61,10 @@ if (!empty($_POST)) {
 		@fclose($custom_css);
 	}
 
+	update_option('openhook_save_button', $_POST['openhook_save_button']);
+
 	update_option('openhook_before_html', $_POST['openhook_before_html']);
 	update_option('openhook_before_html_php', $_POST['openhook_before_html_php']);
-
 
 	update_option('openhook_after_html', $_POST['openhook_after_html']);
 	update_option('openhook_after_html_php', $_POST['openhook_after_html_php']);
@@ -226,6 +227,10 @@ if (!empty($_POST)) {
 	echo '<div id="message" class="updated fade"><p><strong>' . __('Thesis customizations have been saved. You should now check your site to ensure everything is working as expected, and thank you for using Thesis with OpenHook!') . '</strong></p></div>' . "\n";
 }
 
+$save_button = attribute_escape(get_option('openhook_save_button'));
+if ($save_button == '')
+	$save_button = __('Little Ass Save Button', 'thesis_openhook');
+
 ?>
 
 <div class="wrap">
@@ -233,10 +238,11 @@ if (!empty($_POST)) {
 	<h2><?php _e('Thesis OpenHook', 'thesis_openhook'); ?></h2>
 	<p><?php printf(__('Be prepared to get hooked up! This plugin allows you to insert any content you want into any of the custom hooks within the <a href="%1$s">Thesis theme</a>. The hook names are pretty self explanatory, but if you need more help determining where they show up in your mark-up, <a href="%2$s" title="Thesis Hooks Reference">check the manual</a>.'), 'http://get-thesis.com/', 'http://diythemes.com/thesis/rtfm/hooks/'); ?></p>
 	<p><?php printf(__('Got questions? Is something broke? Just want to say thanks? <a href="%s" title="Thesis OpenHook Release Page">Stop on by!</a>', 'thesis_openhook'), 'http://rickbeckman.org/thesis-openhook/'); ?></p>
-	<p><?php printf(__('OpenHook is released for free to the Thesis community, but if you’d like to encourage its development, would you consider bribing me with <a href="%s">something off of my wishlist</a>? Muchos gracias!', 'thesis_openhook'), 'http://www.amazon.com/wishlist/366L8REQVLCN3'); ?></p>
+	<p><?php printf(__('OpenHook is released for free to the Thesis community, but if you’d like to encourage its development, would you consider bribing me with <a href="%s">something off of my wishlist</a>? Thanks!', 'thesis_openhook'), 'http://www.amazon.com/wishlist/366L8REQVLCN3'); ?></p>
 <?php if (!$custom_edit) { ?>	<p><?php _e('Unfortunately, your <code>custom.css</code> file does not appear to be editable by the server, so you will not be able to edit it via the OpenHook interface. Sorry for the inconvenience.', 'thesis_openhook'); ?></p><?php } ?>
 	<p><strong><?php _e('Insert any <abbr title="Hypertext Markup Language">HTML</abbr>, <abbr title="Cascading Style Sheets">CSS</abbr>, JavaScript or <abbr title="PHP: Hypertext Preprocessor">PHP</abbr> you like.', 'thesis_openhook'); ?></strong>
 		<br /><small><?php _e('Your <abbr title="PHP: Hypertext Preprocessor">PHP</abbr> code must be enclosed within <abbr title="PHP: Hypertext Preprocessor">PHP</abbr> tags, and you have to enable the “Execute <abbr title="PHP: Hypertext Preprocessor">PHP</abbr> on this hook” option for each hook separately.', 'thesis_openhook'); ?></small></p>
+	<p><?php _e('Please note that using <em>any</em> of the save buttons on this page will save <em>all</em> of the displayed fields. Take care not to save unwanted changes. You’ve been warned.', 'thesis_openhook'); ?></p>
 
 	<form method="post" action="">
 		<div class="hidden">
@@ -249,10 +255,10 @@ if (!empty($_POST)) {
 				<td>
 					<fieldset>
 						<legend class="hidden"><code>custom.css</code></legend>
-						<p><label for="custom.css">By editing this, you are physically modifying your Thesis <code>custom.css</code> file. Use caution, and make sure you have a backup in case you need it! Also, it goes without saying that <strong>only <abbr title="Cascading Style Sheets">CSS</abbr></strong> can be used in this box!</label></p>
+						<p><label for="custom.css"><strong>By editing this, you are physically modifying your Thesis <code>custom.css</code> file.</strong> Use caution, and make sure you have a backup in case you need it! Also, it goes without saying that <strong>only <abbr title="Cascading Style Sheets">CSS</abbr></strong> can be used in this box!</label></p>
 						<textarea id="custom_css" name="custom_css" rows="10" cols="50" class="large-text code"><?php echo stripslashes(htmlspecialchars($contents)); ?></textarea>
 					</fieldset>
-					<p class="submit"><input type="submit" class="button-primary" value="<?php _e('Little Ass Save Button', 'thesis_openhook'); ?>" /></p>
+					<p class="submit"><input type="submit" class="button-primary" value="<?php echo $save_button; ?>" /></p>
 				</td>
 			</tr>
 			<?php } ?>
@@ -270,7 +276,7 @@ if (!empty($_POST)) {
 							</label>
 						</p>
 					</fieldset>
-					<p class="submit"><input type="submit" class="button-primary" value="<?php _e('Little Ass Save Button', 'thesis_openhook'); ?>" /></p>
+					<p class="submit"><input type="submit" class="button-primary" value="<?php echo $save_button; ?>" /></p>
 				</td>
 			</tr>
 			<tr valign="top">
@@ -301,7 +307,7 @@ if (!empty($_POST)) {
 							<small><?php _e('Don’t care about Internet Explorer? Then don’t output this bit of compatibility code! (Not recommended.)', 'thesis_openhook'); ?></small>
 						</p>
 					</fieldset>
-					<p class="submit"><input type="submit" class="button-primary" value="<?php _e('Little Ass Save Button', 'thesis_openhook'); ?>" /></p>
+					<p class="submit"><input type="submit" class="button-primary" value="<?php echo $save_button; ?>" /></p>
 				</td>
 			</tr>
 			<tr valign="top">
@@ -325,7 +331,7 @@ if (!empty($_POST)) {
 							<small><?php _e('To move your navigation menu to below your header, remove it here, then include <code>&lt;?php thesis_nav_menu(); ?&gt;</code> in the “After Header” hook. You can, of course, add it to any hook you want!', 'thesis_openhook'); ?></small>
 						</p>
 					</fieldset>
-					<p class="submit"><input type="submit" class="button-primary" value="<?php _e('Little Ass Save Button', 'thesis_openhook'); ?>" /></p>
+					<p class="submit"><input type="submit" class="button-primary" value="<?php echo $save_button; ?>" /></p>
 				</td>
 			</tr>
 			<tr valign="top">
@@ -342,7 +348,7 @@ if (!empty($_POST)) {
 							</label>
 						</p>
 					</fieldset>
-					<p class="submit"><input type="submit" class="button-primary" value="<?php _e('Little Ass Save Button', 'thesis_openhook'); ?>" /></p>
+					<p class="submit"><input type="submit" class="button-primary" value="<?php echo $save_button; ?>" /></p>
 				</td>
 			</tr>
 			<tr valign="top">
@@ -366,7 +372,7 @@ if (!empty($_POST)) {
 							<small><?php _e('The default header contains your site name and tagline, but also the “Before Title” and “After Title” hooks.', 'thesis_openhook'); ?></small>
 						</p>
 					</fieldset>
-					<p class="submit"><input type="submit" class="button-primary" value="<?php _e('Little Ass Save Button', 'thesis_openhook'); ?>" /></p>
+					<p class="submit"><input type="submit" class="button-primary" value="<?php echo $save_button; ?>" /></p>
 				</td>
 			</tr>
 			<tr valign="top">
@@ -383,7 +389,7 @@ if (!empty($_POST)) {
 							</label>
 						</p>
 					</fieldset>
-					<p class="submit"><input type="submit" class="button-primary" value="<?php _e('Little Ass Save Button', 'thesis_openhook'); ?>" /></p>
+					<p class="submit"><input type="submit" class="button-primary" value="<?php echo $save_button; ?>" /></p>
 				</td>
 			</tr>
 			<tr valign="top">
@@ -400,7 +406,7 @@ if (!empty($_POST)) {
 							</label>
 						</p>
 					</fieldset>
-					<p class="submit"><input type="submit" class="button-primary" value="<?php _e('Little Ass Save Button', 'thesis_openhook'); ?>" /></p>
+					<p class="submit"><input type="submit" class="button-primary" value="<?php echo $save_button; ?>" /></p>
 				</td>
 			</tr>
 			<tr valign="top">
@@ -417,7 +423,7 @@ if (!empty($_POST)) {
 							</label>
 						</p>
 					</fieldset>
-					<p class="submit"><input type="submit" class="button-primary" value="<?php _e('Little Ass Save Button', 'thesis_openhook'); ?>" /></p>
+					<p class="submit"><input type="submit" class="button-primary" value="<?php echo $save_button; ?>" /></p>
 				</td>
 			</tr>
 			<tr valign="top">
@@ -434,7 +440,7 @@ if (!empty($_POST)) {
 							</label>
 						</p>
 					</fieldset>
-					<p class="submit"><input type="submit" class="button-primary" value="<?php _e('Little Ass Save Button', 'thesis_openhook'); ?>" /></p>
+					<p class="submit"><input type="submit" class="button-primary" value="<?php echo $save_button; ?>" /></p>
 				</td>
 			</tr>
 			<tr valign="top">
@@ -451,7 +457,7 @@ if (!empty($_POST)) {
 							</label>
 						</p>
 					</fieldset>
-					<p class="submit"><input type="submit" class="button-primary" value="<?php _e('Little Ass Save Button', 'thesis_openhook'); ?>" /></p>
+					<p class="submit"><input type="submit" class="button-primary" value="<?php echo $save_button; ?>" /></p>
 				</td>
 			</tr>
 			<tr valign="top">
@@ -482,7 +488,7 @@ if (!empty($_POST)) {
 							<small><?php _e('While you can disable the previous/next post links on single pages via Thesis Options, leaving it active and removing it here allows you to add it to another hook using <code>&lt;?php thesis_prev_next_posts(); ?&gt;</code>.', 'thesis_openhook'); ?></small>
 						</p>
 					</fieldset>
-					<p class="submit"><input type="submit" class="button-primary" value="<?php _e('Little Ass Save Button', 'thesis_openhook'); ?>" /></p>
+					<p class="submit"><input type="submit" class="button-primary" value="<?php echo $save_button; ?>" /></p>
 				</td>
 			</tr>
 			<tr valign="top">
@@ -499,7 +505,7 @@ if (!empty($_POST)) {
 							</label>
 						</p>
 					</fieldset>
-					<p class="submit"><input type="submit" class="button-primary" value="<?php _e('Little Ass Save Button', 'thesis_openhook'); ?>" /></p>
+					<p class="submit"><input type="submit" class="button-primary" value="<?php echo $save_button; ?>" /></p>
 				</td>
 			</tr>
 			<tr valign="top">
@@ -523,7 +529,7 @@ if (!empty($_POST)) {
 							<small><?php _e('Need to completely remove post images without tinkering with Thesis’ settings?', 'thesis_openhook'); ?></small>
 						</p>
 					</fieldset>
-					<p class="submit"><input type="submit" class="button-primary" value="<?php _e('Little Ass Save Button', 'thesis_openhook'); ?>" /></p>
+					<p class="submit"><input type="submit" class="button-primary" value="<?php echo $save_button; ?>" /></p>
 				</td>
 			</tr>
 			<tr valign="top">
@@ -540,7 +546,7 @@ if (!empty($_POST)) {
 							</label>
 						</p>
 					</fieldset>
-					<p class="submit"><input type="submit" class="button-primary" value="<?php _e('Little Ass Save Button', 'thesis_openhook'); ?>" /></p>
+					<p class="submit"><input type="submit" class="button-primary" value="<?php echo $save_button; ?>" /></p>
 				</td>
 			</tr>
 			<tr valign="top">
@@ -557,7 +563,7 @@ if (!empty($_POST)) {
 							</label>
 						</p>
 					</fieldset>
-					<p class="submit"><input type="submit" class="button-primary" value="<?php _e('Little Ass Save Button', 'thesis_openhook'); ?>" /></p>
+					<p class="submit"><input type="submit" class="button-primary" value="<?php echo $save_button; ?>" /></p>
 				</td>
 			</tr>
 			<tr valign="top">
@@ -574,7 +580,7 @@ if (!empty($_POST)) {
 							</label>
 						</p>
 					</fieldset>
-					<p class="submit"><input type="submit" class="button-primary" value="<?php _e('Little Ass Save Button', 'thesis_openhook'); ?>" /></p>
+					<p class="submit"><input type="submit" class="button-primary" value="<?php echo $save_button; ?>" /></p>
 				</td>
 			</tr>
 			<tr valign="top">
@@ -591,7 +597,7 @@ if (!empty($_POST)) {
 							</label>
 						</p>
 					</fieldset>
-					<p class="submit"><input type="submit" class="button-primary" value="<?php _e('Little Ass Save Button', 'thesis_openhook'); ?>" /></p>
+					<p class="submit"><input type="submit" class="button-primary" value="<?php echo $save_button; ?>" /></p>
 				</td>
 			</tr>
 			<tr valign="top">
@@ -629,7 +635,7 @@ if (!empty($_POST)) {
 							<small><?php _e('This will remove the “{ Comments # }” link from the index and archive pages.', 'thesis_openhook'); ?></small>
 						</p>
 					</fieldset>
-					<p class="submit"><input type="submit" class="button-primary" value="<?php _e('Little Ass Save Button', 'thesis_openhook'); ?>" /></p>
+					<p class="submit"><input type="submit" class="button-primary" value="<?php echo $save_button; ?>" /></p>
 				</td>
 			</tr>
 			<tr valign="top">
@@ -653,7 +659,7 @@ if (!empty($_POST)) {
 							<small><?php _e('Need to remove the thumbnail images on teasers without tinkering with Thesis’ options?', 'thesis_openhook'); ?></small>
 						</p>
 					</fieldset>
-					<p class="submit"><input type="submit" class="button-primary" value="<?php _e('Little Ass Save Button', 'thesis_openhook'); ?>" /></p>
+					<p class="submit"><input type="submit" class="button-primary" value="<?php echo $save_button; ?>" /></p>
 				</td>
 			</tr>
 			<tr valign="top">
@@ -670,7 +676,7 @@ if (!empty($_POST)) {
 							</label>
 						</p>
 					</fieldset>
-					<p class="submit"><input type="submit" class="button-primary" value="<?php _e('Little Ass Save Button', 'thesis_openhook'); ?>" /></p>
+					<p class="submit"><input type="submit" class="button-primary" value="<?php echo $save_button; ?>" /></p>
 				</td>
 			</tr>
 			<tr valign="top">
@@ -687,7 +693,7 @@ if (!empty($_POST)) {
 							</label>
 						</p>
 					</fieldset>
-					<p class="submit"><input type="submit" class="button-primary" value="<?php _e('Little Ass Save Button', 'thesis_openhook'); ?>" /></p>
+					<p class="submit"><input type="submit" class="button-primary" value="<?php echo $save_button; ?>" /></p>
 				</td>
 			</tr>
 			<tr valign="top">
@@ -704,7 +710,7 @@ if (!empty($_POST)) {
 							</label>
 						</p>
 					</fieldset>
-					<p class="submit"><input type="submit" class="button-primary" value="<?php _e('Little Ass Save Button', 'thesis_openhook'); ?>" /></p>
+					<p class="submit"><input type="submit" class="button-primary" value="<?php echo $save_button; ?>" /></p>
 				</td>
 			</tr>
 			<tr valign="top">
@@ -721,7 +727,7 @@ if (!empty($_POST)) {
 							</label>
 						</p>
 					</fieldset>
-					<p class="submit"><input type="submit" class="button-primary" value="<?php _e('Little Ass Save Button', 'thesis_openhook'); ?>" /></p>
+					<p class="submit"><input type="submit" class="button-primary" value="<?php echo $save_button; ?>" /></p>
 				</td>
 			</tr>
 			<tr valign="top">
@@ -738,7 +744,7 @@ if (!empty($_POST)) {
 							</label>
 						</p>
 					</fieldset>
-					<p class="submit"><input type="submit" class="button-primary" value="<?php _e('Little Ass Save Button', 'thesis_openhook'); ?>" /></p>
+					<p class="submit"><input type="submit" class="button-primary" value="<?php echo $save_button; ?>" /></p>
 				</td>
 			</tr>
 			<tr valign="top">
@@ -755,7 +761,7 @@ if (!empty($_POST)) {
 							</label>
 						</p>
 					</fieldset>
-					<p class="submit"><input type="submit" class="button-primary" value="<?php _e('Little Ass Save Button', 'thesis_openhook'); ?>" /></p>
+					<p class="submit"><input type="submit" class="button-primary" value="<?php echo $save_button; ?>" /></p>
 				</td>
 			</tr>
 			<tr valign="top">
@@ -772,7 +778,7 @@ if (!empty($_POST)) {
 							</label>
 						</p>
 					</fieldset>
-					<p class="submit"><input type="submit" class="button-primary" value="<?php _e('Little Ass Save Button', 'thesis_openhook'); ?>" /></p>
+					<p class="submit"><input type="submit" class="button-primary" value="<?php echo $save_button; ?>" /></p>
 				</td>
 			</tr>
 			<tr valign="top">
@@ -789,7 +795,7 @@ if (!empty($_POST)) {
 							</label>
 						</p>
 					</fieldset>
-					<p class="submit"><input type="submit" class="button-primary" value="<?php _e('Little Ass Save Button', 'thesis_openhook'); ?>" /></p>
+					<p class="submit"><input type="submit" class="button-primary" value="<?php echo $save_button; ?>" /></p>
 				</td>
 			</tr>
 			<tr valign="top">
@@ -806,7 +812,7 @@ if (!empty($_POST)) {
 							</label>
 						</p>
 					</fieldset>
-					<p class="submit"><input type="submit" class="button-primary" value="<?php _e('Little Ass Save Button', 'thesis_openhook'); ?>" /></p>
+					<p class="submit"><input type="submit" class="button-primary" value="<?php echo $save_button; ?>" /></p>
 				</td>
 			</tr>
 			<tr valign="top">
@@ -823,7 +829,7 @@ if (!empty($_POST)) {
 							</label>
 						</p>
 					</fieldset>
-					<p class="submit"><input type="submit" class="button-primary" value="<?php _e('Little Ass Save Button', 'thesis_openhook'); ?>" /></p>
+					<p class="submit"><input type="submit" class="button-primary" value="<?php echo $save_button; ?>" /></p>
 				</td>
 			</tr>
 			<tr valign="top">
@@ -840,7 +846,7 @@ if (!empty($_POST)) {
 							</label>
 						</p>
 					</fieldset>
-					<p class="submit"><input type="submit" class="button-primary" value="<?php _e('Little Ass Save Button', 'thesis_openhook'); ?>" /></p>
+					<p class="submit"><input type="submit" class="button-primary" value="<?php echo $save_button; ?>" /></p>
 				</td>
 			</tr>
 			<tr valign="top">
@@ -864,7 +870,7 @@ if (!empty($_POST)) {
 							<small><?php _e('If you have the Subscribe to Comments plugin installed but dislike the default location for the subscribe option, you can remove it here and place it elsewhere using <code>&lt;?php if (function_exists(\'show_subscription_checkbox\')) show_subscription_checkbox(); ?&gt;</code>.', 'thesis_openhook'); ?></small>
 						</p>
 					</fieldset>
-					<p class="submit"><input type="submit" class="button-primary" value="<?php _e('Little Ass Save Button', 'thesis_openhook'); ?>" /></p>
+					<p class="submit"><input type="submit" class="button-primary" value="<?php echo $save_button; ?>" /></p>
 				</td>
 			</tr>
 			<tr valign="top">
@@ -888,7 +894,7 @@ if (!empty($_POST)) {
 							<small><?php _e('Thesis’ default archives template displays a list of monthly archives and categories; if you add your own archives code, you may want to remove the default.', 'thesis_openhook'); ?></small>
 						</p>
 					</fieldset>
-					<p class="submit"><input type="submit" class="button-primary" value="<?php _e('Little Ass Save Button', 'thesis_openhook'); ?>" /></p>
+					<p class="submit"><input type="submit" class="button-primary" value="<?php echo $save_button; ?>" /></p>
 				</td>
 			</tr>
 			<tr valign="top">
@@ -912,7 +918,7 @@ if (!empty($_POST)) {
 							<small><?php _e('If you are creating your own custom templates for pages, you should disable Thesis’ sample custom output.', 'thesis_openhook'); ?></small>
 						</p>
 					</fieldset>
-					<p class="submit"><input type="submit" class="button-primary" value="<?php _e('Little Ass Save Button', 'thesis_openhook'); ?>" /></p>
+					<p class="submit"><input type="submit" class="button-primary" value="<?php echo $save_button; ?>" /></p>
 				</td>
 			</tr>
 			<tr valign="top">
@@ -929,7 +935,7 @@ if (!empty($_POST)) {
 							</label>
 						</p>
 					</fieldset>
-					<p class="submit"><input type="submit" class="button-primary" value="<?php _e('Little Ass Save Button', 'thesis_openhook'); ?>" /></p>
+					<p class="submit"><input type="submit" class="button-primary" value="<?php echo $save_button; ?>" /></p>
 				</td>
 			</tr>
 			<tr valign="top">
@@ -953,7 +959,7 @@ if (!empty($_POST)) {
 							<small><?php _e('The default archive info appears at the top of archives and gives the name and type of the archive being viewed.', 'thesis_openhook'); ?></small>
 						</p>
 					</fieldset>
-					<p class="submit"><input type="submit" class="button-primary" value="<?php _e('Little Ass Save Button', 'thesis_openhook'); ?>" /></p>
+					<p class="submit"><input type="submit" class="button-primary" value="<?php echo $save_button; ?>" /></p>
 				</td>
 			</tr>
 			<tr valign="top">
@@ -962,7 +968,7 @@ if (!empty($_POST)) {
 					<fieldset>
 						<legend class="hidden"><code>thesis_hook_404_title</code></legend>
 						<p><label for="openhook_404_title">Equivalent to adding to <code>thesis_hook_404_title</code> in your <code>custom_functions.php</code> file.</label></p>
-						<p><input name="openhook_404_title" id="openhook_404_title" type="text" value="<?php form_option('openhook_404_title'); ?>" class="regular-text" /></p>
+						<p><input name="openhook_404_title" id="openhook_404_title" type="text" value="<?php openhook_option('openhook_404_title'); ?>" class="regular-text" /></p>
 						<p>
 							<label for="openhook_404_title_php">
 								<input<?php checked('1', get_option('openhook_404_title_php')); ?> value="1" id="openhook_404_title_php" name="openhook_404_title_php" type="checkbox" />
@@ -977,7 +983,7 @@ if (!empty($_POST)) {
 							<small><?php _e('If you’re including your own 404 page title, you will want to remove Thesis’ default title.', 'thesis_openhook'); ?></small>
 						</p>
 					</fieldset>
-					<p class="submit"><input type="submit" class="button-primary" value="<?php _e('Little Ass Save Button', 'thesis_openhook'); ?>" /></p>
+					<p class="submit"><input type="submit" class="button-primary" value="<?php echo $save_button; ?>" /></p>
 				</td>
 			</tr>
 			<tr valign="top">
@@ -1001,7 +1007,7 @@ if (!empty($_POST)) {
 							<small><?php _e('If you’re including your own 404 content via the box above, you will want to remove Thesis’ default 404 content.', 'thesis_openhook'); ?></small>
 						</p>
 					</fieldset>
-					<p class="submit"><input type="submit" class="button-primary" value="<?php _e('Little Ass Save Button', 'thesis_openhook'); ?>" /></p>
+					<p class="submit"><input type="submit" class="button-primary" value="<?php echo $save_button; ?>" /></p>
 				</td>
 			</tr>
 			<tr valign="top">
@@ -1018,7 +1024,7 @@ if (!empty($_POST)) {
 							</label>
 						</p>
 					</fieldset>
-					<p class="submit"><input type="submit" class="button-primary" value="<?php _e('Little Ass Save Button', 'thesis_openhook'); ?>" /></p>
+					<p class="submit"><input type="submit" class="button-primary" value="<?php echo $save_button; ?>" /></p>
 				</td>
 			</tr>
 			<tr valign="top">
@@ -1035,7 +1041,7 @@ if (!empty($_POST)) {
 							</label>
 						</p>
 					</fieldset>
-					<p class="submit"><input type="submit" class="button-primary" value="<?php _e('Little Ass Save Button', 'thesis_openhook'); ?>" /></p>
+					<p class="submit"><input type="submit" class="button-primary" value="<?php echo $save_button; ?>" /></p>
 				</td>
 			</tr>
 			<tr valign="top">
@@ -1052,7 +1058,7 @@ if (!empty($_POST)) {
 							</label>
 						</p>
 					</fieldset>
-					<p class="submit"><input type="submit" class="button-primary" value="<?php _e('Little Ass Save Button', 'thesis_openhook'); ?>" /></p>
+					<p class="submit"><input type="submit" class="button-primary" value="<?php echo $save_button; ?>" /></p>
 				</td>
 			</tr>
 			<tr valign="top">
@@ -1069,7 +1075,7 @@ if (!empty($_POST)) {
 							</label>
 						</p>
 					</fieldset>
-					<p class="submit"><input type="submit" class="button-primary" value="<?php _e('Little Ass Save Button', 'thesis_openhook'); ?>" /></p>
+					<p class="submit"><input type="submit" class="button-primary" value="<?php echo $save_button; ?>" /></p>
 				</td>
 			</tr>
 			<tr valign="top">
@@ -1086,7 +1092,7 @@ if (!empty($_POST)) {
 							</label>
 						</p>
 					</fieldset>
-					<p class="submit"><input type="submit" class="button-primary" value="<?php _e('Little Ass Save Button', 'thesis_openhook'); ?>" /></p>
+					<p class="submit"><input type="submit" class="button-primary" value="<?php echo $save_button; ?>" /></p>
 				</td>
 			</tr>
 			<tr valign="top">
@@ -1103,7 +1109,7 @@ if (!empty($_POST)) {
 							</label>
 						</p>
 					</fieldset>
-					<p class="submit"><input type="submit" class="button-primary" value="<?php _e('Little Ass Save Button', 'thesis_openhook'); ?>" /></p>
+					<p class="submit"><input type="submit" class="button-primary" value="<?php echo $save_button; ?>" /></p>
 				</td>
 			</tr>
 			<tr valign="top">
@@ -1120,7 +1126,7 @@ if (!empty($_POST)) {
 							</label>
 						</p>
 					</fieldset>
-					<p class="submit"><input type="submit" class="button-primary" value="<?php _e('Little Ass Save Button', 'thesis_openhook'); ?>" /></p>
+					<p class="submit"><input type="submit" class="button-primary" value="<?php echo $save_button; ?>" /></p>
 				</td>
 			</tr>
 			<tr valign="top">
@@ -1137,7 +1143,7 @@ if (!empty($_POST)) {
 							</label>
 						</p>
 					</fieldset>
-					<p class="submit"><input type="submit" class="button-primary" value="<?php _e('Little Ass Save Button', 'thesis_openhook'); ?>" /></p>
+					<p class="submit"><input type="submit" class="button-primary" value="<?php echo $save_button; ?>" /></p>
 				</td>
 			</tr>
 			<tr valign="top">
@@ -1154,7 +1160,7 @@ if (!empty($_POST)) {
 							</label>
 						</p>
 					</fieldset>
-					<p class="submit"><input type="submit" class="button-primary" value="<?php _e('Little Ass Save Button', 'thesis_openhook'); ?>" /></p>
+					<p class="submit"><input type="submit" class="button-primary" value="<?php echo $save_button; ?>" /></p>
 				</td>
 			</tr>
 			<tr valign="top">
@@ -1171,7 +1177,7 @@ if (!empty($_POST)) {
 							</label>
 						</p>
 					</fieldset>
-					<p class="submit"><input type="submit" class="button-primary" value="<?php _e('Little Ass Save Button', 'thesis_openhook'); ?>" /></p>
+					<p class="submit"><input type="submit" class="button-primary" value="<?php echo $save_button; ?>" /></p>
 				</td>
 			</tr>
 			<tr valign="top">
@@ -1209,7 +1215,15 @@ if (!empty($_POST)) {
 							<small><?php _e('If you would like to keep tabs on how long <abbr title="PHP: Hypertext Preprocessor">PHP</abbr> takes to process your page or on how many database queries are being made, turning on the debug information will add this data to your blog’s footer, visible to administrators only. <a href="http://rickbeckman.org/use-wordpress-debug-stats-to-trim-the-fat-from-your-blog/">More information on using debug information to speed up your site.</a>', 'thesis_openhook'); ?></small>
 						</p>
 					</fieldset>
-					<p class="submit"><input type="submit" class="button-primary" value="<?php _e('Little Ass Save Button', 'thesis_openhook'); ?>" /></p>
+					<p class="submit"><input type="submit" class="button-primary" value="<?php echo $save_button; ?>" /></p>
+				</td>
+			</tr>
+			<tr valign="top">
+				<th scope="row"><h3 id="openhook_save_button">Save Button</h3></th>
+				<td>
+					<p><label for="openhook_save_button"><?php _e('You can replace the text of the save button with whatever text you want.', 'thesis_openhook'); ?></p>
+						<p><input name="openhook_save_button" id="openhook_save_button" type="text" value="<?php openhook_option('save_button'); ?>" class="regular-text" /></p>
+					<p class="submit"><input type="submit" class="button-primary" value="<?php echo $save_button; ?>" /></p>
 				</td>
 			</tr>
 		</table>

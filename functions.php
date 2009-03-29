@@ -18,6 +18,7 @@ function add_openhook_options_page() {
  * @since 2.0
  */
 function openhook_settings() {
+	register_setting('thesis_options', 'openhook_save_button');
 	register_setting('thesis_options', 'openhook_before_html');
 	register_setting('thesis_options', 'openhook_before_html_php');
 	register_setting('thesis_options', 'openhook_after_html');
