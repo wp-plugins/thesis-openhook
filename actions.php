@@ -14,6 +14,8 @@ add_action('thesis_hook_before_content_box', 'openhook_before_content_box');
 add_action('thesis_hook_after_content_box', 'openhook_after_content_box');
 add_action('thesis_hook_before_content', 'openhook_before_content');
 add_action('thesis_hook_after_content', 'openhook_after_content');
+add_action('thesis_hook_before_content_area', 'openhook_before_content_area');
+add_action('thesis_hook_after_content_area', 'openhook_after_content_area');
 add_action('thesis_hook_feature_box', 'openhook_feature_box');
 add_action('thesis_hook_before_post_box', 'openhook_before_post_box');
 add_action('thesis_hook_after_post_box', 'openhook_after_post_box');

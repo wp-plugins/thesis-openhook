@@ -3,7 +3,7 @@
 Plugin Name: Thesis OpenHook
 Plugin URI: http://rickbeckman.org/thesis-openhook/
 Description: This plugin allows you to insert arbitrary content into the many hooks that the <a href="http://get-thesis.com/">Thesis Theme Framework</a> provides. Never again edit a file! Based on <a href="http://xentek.net/code/wordpress/plugins/k2-hook-up/">K2 Hook Up</a> and GPLed.
-Version: 2.0.2
+Version: 2.1
 Author: Rick Beckman
 Author URI: http://rickbeckman.org/
 

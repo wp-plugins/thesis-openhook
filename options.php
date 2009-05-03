@@ -102,6 +102,12 @@ if (!empty($_POST)) {
 	update_option('openhook_after_content_post_navigation', $_POST['openhook_after_content_post_navigation']);
 	update_option('openhook_after_content_prev_next_posts', $_POST['openhook_after_content_prev_next_posts']);
 
+	update_option('openhook_before_content_area', $_POST['openhook_before_content_area']);
+	update_option('openhook_before_content_area_php', $_POST['openhook_before_content_area_php']);
+
+	update_option('openhook_after_content_area', $_POST['openhook_after_content_area']);
+	update_option('openhook_after_content_area_php', $_POST['openhook_after_content_area_php']);
+
 	update_option('openhook_feature_box', $_POST['openhook_feature_box']);
 	update_option('openhook_feature_box_php', $_POST['openhook_feature_box_php']);
 
@@ -486,6 +492,40 @@ if ($save_button == '')
 								<?php _e('Remove Thesis prev/next posts', 'thesis_openhook'); ?>
 							</label><br />
 							<small><?php _e('While you can disable the previous/next post links on single pages via Thesis Options, leaving it active and removing it here allows you to add it to another hook using <code>&lt;?php thesis_prev_next_posts(); ?&gt;</code>.', 'thesis_openhook'); ?></small>
+						</p>
+					</fieldset>
+					<p class="submit"><input type="submit" class="button-primary" value="<?php echo $save_button; ?>" /></p>
+				</td>
+			</tr>
+			<tr valign="top">
+				<th scope="row"><h3 id="before_content">Before Content Area</h3></th>
+				<td>
+					<fieldset>
+						<legend class="hidden"><code>thesis_hook_before_content_area</code></legend>
+						<p><label for="openhook_before_content_area">Equivalent to adding to <code>thesis_hook_before_area_content</code> in your <code>custom_functions.php</code> file.</label></p>
+						<textarea id="openhook_before_content_area" name="openhook_before_content_area" rows="10" cols="50" class="large-text code"><?php openhook_option('openhook_before_content_area'); ?></textarea>
+						<p>
+							<label for="openhook_before_content_area_php">
+								<input<?php checked('1', get_option('openhook_before_content_area_php')); ?> value="1" id="openhook_before_content_area_php" name="openhook_before_content_area_php" type="checkbox" />
+								<?php _e('Execute <abbr title="PHP: Hypertext Preprocessor">PHP</abbr> on this hook', 'thesis_openhook'); ?>
+							</label>
+						</p>
+					</fieldset>
+					<p class="submit"><input type="submit" class="button-primary" value="<?php echo $save_button; ?>" /></p>
+				</td>
+			</tr>
+			<tr valign="top">
+				<th scope="row"><h3 id="after_content_area">After Content Area</h3></th>
+				<td>
+					<fieldset>
+						<legend class="hidden"><code>thesis_hook_after_content_area</code></legend>
+						<p><label for="openhook_after_content_area">Equivalent to adding to <code>thesis_hook_after_content_area</code> in your <code>custom_functions.php</code> file.</label></p>
+						<textarea id="openhook_after_content_area" name="openhook_after_content_area" rows="10" cols="50" class="large-text code"><?php openhook_option('openhook_after_content_area'); ?></textarea>
+						<p>
+							<label for="openhook_after_content_area_php">
+								<input<?php checked('1', get_option('openhook_after_content_area_php')); ?> value="1" id="openhook_after_content_area_php" name="openhook_after_content_area_php" type="checkbox" />
+								<?php _e('Execute <abbr title="PHP: Hypertext Preprocessor">PHP</abbr> on this hook', 'thesis_openhook'); ?>
+							</label>
 						</p>
 					</fieldset>
 					<p class="submit"><input type="submit" class="button-primary" value="<?php echo $save_button; ?>" /></p>

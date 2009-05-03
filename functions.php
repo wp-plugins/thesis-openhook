@@ -45,6 +45,10 @@ function openhook_settings() {
 	register_setting('thesis_options', 'openhook_before_content_php');
 	register_setting('thesis_options', 'openhook_after_content');
 	register_setting('thesis_options', 'openhook_after_content_php');
+	register_setting('thesis_options', 'openhook_before_content_area');
+	register_setting('thesis_options', 'openhook_before_content_area_php');
+	register_setting('thesis_options', 'openhook_after_content_area');
+	register_setting('thesis_options', 'openhook_after_content_area_php');
 	register_setting('thesis_options', 'openhook_after_content_post_navigation');
 	register_setting('thesis_options', 'openhook_after_content_prev_next_posts');
 	register_setting('thesis_options', 'openhook_feature_box');
@@ -300,6 +304,38 @@ function openhook_before_content() {
 function openhook_after_content() {
 	$val = stripslashes(get_option('openhook_after_content'));
 	if (get_option('openhook_after_content_php')) {
+		ob_start();
+		eval("?>$val<?php ");
+		$val = ob_get_contents();
+		ob_end_clean();
+	}
+	echo $val;
+}
+
+/**
+ * Before content area
+ *
+ * @since 2.1
+ */
+function openhook_before_content_area() {
+	$val = stripslashes(get_option('openhook_before_content_area'));
+	if (get_option('openhook_before_content_area_php')) {
+		ob_start();
+		eval("?>$val<?php ");
+		$val = ob_get_contents();
+		ob_end_clean();
+	}
+	echo $val;
+}
+
+/**
+ * After content area
+ *
+ * @since 2.1
+ */
+function openhook_after_content_area() {
+	$val = stripslashes(get_option('openhook_after_content_area'));
+	if (get_option('openhook_after_content_area_php')) {
 		ob_start();
 		eval("?>$val<?php ");
 		$val = ob_get_contents();
