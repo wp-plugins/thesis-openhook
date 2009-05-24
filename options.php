@@ -35,33 +35,15 @@ function openhook_option($option) {
 	echo stripslashes(htmlspecialchars(get_option($option)));
 }
 
-/**
- * Get custom.css contents
- *
- * @since 1.1
- */
-$filename = TEMPLATEPATH . '/custom/custom.css';
-if (is_writable($filename)) {
-	$handle = @fopen($filename, 'r');
-	$contents = @fread($handle, filesize($filename));
-	@fclose($handle);
-	$custom_edit = true;
-}
-else
-	$contents = $handle = $custom_edit = '';
 
 /**
  * Handle posted content
  */
 if (!empty($_POST)) {
-	if (isset($_POST['custom_css'])) {
-		$contents = stripslashes($_POST['custom_css']);
-		$custom_css = @fopen($filename, 'w');
-		@fwrite($custom_css, $contents);
-		@fclose($custom_css);
-	}
-
 	update_option('openhook_save_button', $_POST['openhook_save_button']);
+
+	update_option('openhook_wp_head', $_POST['openhook_wp_head']);
+	update_option('openhook_wp_head_php', $_POST['openhook_wp_head_php']);
 
 	update_option('openhook_before_html', $_POST['openhook_before_html']);
 	update_option('openhook_before_html_php', $_POST['openhook_before_html_php']);
@@ -168,6 +150,9 @@ if (!empty($_POST)) {
 	update_option('openhook_after_comment_php', $_POST['openhook_after_comment_php']);
 	update_option('openhook_comment_form_show_subscription_checkbox', $_POST['openhook_comment_form_show_subscription_checkbox']);
 
+	update_option('openhook_comment_field', $_POST['openhook_comment_field']);
+	update_option('openhook_comment_field_php', $_POST['openhook_comment_field_php']);
+
 	update_option('openhook_comment_form', $_POST['openhook_comment_form']);
 	update_option('openhook_comment_form_php', $_POST['openhook_comment_form_php']);
 
@@ -229,6 +214,7 @@ if (!empty($_POST)) {
 	update_option('openhook_footer_thesis_attribution', $_POST['openhook_footer_thesis_attribution']);
 	update_option('openhook_footer_admin_link', $_POST['openhook_footer_admin_link']);
 	update_option('openhook_footer_debug_info', $_POST['openhook_footer_debug_info']);
+	update_option('openhook_footer_honeypot', $_POST['openhook_footer_honeypot']);
 
 	echo '<div id="message" class="updated fade"><p><strong>' . __('Thesis customizations have been saved. You should now check your site to ensure everything is working as expected, and thank you for using Thesis with OpenHook!') . '</strong></p></div>' . "\n";
 }
@@ -239,13 +225,36 @@ if ($save_button == '')
 
 ?>
 
+<style type="text/css">
+<!--/*--><![CDATA[/*><!--*/
+#jumpbox {
+	position: fixed;
+	bottom: 5em;
+	right: 1em;
+	background: #bbb;
+	border: 1px solid #444;
+	padding: 1em;
+	opacity: 0.7;
+	-webkit-border-radius: 0.7em;
+	-khtml-border-radius: 0.7em;	
+	-moz-border-radius: 0.7em;
+	border-radius: 0.7em;
+
+}
+#f {
+	opacity: 1 !important;
+}
+#f optgroup option {
+	text-indent: 1em;
+}
+/*]]>*/-->
+</style>
 <div class="wrap">
 <?php screen_icon(); ?>
 	<h2><?php _e('Thesis OpenHook', 'thesis_openhook'); ?></h2>
 	<p><?php printf(__('Be prepared to get hooked up! This plugin allows you to insert any content you want into any of the custom hooks within the <a href="%1$s">Thesis theme</a>. The hook names are pretty self explanatory, but if you need more help determining where they show up in your mark-up, <a href="%2$s" title="Thesis Hooks Reference">check the manual</a>.'), 'http://get-thesis.com/', 'http://diythemes.com/thesis/rtfm/hooks/'); ?></p>
-	<p><?php printf(__('Got questions? Is something broke? Just want to say thanks? <a href="%s" title="Thesis OpenHook Release Page">Stop on by!</a>', 'thesis_openhook'), 'http://rickbeckman.org/thesis-openhook/'); ?></p>
+	<p><?php printf(__('Got questions? Is something broke? Just want to say thanks? <a href="%s" title="Thesis OpenHook Release Page">Stop on by!</a>', 'thesis_openhook'), 'http://diythemes.com/forums/openhook/'); ?></p>
 	<p><?php printf(__('OpenHook is released for free to the Thesis community, but if you’d like to encourage its development, would you consider bribing me with <a href="%s">something off of my wishlist</a>? Thanks!', 'thesis_openhook'), 'http://www.amazon.com/wishlist/366L8REQVLCN3'); ?></p>
-<?php if (!$custom_edit) { ?>	<p><?php _e('Unfortunately, your <code>custom.css</code> file does not appear to be editable by the server, so you will not be able to edit it via the OpenHook interface. Sorry for the inconvenience.', 'thesis_openhook'); ?></p><?php } ?>
 	<p><strong><?php _e('Insert any <abbr title="Hypertext Markup Language">HTML</abbr>, <abbr title="Cascading Style Sheets">CSS</abbr>, JavaScript or <abbr title="PHP: Hypertext Preprocessor">PHP</abbr> you like.', 'thesis_openhook'); ?></strong>
 		<br /><small><?php _e('Your <abbr title="PHP: Hypertext Preprocessor">PHP</abbr> code must be enclosed within <abbr title="PHP: Hypertext Preprocessor">PHP</abbr> tags, and you have to enable the “Execute <abbr title="PHP: Hypertext Preprocessor">PHP</abbr> on this hook” option for each hook separately.', 'thesis_openhook'); ?></small></p>
 	<p><?php _e('Please note that using <em>any</em> of the save buttons on this page will save <em>all</em> of the displayed fields. Take care not to save unwanted changes. You’ve been warned.', 'thesis_openhook'); ?></p>
@@ -255,25 +264,29 @@ if ($save_button == '')
 			<?php settings_fields('thesis_openhook'); ?>
 		</div>
 		<table class="form-table">
-			<?php if ($custom_edit) { ?>
 			<tr valign="top">
-				<th scope="row"><h3 id="custom_style">Custom Stylesheet</h3></th>
-				<td>
+				<th scope="row"><h3 id="wp_head"><?php _e('WP Head', 'thesis_openhook'); ?></h3></th>
+				<td class="toggle-container">
 					<fieldset>
-						<legend class="hidden"><code>custom.css</code></legend>
-						<p><label for="custom.css"><strong>By editing this, you are physically modifying your Thesis <code>custom.css</code> file.</strong> Use caution, and make sure you have a backup in case you need it! Also, it goes without saying that <strong>only <abbr title="Cascading Style Sheets">CSS</abbr></strong> can be used in this box!</label></p>
-						<textarea id="custom_css" name="custom_css" rows="10" cols="50" class="large-text code"><?php echo stripslashes(htmlspecialchars($contents)); ?></textarea>
+						<legend class="hidden"><code>wp_head</code></legend>
+						<p><label for="openhook_wp_head"><?php printf(__('Equivalent to adding to %1$s in your %2$s file.', 'thesis_openhook'), '<code>wp_head</code>', '<code>custom_functions.php</code>'); ?></label></p>
+						<textarea id="openhook_wp_head" name="openhook_wp_head" rows="10" cols="50" class="large-text code"><?php openhook_option('openhook_wp_head'); ?></textarea>
+						<p>
+							<label for="openhook_wp_head_php">
+								<input<?php checked('1', get_option('openhook_wp_head_php')); ?> value="1" id="openhook_wp_head_php" name="openhook_wp_head_php" type="checkbox" />
+								<?php _e('Execute <abbr title="PHP: Hypertext Preprocessor">PHP</abbr> on this hook', 'thesis_openhook'); ?>
+							</label>
+						</p>
 					</fieldset>
 					<p class="submit"><input type="submit" class="button-primary" value="<?php echo $save_button; ?>" /></p>
 				</td>
 			</tr>
-			<?php } ?>
 			<tr valign="top">
-				<th scope="row"><h3 id="before_html">Before <abbr title="Hypertext Markup Language">HTML</abbr></h3></th>
-				<td>
+				<th scope="row"><h3 id="before_html"><?php _e('Before <abbr title="Hypertext Markup Language">HTML</abbr>', 'thesis_openhook'); ?></h3></th>
+				<td class="toggle-container">
 					<fieldset>
 						<legend class="hidden"><code>thesis_hook_before_html</code></legend>
-						<p><label for="openhook_before_html">Equivalent to adding to <code>thesis_hook_before_html</code> in your <code>custom_functions.php</code> file.</label></p>
+						<p><label for="openhook_before_html"><?php printf(__('Equivalent to adding to %1$s in your %2$s file.', 'thesis_openhook'), '<code>thesis_hook_before_html</code>', '<code>custom_functions.php</code>'); ?></label></p>
 						<textarea id="openhook_before_html" name="openhook_before_html" rows="10" cols="50" class="large-text code"><?php openhook_option('openhook_before_html'); ?></textarea>
 						<p>
 							<label for="openhook_before_html_php">
@@ -286,11 +299,11 @@ if ($save_button == '')
 				</td>
 			</tr>
 			<tr valign="top">
-				<th scope="row"><h3 id="after_html">After <abbr title="Hypertext Markup Language">HTML</abbr></h3></th>
-				<td>
+				<th scope="row"><h3 id="after_html"><?php _e('After <abbr title="Hypertext Markup Language">HTML</abbr>', 'thesis_openhook'); ?></h3></th>
+				<td class="toggle-container">
 					<fieldset>
 						<legend class="hidden"><code>thesis_hook_after_html</code></legend>
-						<p><label for="openhook_after_html">Equivalent to adding to <code>thesis_hook_after_html</code> in your <code>custom_functions.php</code> file.</label></p>
+						<p><label for="openhook_after_html"><?php printf(__('Equivalent to adding to %1$s in your %2$s file.', 'thesis_openhook'), '<code>thesis_hook_after_html</code>', '<code>custom_functions.php</code>'); ?></label></p>
 						<textarea id="openhook_after_html" name="openhook_after_html" rows="10" cols="50" class="large-text code"><?php openhook_option('openhook_after_html'); ?></textarea>
 						<p>
 							<label for="openhook_after_html_php">
@@ -317,11 +330,11 @@ if ($save_button == '')
 				</td>
 			</tr>
 			<tr valign="top">
-				<th scope="row"><h3 id="before_header">Before Header</h3></th>
-				<td>
+				<th scope="row"><h3 id="before_header"><?php _e('Before Header', 'thesis_openhook'); ?></h3></th>
+				<td class="toggle-container">
 					<fieldset>
 						<legend class="hidden"><code>thesis_hook_before_header</code></legend>
-						<p><label for="openhook_before_header">Equivalent to adding to <code>thesis_hook_before_header</code> in your <code>custom_functions.php</code> file.</label></p>
+						<p><label for="openhook_before_header"><?php printf(__('Equivalent to adding to %1$s in your %2$s file.', 'thesis_openhook'), '<code>thesis_hook_before_header</code>', '<code>custom_functions.php</code>'); ?></label></p>
 						<textarea id="openhook_before_header" name="openhook_before_header" rows="10" cols="50" class="large-text code"><?php openhook_option('openhook_before_header'); ?></textarea>
 						<p>
 							<label for="openhook_before_header_php">
@@ -331,7 +344,7 @@ if ($save_button == '')
 						</p>
 						<p>
 							<label for="openhook_before_header_nav_menu">
-								<input<?php checked('1', get_option('openhook_before_header_nav_menu')); ?> value="1" id="openhook_before_header_nav_menu" name="openhook_before_header_nav_menu" type="checkbox" />
+ 								<input<?php checked('1', get_option('openhook_before_header_nav_menu')); ?> value="1" id="openhook_before_header_nav_menu" name="openhook_before_header_nav_menu" type="checkbox" />
 								<?php _e('Remove Thesis nav menu', 'thesis_openhook'); ?>
 							</label><br />
 							<small><?php _e('To move your navigation menu to below your header, remove it here, then include <code>&lt;?php thesis_nav_menu(); ?&gt;</code> in the “After Header” hook. You can, of course, add it to any hook you want!', 'thesis_openhook'); ?></small>
@@ -341,11 +354,11 @@ if ($save_button == '')
 				</td>
 			</tr>
 			<tr valign="top">
-				<th scope="row"><h3 id="after_header">After Header</h3></th>
-				<td>
+				<th scope="row"><h3 id="after_header"><?php _e('After Header', 'thesis_openhook'); ?></h3></th>
+				<td class="toggle-container">
 					<fieldset>
 						<legend class="hidden"><code>thesis_hook_after_header</code></legend>
-						<p><label for="openhook_after_header">Equivalent to adding to <code>thesis_hook_after_header</code> in your <code>custom_functions.php</code> file.</label></p>
+						<p><label for="openhook_after_header"><?php printf(__('Equivalent to adding to %1$s in your %2$s file.', 'thesis_openhook'), '<code>thesis_hook_after_header</code>', '<code>custom_functions.php</code>'); ?></label></p>
 						<textarea id="openhook_after_header" name="openhook_after_header" rows="10" cols="50" class="large-text code"><?php openhook_option('openhook_after_header'); ?></textarea>
 						<p>
 							<label for="openhook_after_header_php">
@@ -358,11 +371,11 @@ if ($save_button == '')
 				</td>
 			</tr>
 			<tr valign="top">
-				<th scope="row"><h3 id="header">Header</h3></th>
-				<td>
+				<th scope="row"><h3 id="header"><?php _e('Header', 'thesis_openhook'); ?></h3></th>
+				<td class="toggle-container">
 					<fieldset>
 						<legend class="hidden"><code>thesis_hook_header</code></legend>
-						<p><label for="openhook_header">Equivalent to adding to <code>thesis_hook_header</code> in your <code>custom_functions.php</code> file.</label></p>
+						<p><label for="openhook_header"><?php printf(__('Equivalent to adding to %1$s in your %2$s file.', 'thesis_openhook'), '<code>thesis_hook_header</code>', '<code>custom_functions.php</code>'); ?></label></p>
 						<textarea id="openhook_header" name="openhook_header" rows="10" cols="50" class="large-text code"><?php openhook_option('openhook_header'); ?></textarea>
 						<p>
 							<label for="openhook_header_php">
@@ -382,11 +395,11 @@ if ($save_button == '')
 				</td>
 			</tr>
 			<tr valign="top">
-				<th scope="row"><h3 id="before_title">Before Title</h3></th>
-				<td>
+				<th scope="row"><h3 id="before_title"><?php _e('Before Title', 'thesis_openhook'); ?></h3></th>
+				<td class="toggle-container">
 					<fieldset>
 						<legend class="hidden"><code>thesis_hook_before_title</code></legend>
-						<p><label for="openhook_before_title">Equivalent to adding to <code>thesis_hook_before_title</code> in your <code>custom_functions.php</code> file.</label></p>
+						<p><label for="openhook_before_title"><?php printf(__('Equivalent to adding to %1$s in your %2$s file.', 'thesis_openhook'), '<code>thesis_hook_before_title</code>', '<code>custom_functions.php</code>'); ?></label></p>
 						<textarea id="openhook_before_title" name="openhook_before_title" rows="10" cols="50" class="large-text code"><?php openhook_option('openhook_before_title'); ?></textarea>
 						<p>
 							<label for="openhook_before_title_php">
@@ -399,11 +412,11 @@ if ($save_button == '')
 				</td>
 			</tr>
 			<tr valign="top">
-				<th scope="row"><h3 id="after_title">After Title</h3></th>
-				<td>
+				<th scope="row"><h3 id="after_title"><?php _e('After Title', 'thesis_openhook'); ?></h3></th>
+				<td class="toggle-container">
 					<fieldset>
 						<legend class="hidden"><code>thesis_hook_after_title</code></legend>
-						<p><label for="openhook_after_title">Equivalent to adding to <code>thesis_hook_after_title</code> in your <code>custom_functions.php</code> file.</label></p>
+						<p><label for="openhook_after_title"><?php printf(__('Equivalent to adding to %1$s in your %2$s file.', 'thesis_openhook'), '<code>thesis_hook_after_title</code>', '<code>custom_functions.php</code>'); ?></label></p>
 						<textarea id="openhook_after_title" name="openhook_after_title" rows="10" cols="50" class="large-text code"><?php openhook_option('openhook_after_title'); ?></textarea>
 						<p>
 							<label for="openhook_after_title_php">
@@ -416,11 +429,11 @@ if ($save_button == '')
 				</td>
 			</tr>
 			<tr valign="top">
-				<th scope="row"><h3 id="before_content_box">Before Content Box</h3></th>
-				<td>
+				<th scope="row"><h3 id="before_content_box"><?php _e('Before Content Box', 'thesis_openhook'); ?></h3></th>
+				<td class="toggle-container">
 					<fieldset>
 						<legend class="hidden"><code>thesis_hook_before_content_box</code></legend>
-						<p><label for="openhook_before_content_box">Equivalent to adding to <code>thesis_hook_before_content_box</code> in your <code>custom_functions.php</code> file.</label></p>
+						<p><label for="openhook_before_content_box"><?php printf(__('Equivalent to adding to %1$s in your %2$s file.', 'thesis_openhook'), '<code>thesis_hook_before_content_box</code>', '<code>custom_functions.php</code>'); ?></label></p>
 						<textarea id="openhook_before_content_box" name="openhook_before_content_box" rows="10" cols="50" class="large-text code"><?php openhook_option('openhook_before_content_box'); ?></textarea>
 						<p>
 							<label for="openhook_before_content_box_php">
@@ -433,11 +446,11 @@ if ($save_button == '')
 				</td>
 			</tr>
 			<tr valign="top">
-				<th scope="row"><h3 id="after_content_box">After Content Box</h3></th>
-				<td>
+				<th scope="row"><h3 id="after_content_box"><?php _e('After Content Box', 'thesis_openhook'); ?></h3></th>
+				<td class="toggle-container">
 					<fieldset>
 						<legend class="hidden"><code>thesis_hook_after_content_box</code></legend>
-						<p><label for="openhook_after_content_box">Equivalent to adding to <code>thesis_hook_after_content_box</code> in your <code>custom_functions.php</code> file.</label></p>
+						<p><label for="openhook_after_content_box"><?php printf(__('Equivalent to adding to %1$s in your %2$s file.', 'thesis_openhook'), '<code>thesis_hook_after_content_box</code>', '<code>custom_functions.php</code>'); ?></label></p>
 						<textarea id="openhook_after_content_box" name="openhook_after_content_box" rows="10" cols="50" class="large-text code"><?php openhook_option('openhook_after_content_box'); ?></textarea>
 						<p>
 							<label for="openhook_after_content_box_php">
@@ -450,11 +463,11 @@ if ($save_button == '')
 				</td>
 			</tr>
 			<tr valign="top">
-				<th scope="row"><h3 id="before_content">Before Content</h3></th>
-				<td>
+				<th scope="row"><h3 id="before_content"><?php _e('Before Content', 'thesis_openhook'); ?></h3></th>
+				<td class="toggle-container">
 					<fieldset>
 						<legend class="hidden"><code>thesis_hook_before_content</code></legend>
-						<p><label for="openhook_before_content">Equivalent to adding to <code>thesis_hook_before_content</code> in your <code>custom_functions.php</code> file.</label></p>
+						<p><label for="openhook_before_content"><?php printf(__('Equivalent to adding to %1$s in your %2$s file.', 'thesis_openhook'), '<code>thesis_hook_before_content</code>', '<code>custom_functions.php</code>'); ?></label></p>
 						<textarea id="openhook_before_content" name="openhook_before_content" rows="10" cols="50" class="large-text code"><?php openhook_option('openhook_before_content'); ?></textarea>
 						<p>
 							<label for="openhook_before_content_php">
@@ -467,11 +480,11 @@ if ($save_button == '')
 				</td>
 			</tr>
 			<tr valign="top">
-				<th scope="row"><h3 id="after_content">After Content</h3></th>
-				<td>
+				<th scope="row"><h3 id="after_content"><?php _e('After Content', 'thesis_openhook'); ?></h3></th>
+				<td class="toggle-container">
 					<fieldset>
 						<legend class="hidden"><code>thesis_hook_after_content</code></legend>
-						<p><label for="openhook_after_content">Equivalent to adding to <code>thesis_hook_after_content</code> in your <code>custom_functions.php</code> file.</label></p>
+						<p><label for="openhook_after_content"><?php printf(__('Equivalent to adding to %1$s in your %2$s file.', 'thesis_openhook'), '<code>thesis_hook_after_content</code>', '<code>custom_functions.php</code>'); ?></label></p>
 						<textarea id="openhook_after_content" name="openhook_after_content" rows="10" cols="50" class="large-text code"><?php openhook_option('openhook_after_content'); ?></textarea>
 						<p>
 							<label for="openhook_after_content_php">
@@ -498,11 +511,11 @@ if ($save_button == '')
 				</td>
 			</tr>
 			<tr valign="top">
-				<th scope="row"><h3 id="before_content">Before Content Area</h3></th>
-				<td>
+				<th scope="row"><h3 id="before_content"><?php _e('Before Content Area', 'thesis_openhook'); ?></h3></th>
+				<td class="toggle-container">
 					<fieldset>
 						<legend class="hidden"><code>thesis_hook_before_content_area</code></legend>
-						<p><label for="openhook_before_content_area">Equivalent to adding to <code>thesis_hook_before_area_content</code> in your <code>custom_functions.php</code> file.</label></p>
+						<p><label for="openhook_before_content_area"><?php printf(__('Equivalent to adding to %1$s in your %2$s file.', 'thesis_openhook'), '<code>thesis_hook_before_content_area</code>', '<code>custom_functions.php</code>'); ?></label></p>
 						<textarea id="openhook_before_content_area" name="openhook_before_content_area" rows="10" cols="50" class="large-text code"><?php openhook_option('openhook_before_content_area'); ?></textarea>
 						<p>
 							<label for="openhook_before_content_area_php">
@@ -515,11 +528,11 @@ if ($save_button == '')
 				</td>
 			</tr>
 			<tr valign="top">
-				<th scope="row"><h3 id="after_content_area">After Content Area</h3></th>
-				<td>
+				<th scope="row"><h3 id="after_content_area"><?php _e('After Content Area', 'thesis_openhook'); ?></h3></th>
+				<td class="toggle-container">
 					<fieldset>
 						<legend class="hidden"><code>thesis_hook_after_content_area</code></legend>
-						<p><label for="openhook_after_content_area">Equivalent to adding to <code>thesis_hook_after_content_area</code> in your <code>custom_functions.php</code> file.</label></p>
+						<p><label for="openhook_after_content_area"><?php printf(__('Equivalent to adding to %1$s in your %2$s file.', 'thesis_openhook'), '<code>thesis_hook_after_content_area</code>', '<code>custom_functions.php</code>'); ?></label></p>
 						<textarea id="openhook_after_content_area" name="openhook_after_content_area" rows="10" cols="50" class="large-text code"><?php openhook_option('openhook_after_content_area'); ?></textarea>
 						<p>
 							<label for="openhook_after_content_area_php">
@@ -532,11 +545,11 @@ if ($save_button == '')
 				</td>
 			</tr>
 			<tr valign="top">
-				<th scope="row"><h3 id="feature_box">Feature Box</h3></th>
-				<td>
+				<th scope="row"><h3 id="feature_box"><?php _e('Feature Box', 'thesis_openhook'); ?></h3></th>
+				<td class="toggle-container">
 					<fieldset>
 						<legend class="hidden"><code>thesis_hook_feature_box</code></legend>
-						<p><label for="openhook_feature_box">Equivalent to adding to <code>thesis_hook_feature_box</code> in your <code>custom_functions.php</code> file.</label></p>
+						<p><label for="openhook_feature_box"><?php printf(__('Equivalent to adding to %1$s in your %2$s file.', 'thesis_openhook'), '<code>thesis_hook_feature_box</code>', '<code>custom_functions.php</code>'); ?></label></p>
 						<textarea id="openhook_feature_box" name="openhook_feature_box" rows="10" cols="50" class="large-text code"><?php openhook_option('openhook_feature_box'); ?></textarea>
 						<p>
 							<label for="openhook_feature_box_php">
@@ -549,11 +562,11 @@ if ($save_button == '')
 				</td>
 			</tr>
 			<tr valign="top">
-				<th scope="row"><h3 id="before_post_box">Before Post Box</h3></th>
-				<td>
+				<th scope="row"><h3 id="before_post_box"><?php _e('Before Post Box', 'thesis_openhook'); ?></h3></th>
+				<td class="toggle-container">
 					<fieldset>
 						<legend class="hidden"><code>thesis_hook_before_post_box</code></legend>
-						<p><label for="openhook_before_post_box">Equivalent to adding to <code>thesis_hook_before_post_box</code> in your <code>custom_functions.php</code> file.</label></p>
+						<p><label for="openhook_before_post_box"><?php printf(__('Equivalent to adding to %1$s in your %2$s file.', 'thesis_openhook'), '<code>thesis_hook_before_post_box</code>', '<code>custom_functions.php</code>'); ?></label></p>
 						<textarea id="openhook_before_post_box" name="openhook_before_post_box" rows="10" cols="50" class="large-text code"><?php openhook_option('openhook_before_post_box'); ?></textarea>
 						<p>
 							<label for="openhook_before_post_box_php">
@@ -573,11 +586,11 @@ if ($save_button == '')
 				</td>
 			</tr>
 			<tr valign="top">
-				<th scope="row"><h3 id="after_post_box">After Post Box</h3></th>
-				<td>
+				<th scope="row"><h3 id="after_post_box"><?php _e('After Post Box', 'thesis_openhook'); ?></h3></th>
+				<td class="toggle-container">
 					<fieldset>
 						<legend class="hidden"><code>thesis_hook_after_post_box</code></legend>
-						<p><label for="openhook_after_post_box">Equivalent to adding to <code>thesis_hook_after_post_box</code> in your <code>custom_functions.php</code> file.</label></p>
+						<p><label for="openhook_after_post_box"><?php printf(__('Equivalent to adding to %1$s in your %2$s file.', 'thesis_openhook'), '<code>thesis_hook_after_post_box</code>', '<code>custom_functions.php</code>'); ?></label></p>
 						<textarea id="openhook_after_post_box" name="openhook_after_post_box" rows="10" cols="50" class="large-text code"><?php openhook_option('openhook_after_post_box'); ?></textarea>
 						<p>
 							<label for="openhook_after_post_box_php">
@@ -590,11 +603,11 @@ if ($save_button == '')
 				</td>
 			</tr>
 			<tr valign="top">
-				<th scope="row"><h3 id="before_teasers_box">Before Teasers Box</h3></th>
-				<td>
+				<th scope="row"><h3 id="before_teasers_box"><?php _e('Before Teasers Box', 'thesis_openhook'); ?></h3></th>
+				<td class="toggle-container">
 					<fieldset>
 						<legend class="hidden"><code>thesis_hook_before_teasers_box</code></legend>
-						<p><label for="openhook_before_teasers_box">Equivalent to adding to <code>thesis_hook_before_teasers_box</code> in your <code>custom_functions.php</code> file.</label></p>
+						<p><label for="openhook_before_teasers_box"><?php printf(__('Equivalent to adding to %1$s in your %2$s file.', 'thesis_openhook'), '<code>thesis_hook_before_teasers_box</code>', '<code>custom_functions.php</code>'); ?></label></p>
 						<textarea id="openhook_before_teasers_box" name="openhook_before_teasers_box" rows="10" cols="50" class="large-text code"><?php openhook_option('openhook_before_teasers_box'); ?></textarea>
 						<p>
 							<label for="openhook_before_teasers_box_php">
@@ -607,11 +620,11 @@ if ($save_button == '')
 				</td>
 			</tr>
 			<tr valign="top">
-				<th scope="row"><h3 id="after_teasers_box">After Teasers Box</h3></th>
-				<td>
+				<th scope="row"><h3 id="after_teasers_box"><?php _e('After Teasers Box', 'thesis_openhook'); ?></h3></th>
+				<td class="toggle-container">
 					<fieldset>
 						<legend class="hidden"><code>thesis_hook_after_teasers_box</code></legend>
-						<p><label for="openhook_after_teasers_box">Equivalent to adding to <code>thesis_hook_after_teasers_box</code> in your <code>custom_functions.php</code> file.</label></p>
+						<p><label for="openhook_after_teasers_box"><?php printf(__('Equivalent to adding to %1$s in your %2$s file.', 'thesis_openhook'), '<code>thesis_hook_after_teasers_box</code>', '<code>custom_functions.php</code>'); ?></label></p>
 						<textarea id="openhook_after_teasers_box" name="openhook_after_teasers_box" rows="10" cols="50" class="large-text code"><?php openhook_option('openhook_after_teasers_box'); ?></textarea>
 						<p>
 							<label for="openhook_after_teasers_box_php">
@@ -624,11 +637,11 @@ if ($save_button == '')
 				</td>
 			</tr>
 			<tr valign="top">
-				<th scope="row"><h3 id="before_post">Before Post</h3></th>
-				<td>
+				<th scope="row"><h3 id="before_post"><?php _e('Before Post', 'thesis_openhook'); ?></h3></th>
+				<td class="toggle-container">
 					<fieldset>
 						<legend class="hidden"><code>thesis_hook_before_post</code></legend>
-						<p><label for="openhook_before_content">Equivalent to adding to <code>thesis_hook_before_post</code> in your <code>custom_functions.php</code> file.</label></p>
+						<p><label for="openhook_before_content"><?php printf(__('Equivalent to adding to %1$s in your %2$s file.', 'thesis_openhook'), '<code>thesis_hook_before_post</code>', '<code>custom_functions.php</code>'); ?></label></p>
 						<textarea id="openhook_before_post" name="openhook_before_post" rows="10" cols="50" class="large-text code"><?php openhook_option('openhook_before_post'); ?></textarea>
 						<p>
 							<label for="openhook_before_post_php">
@@ -641,11 +654,11 @@ if ($save_button == '')
 				</td>
 			</tr>
 			<tr valign="top">
-				<th scope="row"><h3 id="after_post">After Post</h3></th>
-				<td>
+				<th scope="row"><h3 id="after_post"><?php _e('After Post', 'thesis_openhook'); ?></h3></th>
+				<td class="toggle-container">
 					<fieldset>
 						<legend class="hidden"><code>thesis_hook_after_post</code></legend>
-						<p><label for="openhook_after_post">Equivalent to adding to <code>thesis_hook_after_post</code> in your <code>custom_functions.php</code> file.</label></p>
+						<p><label for="openhook_after_post"><?php printf(__('Equivalent to adding to %1$s in your %2$s file.', 'thesis_openhook'), '<code>thesis_hook_after_post</code>', '<code>custom_functions.php</code>'); ?></label></p>
 						<textarea id="openhook_after_post" name="openhook_after_post" rows="10" cols="50" class="large-text code"><?php openhook_option('openhook_after_post'); ?></textarea>
 						<p>
 							<label for="openhook_after_post_php">
@@ -679,11 +692,11 @@ if ($save_button == '')
 				</td>
 			</tr>
 			<tr valign="top">
-				<th scope="row"><h3 id="before_teaser_box">Before Teaser Box</h3></th>
-				<td>
+				<th scope="row"><h3 id="before_teaser_box"><?php _e('Before Teaser Box', 'thesis_openhook'); ?></h3></th>
+				<td class="toggle-container">
 					<fieldset>
 						<legend class="hidden"><code>thesis_hook_before_teaser_box</code></legend>
-						<p><label for="openhook_before_teaser_box">Equivalent to adding to <code>thesis_hook_before_teaser_box</code> in your <code>custom_functions.php</code> file.</label></p>
+						<p><label for="openhook_before_teaser_box"><?php printf(__('Equivalent to adding to %1$s in your %2$s file.', 'thesis_openhook'), '<code>thesis_hook_before_teaser_box</code>', '<code>custom_functions.php</code>'); ?></label></p>
 						<textarea id="openhook_before_teaser_box" name="openhook_before_teaser_box" rows="10" cols="50" class="large-text code"><?php openhook_option('openhook_before_teaser_box'); ?></textarea>
 						<p>
 							<label for="openhook_before_teaser_box_php">
@@ -703,11 +716,11 @@ if ($save_button == '')
 				</td>
 			</tr>
 			<tr valign="top">
-				<th scope="row"><h3 id="after_teaser_box">After Teaser Box</h3></th>
-				<td>
+				<th scope="row"><h3 id="after_teaser_box"><?php _e('After Teaser Box', 'thesis_openhook'); ?></h3></th>
+				<td class="toggle-container">
 					<fieldset>
 						<legend class="hidden"><code>thesis_hook_after_teaser_box</code></legend>
-						<p><label for="openhook_after_teaser_box">Equivalent to adding to <code>thesis_hook_after_teaser_box</code> in your <code>custom_functions.php</code> file.</label></p>
+						<p><label for="openhook_after_teaser_box"><?php printf(__('Equivalent to adding to %1$s in your %2$s file.', 'thesis_openhook'), '<code>thesis_hook_after_teaser_box</code>', '<code>custom_functions.php</code>'); ?></label></p>
 						<textarea id="openhook_after_teaser_box" name="openhook_after_teaser_box" rows="10" cols="50" class="large-text code"><?php openhook_option('openhook_after_teaser_box'); ?></textarea>
 						<p>
 							<label for="openhook_after_teaser_box_php">
@@ -720,11 +733,11 @@ if ($save_button == '')
 				</td>
 			</tr>
 			<tr valign="top">
-				<th scope="row"><h3 id="before_teaser">Before Teaser</h3></th>
-				<td>
+				<th scope="row"><h3 id="before_teaser"><?php _e('Before Teaser', 'thesis_openhook'); ?></h3></th>
+				<td class="toggle-container">
 					<fieldset>
 						<legend class="hidden"><code>thesis_hook_before_teaser</code></legend>
-						<p><label for="openhook_before_teaser">Equivalent to adding to <code>thesis_hook_before_teaser</code> in your <code>custom_functions.php</code> file.</label></p>
+						<p><label for="openhook_before_teaser"><?php printf(__('Equivalent to adding to %1$s in your %2$s file.', 'thesis_openhook'), '<code>thesis_hook_before_teaser</code>', '<code>custom_functions.php</code>'); ?></label></p>
 						<textarea id="openhook_before_teaser" name="openhook_before_teaser" rows="10" cols="50" class="large-text code"><?php openhook_option('openhook_before_teaser'); ?></textarea>
 						<p>
 							<label for="openhook_before_teaser_php">
@@ -737,11 +750,11 @@ if ($save_button == '')
 				</td>
 			</tr>
 			<tr valign="top">
-				<th scope="row"><h3 id="after_teaser">After Teaser</h3></th>
-				<td>
+				<th scope="row"><h3 id="after_teaser"><?php _e('After Teaser', 'thesis_openhook'); ?></h3></th>
+				<td class="toggle-container">
 					<fieldset>
 						<legend class="hidden"><code>thesis_hook_after_teaser</code></legend>
-						<p><label for="openhook_after_teaser">Equivalent to adding to <code>thesis_hook_after_teaser</code> in your <code>custom_functions.php</code> file.</label></p>
+						<p><label for="openhook_after_teaser"><?php printf(__('Equivalent to adding to %1$s in your %2$s file.', 'thesis_openhook'), '<code>thesis_hook_after_teaser</code>', '<code>custom_functions.php</code>'); ?></label></p>
 						<textarea id="openhook_after_teaser" name="openhook_after_teaser" rows="10" cols="50" class="large-text code"><?php openhook_option('openhook_after_teaser'); ?></textarea>
 						<p>
 							<label for="openhook_after_teaser_php">
@@ -754,11 +767,11 @@ if ($save_button == '')
 				</td>
 			</tr>
 			<tr valign="top">
-				<th scope="row"><h3 id="before_headline">Before Headline</h3></th>
-				<td>
+				<th scope="row"><h3 id="before_headline"><?php _e('Before Headline', 'thesis_openhook'); ?></h3></th>
+				<td class="toggle-container">
 					<fieldset>
 						<legend class="hidden"><code>thesis_hook_before_headline</code></legend>
-						<p><label for="openhook_before_headline">Equivalent to adding to <code>thesis_hook_before_headline</code> in your <code>custom_functions.php</code> file.</label></p>
+						<p><label for="openhook_before_headline"><?php printf(__('Equivalent to adding to %1$s in your %2$s file.', 'thesis_openhook'), '<code>thesis_hook_before_headline</code>', '<code>custom_functions.php</code>'); ?></label></p>
 						<textarea id="openhook_before_headline" name="openhook_before_headline" rows="10" cols="50" class="large-text code"><?php openhook_option('openhook_before_headline'); ?></textarea>
 						<p>
 							<label for="openhook_before_headline_php">
@@ -771,11 +784,11 @@ if ($save_button == '')
 				</td>
 			</tr>
 			<tr valign="top">
-				<th scope="row"><h3 id="after_headline">After Headline</h3></th>
-				<td>
+				<th scope="row"><h3 id="after_headline"><?php _e('After Headline', 'thesis_openhook'); ?></h3></th>
+				<td class="toggle-container">
 					<fieldset>
 						<legend class="hidden"><code>thesis_hook_after_headline</code></legend>
-						<p><label for="openhook_after_headline">Equivalent to adding to <code>thesis_hook_after_headline</code> in your <code>custom_functions.php</code> file.</label></p>
+						<p><label for="openhook_after_headline"><?php printf(__('Equivalent to adding to %1$s in your %2$s file.', 'thesis_openhook'), '<code>thesis_hook_after_headline</code>', '<code>custom_functions.php</code>'); ?></label></p>
 						<textarea id="openhook_after_headline" name="openhook_after_headline" rows="10" cols="50" class="large-text code"><?php openhook_option('openhook_after_headline'); ?></textarea>
 						<p>
 							<label for="openhook_after_headline_php">
@@ -788,11 +801,11 @@ if ($save_button == '')
 				</td>
 			</tr>
 			<tr valign="top">
-				<th scope="row"><h3 id="before_teaser_headline">Before Teaser Headline</h3></th>
-				<td>
+				<th scope="row"><h3 id="before_teaser_headline"><?php _e('Before Teaser Headline', 'thesis_openhook'); ?></h3></th>
+				<td class="toggle-container">
 					<fieldset>
 						<legend class="hidden"><code>thesis_hook_before_teaser_headline</code></legend>
-						<p><label for="openhook_before_teaser_headline">Equivalent to adding to <code>thesis_hook_before_teaser_headline</code> in your <code>custom_functions.php</code> file.</label></p>
+						<p><label for="openhook_before_teaser_headline"<?php printf(__('Equivalent to adding to %1$s in your %2$s file.', 'thesis_openhook'), '<code>thesis_hook_before_teaser_headline</code>', '<code>custom_functions.php</code>'); ?></label></p>
 						<textarea id="openhook_before_teaser_headline" name="openhook_before_teaser_headline" rows="10" cols="50" class="large-text code"><?php openhook_option('openhook_before_teaser_headline'); ?></textarea>
 						<p>
 							<label for="openhook_before_teaser_headline_php">
@@ -805,11 +818,11 @@ if ($save_button == '')
 				</td>
 			</tr>
 			<tr valign="top">
-				<th scope="row"><h3 id="after_teaser_headline">After Teaser Headline</h3></th>
-				<td>
+				<th scope="row"><h3 id="after_teaser_headline"><?php _e('After Teaser Headline', 'thesis_openhook'); ?></h3></th>
+				<td class="toggle-container">
 					<fieldset>
 						<legend class="hidden"><code>thesis_hook_after_teaser_headline</code></legend>
-						<p><label for="openhook_after_teaser_headline">Equivalent to adding to <code>thesis_hook_before_teaser_headline</code> in your <code>custom_functions.php</code> file.</label></p>
+						<p><label for="openhook_after_teaser_headline"><?php printf(__('Equivalent to adding to %1$s in your %2$s file.', 'thesis_openhook'), '<code>thesis_hook_after_teaser_headline</code>', '<code>custom_functions.php</code>'); ?></label></p>
 						<textarea id="openhook_after_teaser_headline" name="openhook_after_teaser_headline" rows="10" cols="50" class="large-text code"><?php openhook_option('openhook_after_teaser_headline'); ?></textarea>
 						<p>
 							<label for="openhook_before_teaser_headline_php">
@@ -822,11 +835,11 @@ if ($save_button == '')
 				</td>
 			</tr>
 			<tr valign="top">
-				<th scope="row"><h3 id="byline_item">Byline Item</h3></th>
-				<td>
+				<th scope="row"><h3 id="byline_item"><?php _e('Byline Item', 'thesis_openhook'); ?></h3></th>
+				<td class="toggle-container">
 					<fieldset>
 						<legend class="hidden"><code>thesis_hook_byline_item</code></legend>
-						<p><label for="openhook_byline_item">Equivalent to adding to <code>thesis_hook_byline_item</code> in your <code>custom_functions.php</code> file.</label></p>
+						<p><label for="openhook_byline_item"><?php printf(__('Equivalent to adding to %1$s in your %2$s file.', 'thesis_openhook'), '<code>thesis_hook_byline_item</code>', '<code>custom_functions.php</code>'); ?></label></p>
 						<textarea id="openhook_byline_item" name="openhook_byline_item" rows="10" cols="50" class="large-text code"><?php openhook_option('openhook_byline_item'); ?></textarea>
 						<p>
 							<label for="openhook_after_headline_php">
@@ -839,11 +852,11 @@ if ($save_button == '')
 				</td>
 			</tr>
 			<tr valign="top">
-				<th scope="row"><h3 id="before_comment_meta">Before Comment Meta</h3></th>
-				<td>
+				<th scope="row"><h3 id="before_comment_meta"><?php _e('Before Comment Meta', 'thesis_openhook'); ?></h3></th>
+				<td class="toggle-container">
 					<fieldset>
 						<legend class="hidden"><code>thesis_hook_before_comment_meta</code></legend>
-						<p><label for="openhook_before_comment_meta">Equivalent to adding to <code>thesis_hook_before_comment_meta</code> in your <code>custom_functions.php</code> file.</label></p>
+						<p><label for="openhook_before_comment_meta"><?php printf(__('Equivalent to adding to %1$s in your %2$s file.', 'thesis_openhook'), '<code>thesis_hook_before_comment_meta</code>', '<code>custom_functions.php</code>'); ?></label></p>
 						<textarea id="openhook_before_comment_meta" name="openhook_before_comment_meta" rows="10" cols="50" class="large-text code"><?php openhook_option('openhook_before_comment_meta'); ?></textarea>
 						<p>
 							<label for="openhook_before_comment_meta_php">
@@ -856,11 +869,11 @@ if ($save_button == '')
 				</td>
 			</tr>
 			<tr valign="top">
-				<th scope="row"><h3 id="after_comment_meta">After Comment Meta</h3></th>
-				<td>
+				<th scope="row"><h3 id="after_comment_meta"><?php _e('After Comment Meta', 'thesis_openhook'); ?></h3></th>
+				<td class="toggle-container">
 					<fieldset>
 						<legend class="hidden"><code>thesis_hook_after_comment_meta</code></legend>
-						<p><label for="openhook_after_comment_meta">Equivalent to adding to <code>thesis_hook_after_comment_meta</code> in your <code>custom_functions.php</code> file.</label></p>
+						<p><label for="openhook_after_comment_meta"><?php printf(__('Equivalent to adding to %1$s in your %2$s file.', 'thesis_openhook'), '<code>thesis_hook_after_comment_meta</code>', '<code>custom_functions.php</code>'); ?></label></p>
 						<textarea id="openhook_after_comment_meta" name="openhook_after_comment_meta" rows="10" cols="50" class="large-text code"><?php openhook_option('openhook_after_comment_meta'); ?></textarea>
 						<p>
 							<label for="openhook_after_comment_meta_php">
@@ -873,11 +886,11 @@ if ($save_button == '')
 				</td>
 			</tr>
 			<tr valign="top">
-				<th scope="row"><h3 id="after_comment">After Comment</h3></th>
-				<td>
+				<th scope="row"><h3 id="after_comment"><?php _e('After Comment', 'thesis_openhook'); ?></h3></th>
+				<td class="toggle-container">
 					<fieldset>
 						<legend class="hidden"><code>thesis_hook_after_comment</code></legend>
-						<p><label for="openhook_after_comment">Equivalent to adding to <code>thesis_hook_after_comment</code> in your <code>custom_functions.php</code> file.</label></p>
+						<p><label for="openhook_after_comment"><?php printf(__('Equivalent to adding to %1$s in your %2$s file.', 'thesis_openhook'), '<code>thesis_hook_after_comment</code>', '<code>custom_functions.php</code>'); ?></label></p>
 						<textarea id="openhook_after_comment" name="openhook_after_comment" rows="10" cols="50" class="large-text code"><?php openhook_option('openhook_after_comment'); ?></textarea>
 						<p>
 							<label for="openhook_after_comment_php">
@@ -890,11 +903,27 @@ if ($save_button == '')
 				</td>
 			</tr>
 			<tr valign="top">
-				<th scope="row"><h3 id="comment_form">Comment Form</h3></th>
-				<td>
+				<th scope="row"><h3 id="comment_form"><?php _e('Comment Field', 'thesis_openhook'); ?></h3></th>
+				<td class="toggle-container">
+					<fieldset>
+						<legend class="hidden"><code>thesis_hook_comment_field</code></legend>
+						<p><label for="openhook_comment_field"><?php printf(__('Equivalent to adding to %1$s in your %2$s file.', 'thesis_openhook'), '<code>thesis_hook_comment_field</code>', '<code>custom_functions.php</code>'); ?></label></p>
+						<textarea id="openhook_comment_field" name="openhook_comment_field" rows="10" cols="50" class="large-text code"><?php openhook_option('openhook_comment_field'); ?></textarea>
+						<p>
+							<label for="openhook_comment_field_php">
+								<input<?php checked('1', get_option('openhook_comment_field_php')); ?> value="1" id="openhook_comment_field_php" name="openhook_comment_field_php" type="checkbox" />
+								<?php _e('Execute <abbr title="PHP: Hypertext Preprocessor">PHP</abbr> on this hook', 'thesis_openhook'); ?>
+							</label>
+						</p>
+					</fieldset>
+					<p class="submit"><input type="submit" class="button-primary" value="<?php echo $save_button; ?>" /></p>
+				</td>
+			</tr>			<tr valign="top">
+				<th scope="row"><h3 id="comment_form"><?php _e('Comment Form', 'thesis_openhook'); ?></h3></th>
+				<td class="toggle-container">
 					<fieldset>
 						<legend class="hidden"><code>thesis_hook_comment_form</code></legend>
-						<p><label for="openhook_comment_form">Equivalent to adding to <code>thesis_hook_comment_form</code> in your <code>custom_functions.php</code> file.</label></p>
+						<p><label for="openhook_comment_form"><?php printf(__('Equivalent to adding to %1$s in your %2$s file.', 'thesis_openhook'), '<code>thesis_hook_comment_form</code>', '<code>custom_functions.php</code>'); ?></label></p>
 						<textarea id="openhook_comment_form" name="openhook_comment_form" rows="10" cols="50" class="large-text code"><?php openhook_option('openhook_comment_form'); ?></textarea>
 						<p>
 							<label for="openhook_comment_form_php">
@@ -914,11 +943,11 @@ if ($save_button == '')
 				</td>
 			</tr>
 			<tr valign="top">
-				<th scope="row"><h3 id="archives_template">Archives Template</h3></th>
-				<td>
+				<th scope="row"><h3 id="archives_template"><?php _e('Archives Template', 'thesis_openhook'); ?></h3></th>
+				<td class="toggle-container">
 					<fieldset>
 						<legend class="hidden"><code>thesis_hook_archives_template</code></legend>
-						<p><label for="openhook_archives_template">Equivalent to adding to <code>thesis_hook_archives_template</code> in your <code>custom_functions.php</code> file.</label></p>
+						<p><label for="openhook_archives_template"><?php printf(__('Equivalent to adding to %1$s in your %2$s file.', 'thesis_openhook'), '<code>thesis_hook_archives_template</code>', '<code>custom_functions.php</code>'); ?></label></p>
 						<textarea id="openhook_archives_template" name="openhook_archives_template" rows="10" cols="50" class="large-text code"><?php openhook_option('openhook_archives_template'); ?></textarea>
 						<p>
 							<label for="openhook_archives_template_php">
@@ -938,11 +967,11 @@ if ($save_button == '')
 				</td>
 			</tr>
 			<tr valign="top">
-				<th scope="row"><h3 id="custom_template">Custom Template</h3></th>
-				<td>
+				<th scope="row"><h3 id="custom_template"><?php _e('Custom Template', 'thesis_openhook'); ?></h3></th>
+				<td class="toggle-container">
 					<fieldset>
 						<legend class="hidden"><code>thesis_hook_custom_template</code></legend>
-						<p><label for="openhook_custom_template">Equivalent to adding to <code>thesis_hook_custom_template</code> in your <code>custom_functions.php</code> file.</label></p>
+						<p><label for="openhook_custom_template"><?php printf(__('Equivalent to adding to %1$s in your %2$s file.', 'thesis_openhook'), '<code>thesis_hook_custom_template</code>', '<code>custom_functions.php</code>'); ?></label></p>
 						<textarea id="openhook_custom_template" name="openhook_custom_template" rows="10" cols="50" class="large-text code"><?php openhook_option('openhook_custom_template'); ?></textarea>
 						<p>
 							<label for="openhook_custom_template_php">
@@ -962,11 +991,11 @@ if ($save_button == '')
 				</td>
 			</tr>
 			<tr valign="top">
-				<th scope="row"><h3 id="faux_admin">Faux Admin</h3></th>
-				<td>
+				<th scope="row"><h3 id="faux_admin"><?php _e('Faux Admin', 'thesis_openhook'); ?></h3></th>
+				<td class="toggle-container">
 					<fieldset>
 						<legend class="hidden"><code>thesis_hook_faux_admin</code></legend>
-						<p><label for="openhook_faux_admin">Equivalent to adding to <code>thesis_hook_faux_admin</code> in your <code>custom_functions.php</code> file.</label></p>
+						<p><label for="openhook_faux_admin"><?php printf(__('Equivalent to adding to %1$s in your %2$s file.', 'thesis_openhook'), '<code>thesis_hook_faux_admin</code>', '<code>custom_functions.php</code>'); ?></label></p>
 						<textarea id="openhook_faux_admin" name="openhook_faux_admin" rows="10" cols="50" class="large-text code"><?php openhook_option('openhook_faux_admin'); ?></textarea>
 						<p>
 							<label for="openhook_faux_admin_php">
@@ -979,11 +1008,11 @@ if ($save_button == '')
 				</td>
 			</tr>
 			<tr valign="top">
-				<th scope="row"><h3 id="archive_info">Archive Info</h3></th>
-				<td>
+				<th scope="row"><h3 id="archive_info"><?php _e('Archive Info', 'thesis_openhook'); ?></h3></th>
+				<td class="toggle-container">
 					<fieldset>
 						<legend class="hidden"><code>thesis_hook_archive_info</code></legend>
-						<p><label for="openhook_archive_info">Equivalent to adding to <code>thesis_hook_archive_info</code> in your <code>custom_functions.php</code> file.</label></p>
+						<p><label for="openhook_archive_info"><?php printf(__('Equivalent to adding to %1$s in your %2$s file.', 'thesis_openhook'), '<code>thesis_hook_archive_info</code>', '<code>custom_functions.php</code>'); ?></label></p>
 						<textarea id="openhook_archive_info" name="openhook_archive_info" rows="10" cols="50" class="large-text code"><?php openhook_option('openhook_archive_info'); ?></textarea>
 						<p>
 							<label for="openhook_archive_info_php">
@@ -1003,11 +1032,11 @@ if ($save_button == '')
 				</td>
 			</tr>
 			<tr valign="top">
-				<th scope="row"><h3 id="404_title">404 Title</h3></th>
-				<td>
+				<th scope="row"><h3 id="404_title"><?php _e('404 Title', 'thesis_openhook'); ?></h3></th>
+				<td class="toggle-container">
 					<fieldset>
 						<legend class="hidden"><code>thesis_hook_404_title</code></legend>
-						<p><label for="openhook_404_title">Equivalent to adding to <code>thesis_hook_404_title</code> in your <code>custom_functions.php</code> file.</label></p>
+						<p><label for="openhook_404_title"><?php printf(__('Equivalent to adding to %1$s in your %2$s file.', 'thesis_openhook'), '<code>thesis_hook_404_title</code>', '<code>custom_functions.php</code>'); ?></label></p>
 						<p><input name="openhook_404_title" id="openhook_404_title" type="text" value="<?php openhook_option('openhook_404_title'); ?>" class="regular-text" /></p>
 						<p>
 							<label for="openhook_404_title_php">
@@ -1027,11 +1056,11 @@ if ($save_button == '')
 				</td>
 			</tr>
 			<tr valign="top">
-				<th scope="row"><h3 id="404_content">404 Content</h3></th>
-				<td>
+				<th scope="row"><h3 id="404_content"><?php _e('404 Content', 'thesis_openhook'); ?></h3></th>
+				<td class="toggle-container">
 					<fieldset>
 						<legend class="hidden"><code>thesis_hook_404_content</code></legend>
-						<p><label for="openhook_404_content">Equivalent to adding to <code>thesis_hook_404_content</code> in your <code>custom_functions.php</code> file.</label></p>
+						<p><label for="openhook_404_content"><?php printf(__('Equivalent to adding to %1$s in your %2$s file.', 'thesis_openhook'), '<code>thesis_hook_404_content</code>', '<code>custom_functions.php</code>'); ?></label></p>
 						<textarea id="openhook_404_content" name="openhook_404_content" rows="10" cols="50" class="large-text code"><?php openhook_option('openhook_404_content'); ?></textarea>
 						<p>
 							<label for="openhook_404_content_php">
@@ -1051,11 +1080,11 @@ if ($save_button == '')
 				</td>
 			</tr>
 			<tr valign="top">
-				<th scope="row"><h3 id="before_sidebars">Before Sidebars</h3></th>
-				<td>
+				<th scope="row"><h3 id="before_sidebars"><?php _e('Before Sidebars', 'thesis_openhook'); ?></h3></th>
+				<td class="toggle-container">
 					<fieldset>
 						<legend class="hidden"><code>thesis_hook_before_sidebars</code></legend>
-						<p><label for="openhook_before_sidebars">Equivalent to adding to <code>thesis_hook_before_sidebars</code> in your <code>custom_functions.php</code> file.</label></p>
+						<p><label for="openhook_before_sidebars"><?php printf(__('Equivalent to adding to %1$s in your %2$s file.', 'thesis_openhook'), '<code>thesis_hook_before_sidebars</code>', '<code>custom_functions.php</code>'); ?></label></p>
 						<textarea id="openhook_before_sidebars" name="openhook_before_sidebars" rows="10" cols="50" class="large-text code"><?php openhook_option('openhook_before_sidebars'); ?></textarea>
 						<p>
 							<label for="openhook_before_sidebars_php">
@@ -1068,11 +1097,11 @@ if ($save_button == '')
 				</td>
 			</tr>
 			<tr valign="top">
-				<th scope="row"><h3 id="after_sidebars">After Sidebars</h3></th>
-				<td>
+				<th scope="row"><h3 id="after_sidebars"><?php _e('After Sidebars', 'thesis_openhook'); ?></h3></th>
+				<td class="toggle-container">
 					<fieldset>
 						<legend class="hidden"><code>thesis_hook_after_sidebars</code></legend>
-						<p><label for="openhook_after_sidebars">Equivalent to adding to <code>thesis_hook_after_sidebars</code> in your <code>custom_functions.php</code> file.</label></p>
+						<p><label for="openhook_after_sidebars"><?php printf(__('Equivalent to adding to %1$s in your %2$s file.', 'thesis_openhook'), '<code>thesis_hook_after_sidebars</code>', '<code>custom_functions.php</code>'); ?></label></p>
 						<textarea id="openhook_after_sidebars" name="openhook_after_sidebars" rows="10" cols="50" class="large-text code"><?php openhook_option('openhook_after_sidebars'); ?></textarea>
 						<p>
 							<label for="openhook_after_sidebars_php">
@@ -1085,11 +1114,11 @@ if ($save_button == '')
 				</td>
 			</tr>
 			<tr valign="top">
-				<th scope="row"><h3 id="multimedia_box">Multimedia Box</h3></th>
-				<td>
+				<th scope="row"><h3 id="multimedia_box"><?php _e('Multimedia Box', 'thesis_openhook'); ?></h3></th>
+				<td class="toggle-container">
 					<fieldset>
 						<legend class="hidden"><code>thesis_hook_multimedia_box</code></legend>
-						<p><label for="openhook_multimedia_box">Equivalent to adding to <code>thesis_hook_multimedia_box</code> in your <code>custom_functions.php</code> file.</label></p>
+						<p><label for="openhook_multimedia_box"><?php printf(__('Equivalent to adding to %1$s in your %2$s file.', 'thesis_openhook'), '<code>thesis_hook_multimedia_box</code>', '<code>custom_functions.php</code>'); ?></label></p>
 						<textarea id="openhook_multimedia_box" name="openhook_multimedia_box" rows="10" cols="50" class="large-text code"><?php openhook_option('openhook_multimedia_box'); ?></textarea>
 						<p>
 							<label for="openhook_multimedia_box_php">
@@ -1102,11 +1131,11 @@ if ($save_button == '')
 				</td>
 			</tr>
 			<tr valign="top">
-				<th scope="row"><h3 id="after_multimedia_box">After Multimedia Box</h3></th>
-				<td>
+				<th scope="row"><h3 id="after_multimedia_box"><?php _e('After Multimedia Box', 'thesis_openhook'); ?></h3></th>
+				<td class="toggle-container">
 					<fieldset>
 						<legend class="hidden"><code>thesis_hook_after_multimedia_box</code></legend>
-						<p><label for="openhook_after_multimedia_box">Equivalent to adding to <code>thesis_hook_after_multimedia_box</code> in your <code>custom_functions.php</code> file.</label></p>
+						<p><label for="openhook_after_multimedia_box"><?php printf(__('Equivalent to adding to %1$s in your %2$s file.', 'thesis_openhook'), '<code>thesis_hook_after_multimedia_box</code>', '<code>custom_functions.php</code>'); ?></label></p>
 						<textarea id="openhook_after_multimedia_box" name="openhook_after_multimedia_box" rows="10" cols="50" class="large-text code"><?php openhook_option('openhook_after_multimedia_box'); ?></textarea>
 						<p>
 							<label for="openhook_after_multimedia_box_php">
@@ -1119,11 +1148,11 @@ if ($save_button == '')
 				</td>
 			</tr>
 			<tr valign="top">
-				<th scope="row"><h3 id="before_sidebar_1">Before Sidebar 1</h3></th>
-				<td>
+				<th scope="row"><h3 id="before_sidebar_1"><?php _e('Before Sidebar 1', 'thesis_openhook'); ?></h3></th>
+				<td class="toggle-container">
 					<fieldset>
 						<legend class="hidden"><code>thesis_hook_before_sidebar_1</code></legend>
-						<p><label for="openhook_before_sidebar_1">Equivalent to adding to <code>thesis_hook_before_sidebar_1</code> in your <code>custom_functions.php</code> file.</label></p>
+						<p><label for="openhook_before_sidebar_1"><?php printf(__('Equivalent to adding to %1$s in your %2$s file.', 'thesis_openhook'), '<code>thesis_hook_before_sidebar_1</code>', '<code>custom_functions.php</code>'); ?></label></p>
 						<textarea id="openhook_before_sidebar_1" name="openhook_before_sidebar_1" rows="10" cols="50" class="large-text code"><?php openhook_option('openhook_before_sidebar_1'); ?></textarea>
 						<p>
 							<label for="openhook_before_sidebar_1_php">
@@ -1136,11 +1165,11 @@ if ($save_button == '')
 				</td>
 			</tr>
 			<tr valign="top">
-				<th scope="row"><h3 id="after_sidebar_1">After Sidebar 1</h3></th>
-				<td>
+				<th scope="row"><h3 id="after_sidebar_1"><?php _e('After Sidebar 1', 'thesis_openhook'); ?></h3></th>
+				<td class="toggle-container">
 					<fieldset>
 						<legend class="hidden"><code>thesis_hook_after_sidebar_1</code></legend>
-						<p><label for="openhook_after_sidebar_1">Equivalent to adding to <code>thesis_hook_after_sidebar_1</code> in your <code>custom_functions.php</code> file.</label></p>
+						<p><label for="openhook_after_sidebar_1"><?php printf(__('Equivalent to adding to %1$s in your %2$s file.', 'thesis_openhook'), '<code>thesis_hook_after_sidebar_1</code>', '<code>custom_functions.php</code>'); ?></label></p>
 						<textarea id="openhook_after_sidebar_1" name="openhook_after_sidebar_1" rows="10" cols="50" class="large-text code"><?php openhook_option('openhook_after_sidebar_1'); ?></textarea>
 						<p>
 							<label for="openhook_after_sidebar_1_php">
@@ -1153,11 +1182,11 @@ if ($save_button == '')
 				</td>
 			</tr>
 			<tr valign="top">
-				<th scope="row"><h3 id="before_sidebar_2">Before Sidebar 2</h3></th>
-				<td>
+				<th scope="row"><h3 id="before_sidebar_2"><?php _e('Before Sidebar 2', 'thesis_openhook'); ?></h3></th>
+				<td class="toggle-container">
 					<fieldset>
 						<legend class="hidden"><code>thesis_hook_before_sidebar_2</code></legend>
-						<p><label for="openhook_before_sidebar_2">Equivalent to adding to <code>thesis_hook_before_sidebar_2</code> in your <code>custom_functions.php</code> file.</label></p>
+						<p><label for="openhook_before_sidebar_2"><?php printf(__('Equivalent to adding to %1$s in your %2$s file.', 'thesis_openhook'), '<code>thesis_hook_before_sidebar_2</code>', '<code>custom_functions.php</code>'); ?></label></p>
 						<textarea id="openhook_before_sidebar_2" name="openhook_before_sidebar_2" rows="10" cols="50" class="large-text code"><?php openhook_option('openhook_before_sidebar_2'); ?></textarea>
 						<p>
 							<label for="openhook_before_sidebar_2_php">
@@ -1170,11 +1199,11 @@ if ($save_button == '')
 				</td>
 			</tr>
 			<tr valign="top">
-				<th scope="row"><h3 id="after_sidebar_2">After Sidebar 2</h3></th>
-				<td>
+				<th scope="row"><h3 id="after_sidebar_2"><?php _e('After Sidebar 2', 'thesis_openhook'); ?></h3></th>
+				<td class="toggle-container">
 					<fieldset>
 						<legend class="hidden"><code>thesis_hook_after_sidebar_2</code></legend>
-						<p><label for="openhook_after_sidebar_2">Equivalent to adding to <code>thesis_hook_after_sidebar_2</code> in your <code>custom_functions.php</code> file.</label></p>
+						<p><label for="openhook_after_sidebar_2"><?php printf(__('Equivalent to adding to %1$s in your %2$s file.', 'thesis_openhook'), '<code>thesis_hook_after_sidebar_2</code>', '<code>custom_functions.php</code>'); ?></label></p>
 						<textarea id="openhook_after_sidebar_2" name="openhook_after_sidebar_2" rows="10" cols="50" class="large-text code"><?php openhook_option('openhook_after_sidebar_2'); ?></textarea>
 						<p>
 							<label for="openhook_after_sidebar_2_php">
@@ -1187,11 +1216,11 @@ if ($save_button == '')
 				</td>
 			</tr>
 			<tr valign="top">
-				<th scope="row"><h3 id="before_footer">Before Footer</h3></th>
-				<td>
+				<th scope="row"><h3 id="before_footer"><?php _e('Before Footer', 'thesis_openhook'); ?></h3></th>
+				<td class="toggle-container">
 					<fieldset>
 						<legend class="hidden"><code>thesis_hook_before_footer</code></legend>
-						<p><label for="openhook_before_footer">Equivalent to adding to <code>thesis_hook_before_footer</code> in your <code>custom_functions.php</code> file.</label></p>
+						<p><label for="openhook_before_footer"><?php printf(__('Equivalent to adding to %1$s in your %2$s file.', 'thesis_openhook'), '<code>thesis_hook_before_footer</code>', '<code>custom_functions.php</code>'); ?></label></p>
 						<textarea id="openhook_before_footer" name="openhook_before_footer" rows="10" cols="50" class="large-text code"><?php openhook_option('openhook_before_footer'); ?></textarea>
 						<p>
 							<label for="openhook_before_footer_php">
@@ -1205,10 +1234,10 @@ if ($save_button == '')
 			</tr>
 			<tr valign="top">
 				<th scope="row"><h3 id="after_footer">After Footer</h3></th>
-				<td>
+				<td class="toggle-container">
 					<fieldset>
 						<legend class="hidden"><code>thesis_hook_after_footer</code></legend>
-						<p><label for="openhook_after_footer">Equivalent to adding to <code>thesis_hook_after_footer</code> in your <code>custom_functions.php</code> file.</label></p>
+						<p><label for="openhook_after_footer"><?php printf(__('Equivalent to adding to %1$s in your %2$s file.', 'thesis_openhook'), '<code>thesis_hook_after_footer</code>', '<code>custom_functions.php</code>'); ?></label></p>
 						<textarea id="openhook_after_footer" name="openhook_after_footer" rows="10" cols="50" class="large-text code"><?php openhook_option('openhook_after_footer'); ?></textarea>
 						<p>
 							<label for="openhook_after_footer_php">
@@ -1221,11 +1250,11 @@ if ($save_button == '')
 				</td>
 			</tr>
 			<tr valign="top">
-				<th scope="row"><h3 id="oh_footer">Footer</h3></th>
-				<td>
+				<th scope="row"><h3 id="oh_footer"><?php _e('Footer', 'thesis_openhook'); ?></h3></th>
+				<td class="toggle-container">
 					<fieldset>
 						<legend class="hidden"><code>thesis_hook_footer</code></legend>
-						<p><label for="openhook_footer">Equivalent to adding to <code>thesis_hook_footer</code> in your <code>custom_functions.php</code> file.</label></p>
+						<p><label for="openhook_footer"><?php printf(__('Equivalent to adding to %1$s in your %2$s file.', 'thesis_openhook'), '<code>thesis_hook_footer</code>', '<code>custom_functions.php</code>'); ?></label></p>
 						<textarea id="openhook_footer" name="openhook_footer" rows="10" cols="50" class="large-text code"><?php openhook_option('openhook_footer'); ?></textarea>
 						<p>
 							<label for="openhook_footer_php">
@@ -1254,18 +1283,116 @@ if ($save_button == '')
 							</label><br />
 							<small><?php _e('If you would like to keep tabs on how long <abbr title="PHP: Hypertext Preprocessor">PHP</abbr> takes to process your page or on how many database queries are being made, turning on the debug information will add this data to your blog’s footer, visible to administrators only. <a href="http://rickbeckman.org/use-wordpress-debug-stats-to-trim-the-fat-from-your-blog/">More information on using debug information to speed up your site.</a>', 'thesis_openhook'); ?></small>
 						</p>
+						<p>
+							<label for="openhook_footer_honeypot">
+								<input<?php checked('1', get_option('openhook_footer_honeypot')); ?> value="1" id="openhook_footer_honeypot" name="openhook_footer_honeypot" type="checkbox" />
+								<?php printf(__('Help fight spam by including an invisible <a href="%s">Project Honey Pot QuickLink</a> in the footer area.', 'thesis_openhook'), 'http://www.projecthoneypot.org/faq.php#f'); ?>
+							</label>
+						</p>
 					</fieldset>
 					<p class="submit"><input type="submit" class="button-primary" value="<?php echo $save_button; ?>" /></p>
 				</td>
 			</tr>
 			<tr valign="top">
-				<th scope="row"><h3 id="openhook_save_button">Save Button</h3></th>
-				<td>
+				<th scope="row"><h3 id="wp_footer"><?php _e('WP Footer', 'thesis_openhook'); ?></h3></th>
+				<td class="toggle-container">
+					<fieldset>
+						<legend class="hidden"><code>wp_footer</code></legend>
+						<p><label for="openhook_wp_footer"><?php printf(__('Equivalent to adding to %1$s in your %2$s file.', 'thesis_openhook'), '<code>wp_footer</code>', '<code>custom_functions.php</code>'); ?></label></p>
+						<textarea id="openhook_wp_footer" name="openhook_wp_footer" rows="10" cols="50" class="large-text code"><?php openhook_option('openhook_wp_footer'); ?></textarea>
+						<p>
+							<label for="openhook_wp_footer_php">
+								<input<?php checked('1', get_option('openhook_wp_footer_php')); ?> value="1" id="openhook_wp_footer_php" name="openhook_wp_footer_php" type="checkbox" />
+								<?php _e('Execute <abbr title="PHP: Hypertext Preprocessor">PHP</abbr> on this hook', 'thesis_openhook'); ?>
+							</label>
+						</p>
+					</fieldset>
+					<p class="submit"><input type="submit" class="button-primary" value="<?php echo $save_button; ?>" /></p>
+				</td>
+			</tr>
+			<tr valign="top">
+				<th scope="row"><h3 id="openhook_save_button"><?php _e('Save Button', 'thesis_openhook'); ?></h3></th>
+				<td class="toggle-container">
 					<p><label for="openhook_save_button"><?php _e('You can replace the text of the save button with whatever text you want.', 'thesis_openhook'); ?></p>
-						<p><input name="openhook_save_button" id="openhook_save_button" type="text" value="<?php openhook_option('save_button'); ?>" class="regular-text" /></p>
+						<p><input name="openhook_save_button" id="openhook_save_button" type="text" value="<?php openhook_option('openhook_save_button'); ?>" class="regular-text" /></p>
 					<p class="submit"><input type="submit" class="button-primary" value="<?php echo $save_button; ?>" /></p>
 				</td>
 			</tr>
 		</table>
+	</form>
+	<form id="jumpbox">
+		<fieldset class="jumpbox">
+			<label for="f" class="hidden"><?php _e('Jump to a hook', 'thesis_openhook'); ?>:</label>
+			<select name="f" id="f" onchange="if(this.options[this.selectedIndex].value != -1){ window.location=this.options[this.selectedIndex].value }">
+				<option value="-1"><?php _e('Select a hook', 'thesis_openhook'); ?></option>
+				<option value="-1">-<>--<>--<>--<>--<>-</option>
+				<option value="#wp_head">wp_head</option>
+				<option value="#before_html">thesis_hook_before_html</option>
+				<option value="#after_html">thesis_hook_after_html</option>
+				<optgroup label="<?php _e('Header hooks', 'thesis_openhook'); ?>">
+					<option value="#before_header">thesis_hook_before_header</option>
+					<option value="#after_header">thesis_hook_after_header</option>
+					<option value="#header">thesis_hook_header</option>
+					<option value="#before_title">thesis_hook_before_title</option>
+					<option value="#after_title">thesis_hook_after_title</option>
+				</optgroup>
+				<optgroup label="<?php _e('Content hooks', 'thesis_openhook'); ?>">
+					<option value="#before_content_box">thesis_hook_before_content_box</option>
+					<option value="#after_content_box">thesis_hook_after_content_box</option>
+					<option value="#before_content">thesis_hook_before_content</option>
+					<option value="#after_content">thesis_hook_after_content</option>
+					<option value="#before_content_area">thesis_hook_before_content_area</option>
+					<option value="#after_content_area">thesis_hook_after_content_area</option>
+					<option value="#feature_box">thesis_hook_feature_box</option>
+					<option value="#before_post_box">thesis_hook_before_post_box</option>
+					<option value="#after_post_box">thesis_hook_after_post_box</option>
+					<option value="#before_post">thesis_hook_before_post</option>
+					<option value="#after_post">thesis_hook_after_post</option>
+					<option value="#before_headline">thesis_hook_before_headline</option>
+					<option value="#after_headline">thesis_hook_after_headline</option>
+					<option value="#byline_item">thesis_hook_byline_item</option>
+				</optgroup>
+				<optgroup label="<?php _e('Teaser hooks', 'thesis_openhook'); ?>">
+					<option value="#before_teasers_box">thesis_hook_before_teasers_box</option>
+					<option value="#after_teasers_box">thesis_hook_after_teasers_box</option>
+					<option value="#before_teaser_box">thesis_hook_before_teaser_box</option>
+					<option value="#after_teaser_box">thesis_hook_after_teaser_box</option>
+					<option value="#before_teaser">thesis_hook_before_teaser</option>
+					<option value="#after_teaser">thesis_hook_after_teaser</option>
+				</optgroup>
+				<optgroup label="<?php _e('Comment hooks', 'thesis_openhook'); ?>">
+					<option value="#before_comment_meta">thesis_hook_before_comment_meta</option>
+					<option value="#after_comment_meta">thesis_hook_after_comment_meta</option>
+					<option value="#after_comment">thesis_hook_after_comment</option>
+					<option value="#comment_field">thesis_hook_comment_field</option>
+					<option value="#comment_form">thesis_hook_comment_form</option>
+				</optgroup>
+				<optgroup label="<?php _e('Page templates, archives, and more'); ?>">
+					<option value="#archives_template">thesis_hook_archives_template</option>
+					<option value="#custom_template">thesis_hook_custom_template</option>
+					<option value="#faux_admin">thesis_hook_faux_admin</option>
+					<option value="#archive_info">thesis_hook_archive_info</option>
+					<option value="#404_title">thesis_hook_404_title</option>
+					<option value="#404_content">thesis_hook_404_content</option>
+				</optgroup>
+				<optgroup label="<?php _e('Sidebar hooks', 'thesis_openhook'); ?>">
+					<option value="#before_sidebars">thesis_hook_before_sidebars</option>
+					<option value="#after_sidebars">thesis_hook_after_sidebars</option>
+					<option value="#multimedia_box">thesis_hook_multimedia_box</option>
+					<option value="#after_multimedia_box">thesis_hook_after_multimedia_box</option>
+					<option value="#before_sidebar_1">thesis_hook_before_sidebar_1</option>
+					<option value="#after_sidebar_1">thesis_hook_after_sidebar_1</option>
+					<option value="#before_sidebar_2">thesis_hook_before_sidebar_2</option>
+					<option value="#after_sidebar_2">thesis_hook_after_sidebar_2</option>
+				</optgroup>
+				<optgroup label="<?php _e('Footer hooks', 'thesis_openhook'); ?>">
+					<option value="#before_footer">thesis_hook_before_footer</option>
+					<option value="#after_footer">thesis_hook_after_footer</option>
+					<option value="#oh_footer">thesis_hook_footer</option>
+					<option value="#wp_footer">wp_footer</option>
+				</optgroup>
+				<option value="#openhook_save_button"><?php _e('Rename the save button', 'thesis_openhook'); ?></option>
+			</select>
+		</fieldset>
 	</form>
 </div>

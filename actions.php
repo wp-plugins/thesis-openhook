@@ -3,6 +3,7 @@
 add_action('admin_init', 'openhook_settings');
 add_action('admin_menu', 'add_openhook_options_page');
 
+add_action('wp_head', 'openhook_wp_head');
 add_action('thesis_hook_before_html', 'openhook_before_html');
 add_action('thesis_hook_after_html', 'openhook_after_html');
 add_action('thesis_hook_before_header', 'openhook_before_header');
@@ -35,6 +36,7 @@ add_action('thesis_hook_byline_item', 'openhook_byline_item');
 add_action('thesis_hook_before_comment_meta', 'openhook_before_comment_meta');
 add_action('thesis_hook_after_comment_meta', 'openhook_after_comment_meta');
 add_action('thesis_hook_after_comment', 'openhook_after_comment');
+add_action('thesis_hook_comment_field', 'openhook_comment_field');
 add_action('thesis_hook_comment_form', 'openhook_comment_form');
 add_action('thesis_hook_archives_template', 'openhook_archives_template');
 add_action('thesis_hook_custom_template', 'openhook_custom_template');
@@ -53,6 +55,7 @@ add_action('thesis_hook_after_sidebar_2', 'openhook_after_sidebar_2');
 add_action('thesis_hook_before_footer', 'openhook_before_footer');
 add_action('thesis_hook_after_footer', 'openhook_after_footer');
 add_action('thesis_hook_footer', 'openhook_footer');
+add_action('wp_footer', 'openhook_wp_footer');
 
 add_action('wp_head', 'openhook_remove_actions');
 
