@@ -1,6 +1,7 @@
 <?php
 
 add_action('admin_init', 'openhook_settings');
+add_action('admin_init', 'openhook_cleanup');
 add_action('admin_menu', 'add_openhook_options_page');
 
 add_action('wp_head', 'openhook_wp_head');

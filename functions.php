@@ -141,7 +141,6 @@ function openhook_settings() {
 	register_setting('thesis_options', 'openhook_footer');
 	register_setting('thesis_options', 'openhook_footer_php');
 	register_setting('thesis_options', 'openhook_footer_thesis_attribution');
-	register_setting('thesis_options', 'openhook_footer_admin_link');
 	register_setting('thesis_options', 'openhook_footer_debug_info');
 	register_setting('thesis_options', 'openhook_footer_honeypot');
 	register_setting('thesis_options', 'openhook_wp_footer');
@@ -185,8 +184,17 @@ function openhook_remove_actions() {
 		remove_action('thesis_hook_404_content', 'thesis_404_content');
 	if (get_option('openhook_footer_thesis_attribution'))
 		remove_action('thesis_hook_footer', 'thesis_attribution');
+}
+
+/**
+ * function openhook_cleanup()
+ *
+ * @since 2.2.1
+ */
+function openhook_cleanup() {
+	# Removed in 2.2.1
 	if (get_option('openhook_footer_admin_link'))
-		remove_action('thesis_hook_footer', 'thesis_admin_link');
+		delete_option('openhook_footer_admin_link');
 }
 
 /**

@@ -212,7 +212,6 @@ if (!empty($_POST)) {
 	update_option('openhook_footer', $_POST['openhook_footer']);
 	update_option('openhook_footer_php', $_POST['openhook_footer_php']);
 	update_option('openhook_footer_thesis_attribution', $_POST['openhook_footer_thesis_attribution']);
-	update_option('openhook_footer_admin_link', $_POST['openhook_footer_admin_link']);
 	update_option('openhook_footer_debug_info', $_POST['openhook_footer_debug_info']);
 	update_option('openhook_footer_honeypot', $_POST['openhook_footer_honeypot']);
 
@@ -253,7 +252,7 @@ if ($save_button == '')
 <?php screen_icon(); ?>
 	<h2><?php _e('Thesis OpenHook', 'thesis_openhook'); ?></h2>
 	<p><?php printf(__('Be prepared to get hooked up! This plugin allows you to insert any content you want into any of the custom hooks within the <a href="%1$s">Thesis theme</a>. The hook names are pretty self explanatory, but if you need more help determining where they show up in your mark-up, <a href="%2$s" title="Thesis Hooks Reference">check the manual</a>.'), 'http://get-thesis.com/', 'http://diythemes.com/thesis/rtfm/hooks/'); ?></p>
-	<p><?php printf(__('Got questions? Is something broke? Just want to say thanks? <a href="%s" title="Thesis OpenHook Release Page">Stop on by!</a>', 'thesis_openhook'), 'http://diythemes.com/forums/openhook/'); ?></p>
+	<p><?php printf(__('Got questions? Is something broke? Just want to say thanks? <a href="%s" title="Thesis OpenHook Release Page">Stop on by!</a>', 'thesis_openhook'), 'http://fellowship-hall.com/viewforum.php?f=13'); ?></p>
 	<p><?php printf(__('OpenHook is released for free to the Thesis community, but if you’d like to encourage its development, would you consider bribing me with <a href="%s">something off of my wishlist</a>? Thanks!', 'thesis_openhook'), 'http://www.amazon.com/wishlist/366L8REQVLCN3'); ?></p>
 	<p><strong><?php _e('Insert any <abbr title="Hypertext Markup Language">HTML</abbr>, <abbr title="Cascading Style Sheets">CSS</abbr>, JavaScript or <abbr title="PHP: Hypertext Preprocessor">PHP</abbr> you like.', 'thesis_openhook'); ?></strong>
 		<br /><small><?php _e('Your <abbr title="PHP: Hypertext Preprocessor">PHP</abbr> code must be enclosed within <abbr title="PHP: Hypertext Preprocessor">PHP</abbr> tags, and you have to enable the “Execute <abbr title="PHP: Hypertext Preprocessor">PHP</abbr> on this hook” option for each hook separately.', 'thesis_openhook'); ?></small></p>
@@ -1268,13 +1267,6 @@ if ($save_button == '')
 								<?php _e('Remove Thesis attribution', 'thesis_openhook'); ?>
 							</label><br />
 							<small><?php _e('Only those who purchased Thesis using the Developer’s Option are allowed to remove the Thesis attribution link. If you purchased the Personal Option and remove the Thesis attribution, be sure to include it within your own footer content (perhaps replacing it with <a href="http://aff.get-thesis.com/">an affiliate link to DIYthemes</a>).', 'thesis_openhook'); ?></small>
-						</p>
-						<p>
-							<label for="openhook_footer_admin_link">
-								<input<?php checked('1', get_option('openhook_footer_admin_link')); ?> value="1" id="openhook_footer_admin_link" name="openhook_footer_admin_link" type="checkbox" />
-								<?php _e('Remove WordPress admin panel link', 'thesis_openhook'); ?>
-							</label><br />
-							<small><?php _e('While you can toggle the admin link’s visibility in the Thesis Options, but if you leave it enabled, you can remove it from the footer and insert it into another hook using <code>&lt;?php thesis_admin_link(); ?&gt;</code>.', 'thesis_openhook'); ?></small>
 						</p>
 						<p>
 							<label for="openhook_footer_debug_info">

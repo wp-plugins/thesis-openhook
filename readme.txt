@@ -45,7 +45,7 @@ Likewise, custom_functions.php will be processed *after* Thesis OpenHook, so you
 
 Assuming all of the following things... Yes you can!
 
-* `custom.css` must exist and be writable by the Web server
+* `custom.css` must exist and be writable by the Web server (CHMOD to "666" via FTP)
 * User must be allowed to edit themes
 
 = Where can I get Thesis? =
