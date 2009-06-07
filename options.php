@@ -215,6 +215,9 @@ if (!empty($_POST)) {
 	update_option('openhook_footer_debug_info', $_POST['openhook_footer_debug_info']);
 	update_option('openhook_footer_honeypot', $_POST['openhook_footer_honeypot']);
 
+	update_option('openhook_wp_footer', $_POST['openhook_wp_footer']);
+	update_option('openhook_wp_footer_php', $_POST['openhook_wp_footer_php']);
+
 	echo '<div id="message" class="updated fade"><p><strong>' . __('Thesis customizations have been saved. You should now check your site to ensure everything is working as expected, and thank you for using Thesis with OpenHook!') . '</strong></p></div>' . "\n";
 }
 
