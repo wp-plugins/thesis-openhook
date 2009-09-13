@@ -51,3 +51,9 @@ Assuming all of the following things... Yes you can!
 = Where can I get Thesis? =
 
 You want to take your blog to the next level? Good for you! Grab Thesis at <a href="http://get-thesis.com/">Get-Thesis.com</a>.
+
+== Changelog ==
+
+= 2.2.2 =
+* Fixed a bug which prevented the After Teasers Box hook from saving properly. Thanks, Michael Curving.
+* Fixed an issue where the file editors would strip slashes unnecessarily. Thanks, Kristarella.

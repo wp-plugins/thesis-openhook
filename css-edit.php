@@ -39,7 +39,7 @@ $filename = THESIS_CUSTOM . '/custom.css';
 if (!empty($_POST)) {
 	if (isset($_POST['custom_css'])) {
 		# Get custom.css new content
-		$contents = stripslashes($_POST['custom_css']);
+		$contents = $_POST['custom_css'];
 
 		if (is_writable($filename)) {
 			# Open custom.css

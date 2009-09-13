@@ -39,7 +39,7 @@ $filename = THESIS_CUSTOM . '/custom_functions.php';
 if (!empty($_POST)) {
 	if (isset($_POST['custom_php'])) {
 		# Get custom_functions.php new content
-		$contents = stripslashes($_POST['custom_php']);
+		$contents = $_POST['custom_php'];
 
 		if (is_writable($filename)) {
 			# Open custom_functions.php
