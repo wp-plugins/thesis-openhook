@@ -54,6 +54,9 @@ You want to take your blog to the next level? Good for you! Grab Thesis at <a hr
 
 == Changelog ==
 
+= 2.2.5 =
+* Reverted change introduced in 2.2.3 regarding stripping of slashes
+
 = 2.2.4 =
 * Fixed a syntax error, reported by multiple users.
 
