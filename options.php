@@ -90,6 +90,18 @@ if (!empty($_POST)) {
 	update_option('openhook_after_content_area', $_POST['openhook_after_content_area']);
 	update_option('openhook_after_content_area_php', $_POST['openhook_after_content_area_php']);
 
+	update_option('openhook_post_box_top', $_POST['openhook_post_box_top']);
+	update_option('openhook_post_box_top_php', $_POST['openhook_post_box_top_php']);
+
+	update_option('openhook_post_box_bottom', $_POST['openhook_post_box_bottom']);
+	update_option('openhook_post_box_bottom_php', $_POST['openhook_post_box_bottom_php']);
+
+	update_option('openhook_content_box_top', $_POST['openhook_content_box_top']);
+	update_option('openhook_content_box_top_php', $_POST['openhook_content_box_top_php']);
+
+	update_option('openhook_content_box_bottom', $_POST['openhook_content_box_bottom']);
+	update_option('openhook_content_box_bottom_php', $_POST['openhook_content_box_bottom_php']);
+
 	update_option('openhook_feature_box', $_POST['openhook_feature_box']);
 	update_option('openhook_feature_box_php', $_POST['openhook_feature_box_php']);
 
@@ -226,7 +238,7 @@ if (!empty($_POST)) {
 
 $save_button = attribute_escape(get_option('openhook_save_button'));
 if ($save_button == '')
-	$save_button = __('Little Ass Save Button', 'thesis_openhook');
+	$save_button = __('Little Save Button', 'thesis_openhook');
 
 ?>
 
@@ -257,9 +269,10 @@ if ($save_button == '')
 <div class="wrap">
 <?php screen_icon(); ?>
 	<h2><?php _e('Thesis OpenHook', 'thesis_openhook'); ?></h2>
-	<p><?php printf(__('Be prepared to get hooked up! This plugin allows you to insert any content you want into any of the custom hooks within the <a href="%1$s">Thesis theme</a>. The hook names are pretty self explanatory, but if you need more help determining where they show up in your mark-up, <a href="%2$s" title="Thesis Hooks Reference">check the manual</a>.'), 'http://get-thesis.com/', 'http://diythemes.com/thesis/rtfm/hooks/'); ?></p>
-	<p><?php printf(__('Report bugs to rick.beckman@gmail.com. Support is provided by the community at DIYthemes.', 'thesis_openhook')); ?></p>
+	<p><?php printf(__('Be prepared to get hooked up! This plugin allows you to insert any content you want into any of the custom hooks within the <a href="%1$s">Thesis theme</a>. The hook names are pretty self explanatory, but if you need more help determining where they show up in your mark-up, <a href="%2$s" title="Thesis Hooks Reference">check the manual</a>.'), 'http://diythemes.com/', 'http://diythemes.com/thesis/rtfm/hooks/'); ?></p>
+	<p><?php printf(__('Report bugs &amp; seek support at rick.beckman@gmail.com. Support is limited to the functionality of OpenHook itself; for help crafting your customizations, you should likely begin at the official DIYthemes support forums. Thanks for your understanding!', 'thesis_openhook')); ?></p>
 	<p><?php printf(__('OpenHook is released for free to the Thesis community, but if you’d like to encourage its development, would you consider bribing me with <a href="%s">something off of my wishlist</a>? Thanks!', 'thesis_openhook'), 'http://www.amazon.com/wishlist/366L8REQVLCN3'); ?></p>
+	<p><?php _e('Thesis OpenHook is licensed under an open license, meaning anyone can take it, improve it, and generally make the community better. Did you know that the Thesis theme itself is not? Let DIYthemes know that you want them to support the community by open sourcing Thesis!', 'thesis_openhook'); ?></p>
 	<p><strong><?php _e('Insert any <abbr title="Hypertext Markup Language">HTML</abbr>, <abbr title="Cascading Style Sheets">CSS</abbr>, JavaScript or <abbr title="PHP: Hypertext Preprocessor">PHP</abbr> you like.', 'thesis_openhook'); ?></strong>
 		<br /><small><?php _e('Your <abbr title="PHP: Hypertext Preprocessor">PHP</abbr> code must be enclosed within <abbr title="PHP: Hypertext Preprocessor">PHP</abbr> tags, and you have to enable the “Execute <abbr title="PHP: Hypertext Preprocessor">PHP</abbr> on this hook” option for each hook separately.', 'thesis_openhook'); ?></small></p>
 	<p><?php _e('Please note that using <em>any</em> of the save buttons on this page will save <em>all</em> of the displayed fields. Take care not to save unwanted changes. You’ve been warned.', 'thesis_openhook'); ?></p>
@@ -542,6 +555,74 @@ if ($save_button == '')
 						<p>
 							<label for="openhook_after_content_area_php">
 								<input<?php checked('1', get_option('openhook_after_content_area_php')); ?> value="1" id="openhook_after_content_area_php" name="openhook_after_content_area_php" type="checkbox" />
+								<?php _e('Execute <abbr title="PHP: Hypertext Preprocessor">PHP</abbr> on this hook', 'thesis_openhook'); ?>
+							</label>
+						</p>
+					</fieldset>
+					<p class="submit"><input type="submit" class="button-primary" value="<?php echo $save_button; ?>" /></p>
+				</td>
+			</tr>
+			<tr valign="top">
+				<th scope="row"><h3 id="post_box_top"><?php _e('Post Box Top', 'thesis_openhook'); ?></h3></th>
+				<td class="toggle-container">
+					<fieldset>
+						<legend class="hidden"><code>thesis_hook_post_box_top</code></legend>
+						<p><label for="openhook_post_box_top"><?php printf(__('Equivalent to adding to %1$s in your %2$s file.', 'thesis_openhook'), '<code>thesis_hook_post_box_top</code>', '<code>custom_functions.php</code>'); ?></label></p>
+						<textarea id="openhook_post_box_top" name="openhook_post_box_top" rows="10" cols="50" class="large-text code"><?php openhook_option('openhook_post_top_box'); ?></textarea>
+						<p>
+							<label for="openhook_post_box_top_php">
+								<input<?php checked('1', get_option('openhook_post_box_top_php')); ?> value="1" id="openhook_post_box_top_php" name="openhook_post_box_top_php" type="checkbox" />
+								<?php _e('Execute <abbr title="PHP: Hypertext Preprocessor">PHP</abbr> on this hook', 'thesis_openhook'); ?>
+							</label>
+						</p>
+					</fieldset>
+					<p class="submit"><input type="submit" class="button-primary" value="<?php echo $save_button; ?>" /></p>
+				</td>
+			</tr>
+			<tr valign="top">
+				<th scope="row"><h3 id="post_box_bottom"><?php _e('Post Box Bottom', 'thesis_openhook'); ?></h3></th>
+				<td class="toggle-container">
+					<fieldset>
+						<legend class="hidden"><code>thesis_hook_post_box_bottom</code></legend>
+						<p><label for="openhook_post_box_bottom"><?php printf(__('Equivalent to adding to %1$s in your %2$s file.', 'thesis_openhook'), '<code>thesis_hook_post_box_bottom</code>', '<code>custom_functions.php</code>'); ?></label></p>
+						<textarea id="openhook_post_box_bottom" name="openhook_post_box_bottom" rows="10" cols="50" class="large-text code"><?php openhook_option('openhook_post_top_box'); ?></textarea>
+						<p>
+							<label for="openhook_post_box_bottom_php">
+								<input<?php checked('1', get_option('openhook_post_box_bottom_php')); ?> value="1" id="openhook_post_box_bottom_php" name="openhook_post_box_bottom_php" type="checkbox" />
+								<?php _e('Execute <abbr title="PHP: Hypertext Preprocessor">PHP</abbr> on this hook', 'thesis_openhook'); ?>
+							</label>
+						</p>
+					</fieldset>
+					<p class="submit"><input type="submit" class="button-primary" value="<?php echo $save_button; ?>" /></p>
+				</td>
+			</tr>
+			<tr valign="top">
+				<th scope="row"><h3 id="content_box_top"><?php _e('Content Box Top', 'thesis_openhook'); ?></h3></th>
+				<td class="toggle-container">
+					<fieldset>
+						<legend class="hidden"><code>thesis_hook_content_box_top</code></legend>
+						<p><label for="openhook_content_box_top"><?php printf(__('Equivalent to adding to %1$s in your %2$s file.', 'thesis_openhook'), '<code>thesis_hook_content_box_top</code>', '<code>custom_functions.php</code>'); ?></label></p>
+						<textarea id="openhook_content_box_top" name="openhook_content_box_top" rows="10" cols="50" class="large-text code"><?php openhook_option('openhook_post_top_box'); ?></textarea>
+						<p>
+							<label for="openhook_content_box_top_php">
+								<input<?php checked('1', get_option('openhook_content_box_top_php')); ?> value="1" id="openhook_content_box_top_php" name="openhook_content_box_top_php" type="checkbox" />
+								<?php _e('Execute <abbr title="PHP: Hypertext Preprocessor">PHP</abbr> on this hook', 'thesis_openhook'); ?>
+							</label>
+						</p>
+					</fieldset>
+					<p class="submit"><input type="submit" class="button-primary" value="<?php echo $save_button; ?>" /></p>
+				</td>
+			</tr>
+			<tr valign="top">
+				<th scope="row"><h3 id="content_box_bottom"><?php _e('Content Box Bottom', 'thesis_openhook'); ?></h3></th>
+				<td class="toggle-container">
+					<fieldset>
+						<legend class="hidden"><code>thesis_hook_content_box_bottom</code></legend>
+						<p><label for="openhook_content_box_bottom"><?php printf(__('Equivalent to adding to %1$s in your %2$s file.', 'thesis_openhook'), '<code>thesis_hook_content_box_bottom</code>', '<code>custom_functions.php</code>'); ?></label></p>
+						<textarea id="openhook_content_box_bottom" name="openhook_content_box_bottom" rows="10" cols="50" class="large-text code"><?php openhook_option('openhook_post_top_box'); ?></textarea>
+						<p>
+							<label for="openhook_content_box_bottom_php">
+								<input<?php checked('1', get_option('openhook_content_box_bottom_php')); ?> value="1" id="openhook_content_box_bottom_php" name="openhook_content_box_bottom_php" type="checkbox" />
 								<?php _e('Execute <abbr title="PHP: Hypertext Preprocessor">PHP</abbr> on this hook', 'thesis_openhook'); ?>
 							</label>
 						</p>
@@ -1341,6 +1422,10 @@ if ($save_button == '')
 					<option value="#after_content">thesis_hook_after_content</option>
 					<option value="#before_content_area">thesis_hook_before_content_area</option>
 					<option value="#after_content_area">thesis_hook_after_content_area</option>
+					<option value="#post_box_top">thesis_hook_post_box_top</option>
+					<option value="#post_box_bottom">thesis_hook_post_box_bottom</option>
+					<option value="#content_box_top">thesis_hook_content_box_top</option>
+					<option value="#content_box_bottom">thesis_hook_content_box_bottom</option>
 					<option value="#feature_box">thesis_hook_feature_box</option>
 					<option value="#before_post_box">thesis_hook_before_post_box</option>
 					<option value="#after_post_box">thesis_hook_after_post_box</option>

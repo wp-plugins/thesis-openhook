@@ -10,8 +10,8 @@
  */
 function add_openhook_options_page() {
 	add_theme_page(__('Thesis OpenHook', 'thesis_openhook'), __('Thesis OpenHook', 'thesis_openhook'), 'edit_themes', dirname(__FILE__) . '/options.php');
-	add_theme_page(__('Thesis Custom Styling', 'thesis_openhook'), __('Thesis Custom Styling', 'thesis_openhook'), 'edit_themes', dirname(__FILE__) . '/css-edit.php');
-	add_theme_page(__('Thesis Custom Programming', 'thesis_openhook'), __('Thesis Custom Programming', 'thesis_openhook'), 'edit_themes', dirname(__FILE__) . '/php-edit.php');
+	# add_theme_page(__('Thesis Custom Styling', 'thesis_openhook'), __('Thesis Custom Styling', 'thesis_openhook'), 'edit_themes', dirname(__FILE__) . '/css-edit.php');
+	# add_theme_page(__('Thesis Custom Programming', 'thesis_openhook'), __('Thesis Custom Programming', 'thesis_openhook'), 'edit_themes', dirname(__FILE__) . '/php-edit.php');
 }
 
 /**
@@ -55,6 +55,14 @@ function openhook_settings() {
 	register_setting('thesis_options', 'openhook_after_content_area_php');
 	register_setting('thesis_options', 'openhook_after_content_post_navigation');
 	register_setting('thesis_options', 'openhook_after_content_prev_next_posts');
+	register_setting('thesis_options', 'openhook_post_box_top');
+	register_setting('thesis_options', 'openhook_post_box_top_php');
+	register_setting('thesis_options', 'openhook_post_box_bottom');
+	register_setting('thesis_options', 'openhook_post_box_bottom_php');
+	register_setting('thesis_options', 'openhook_content_box_top');
+	register_setting('thesis_options', 'openhook_content_box_top_php');
+	register_setting('thesis_options', 'openhook_content_box_bottom');
+	register_setting('thesis_options', 'openhook_content_box_bottom_php');
 	register_setting('thesis_options', 'openhook_feature_box');
 	register_setting('thesis_options', 'openhook_feature_box_php');
 	register_setting('thesis_options', 'openhook_before_post_box');
@@ -395,6 +403,78 @@ function openhook_after_content_area() {
 	$val = stripslashes(get_option('openhook_after_content_area'));
 
 	if (get_option('openhook_after_content_area_php')) {
+		ob_start();
+		eval("?>$val<?php ");
+		$val = ob_get_contents();
+		ob_end_clean();
+	}
+
+	echo $val;
+}
+
+/**
+ * Top of post box
+ *
+ * @since 2.3
+ */
+function openhook_post_box_top() {
+	$val = stripslashes(get_option('openhook_post_box_top'));
+
+	if (get_option('openhook_post_box_top_php')) {
+		ob_start();
+		eval("?>$val<?php ");
+		$val = ob_get_contents();
+		ob_end_clean();
+	}
+
+	echo $val;
+}
+
+/**
+ * Bottom of post box
+ *
+ * @since 2.3
+ */
+function openhook_post_box_bottom() {
+	$val = stripslashes(get_option('openhook_post_box_bottom'));
+
+	if (get_option('openhook_post_box_bottom_php')) {
+		ob_start();
+		eval("?>$val<?php ");
+		$val = ob_get_contents();
+		ob_end_clean();
+	}
+
+	echo $val;
+}
+
+/**
+ * Top of content box
+ *
+ * @since 2.3
+ */
+function openhook_content_box_top() {
+	$val = stripslashes(get_option('openhook_content_box_top'));
+
+	if (get_option('openhook_content_box_top_php')) {
+		ob_start();
+		eval("?>$val<?php ");
+		$val = ob_get_contents();
+		ob_end_clean();
+	}
+
+	echo $val;
+}
+
+/**
+ * Bottom of content box
+ *
+ * @since 2.3
+ */
+function openhook_content_box_bottom() {
+	$val = stripslashes(get_option('openhook_content_box_bottom'));
+
+	if (get_option('openhook_content_box_bottom_php')) {
 		ob_start();
 		eval("?>$val<?php ");
 		$val = ob_get_contents();
