@@ -53,6 +53,9 @@ Prior to version 2.3, OpenHook provided panels for editing custom CSS & custom f
 
 == Changelog ==
 
+= 2.3.1 =
+* Fixed two stupid typos that killed everything that was right with the world. Well, they broke the plugin anyway. Thanks, Jim (http://doggybytes.ca/), for reporting so quickly!
+
 = 2.3 =
 * I finally bought an SVN client, so I'm finally updating OpenHook. Sorry for the delay!
 * Thesis 1.7's four new hooks are now included.
