@@ -568,7 +568,7 @@ if ($save_button == '')
 					<fieldset>
 						<legend class="hidden"><code>thesis_hook_post_box_top</code></legend>
 						<p><label for="openhook_post_box_top"><?php printf(__('Equivalent to adding to %1$s in your %2$s file.', 'thesis_openhook'), '<code>thesis_hook_post_box_top</code>', '<code>custom_functions.php</code>'); ?></label></p>
-						<textarea id="openhook_post_box_top" name="openhook_post_box_top" rows="10" cols="50" class="large-text code"><?php openhook_option('openhook_post_top_box'); ?></textarea>
+						<textarea id="openhook_post_box_top" name="openhook_post_box_top" rows="10" cols="50" class="large-text code"><?php openhook_option('openhook_post_box_top'); ?></textarea>
 						<p>
 							<label for="openhook_post_box_top_php">
 								<input<?php checked('1', get_option('openhook_post_box_top_php')); ?> value="1" id="openhook_post_box_top_php" name="openhook_post_box_top_php" type="checkbox" />
@@ -585,7 +585,7 @@ if ($save_button == '')
 					<fieldset>
 						<legend class="hidden"><code>thesis_hook_post_box_bottom</code></legend>
 						<p><label for="openhook_post_box_bottom"><?php printf(__('Equivalent to adding to %1$s in your %2$s file.', 'thesis_openhook'), '<code>thesis_hook_post_box_bottom</code>', '<code>custom_functions.php</code>'); ?></label></p>
-						<textarea id="openhook_post_box_bottom" name="openhook_post_box_bottom" rows="10" cols="50" class="large-text code"><?php openhook_option('openhook_post_top_box'); ?></textarea>
+						<textarea id="openhook_post_box_bottom" name="openhook_post_box_bottom" rows="10" cols="50" class="large-text code"><?php openhook_option('openhook_post_box_bottom'); ?></textarea>
 						<p>
 							<label for="openhook_post_box_bottom_php">
 								<input<?php checked('1', get_option('openhook_post_box_bottom_php')); ?> value="1" id="openhook_post_box_bottom_php" name="openhook_post_box_bottom_php" type="checkbox" />
@@ -602,7 +602,7 @@ if ($save_button == '')
 					<fieldset>
 						<legend class="hidden"><code>thesis_hook_content_box_top</code></legend>
 						<p><label for="openhook_content_box_top"><?php printf(__('Equivalent to adding to %1$s in your %2$s file.', 'thesis_openhook'), '<code>thesis_hook_content_box_top</code>', '<code>custom_functions.php</code>'); ?></label></p>
-						<textarea id="openhook_content_box_top" name="openhook_content_box_top" rows="10" cols="50" class="large-text code"><?php openhook_option('openhook_post_top_box'); ?></textarea>
+						<textarea id="openhook_content_box_top" name="openhook_content_box_top" rows="10" cols="50" class="large-text code"><?php openhook_option('openhook_content_box_top'); ?></textarea>
 						<p>
 							<label for="openhook_content_box_top_php">
 								<input<?php checked('1', get_option('openhook_content_box_top_php')); ?> value="1" id="openhook_content_box_top_php" name="openhook_content_box_top_php" type="checkbox" />
@@ -619,7 +619,7 @@ if ($save_button == '')
 					<fieldset>
 						<legend class="hidden"><code>thesis_hook_content_box_bottom</code></legend>
 						<p><label for="openhook_content_box_bottom"><?php printf(__('Equivalent to adding to %1$s in your %2$s file.', 'thesis_openhook'), '<code>thesis_hook_content_box_bottom</code>', '<code>custom_functions.php</code>'); ?></label></p>
-						<textarea id="openhook_content_box_bottom" name="openhook_content_box_bottom" rows="10" cols="50" class="large-text code"><?php openhook_option('openhook_post_top_box'); ?></textarea>
+						<textarea id="openhook_content_box_bottom" name="openhook_content_box_bottom" rows="10" cols="50" class="large-text code"><?php openhook_option('openhook_content_box_bottom'); ?></textarea>
 						<p>
 							<label for="openhook_content_box_bottom_php">
 								<input<?php checked('1', get_option('openhook_content_box_bottom_php')); ?> value="1" id="openhook_content_box_bottom_php" name="openhook_content_box_bottom_php" type="checkbox" />

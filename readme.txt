@@ -53,6 +53,9 @@ Prior to version 2.3, OpenHook provided panels for editing custom CSS & custom f
 
 == Changelog ==
 
+= 2.3.2 =
+* Remember the typos fixed in 2.3.1? There were others I should have caught then. I'm a terrible proofreader, but thanks, Dean (http://www.doublejoggingstrollershq.com/), for catching them!
+
 = 2.3.1 =
 * Fixed two stupid typos that killed everything that was right with the world. Well, they broke the plugin anyway. Thanks, Jim (http://doggybytes.ca/), for reporting so quickly!
 
