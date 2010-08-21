@@ -10,8 +10,6 @@
  */
 function add_openhook_options_page() {
 	add_theme_page(__('Thesis OpenHook', 'thesis_openhook'), __('Thesis OpenHook', 'thesis_openhook'), 'edit_themes', dirname(__FILE__) . '/options.php');
-	# add_theme_page(__('Thesis Custom Styling', 'thesis_openhook'), __('Thesis Custom Styling', 'thesis_openhook'), 'edit_themes', dirname(__FILE__) . '/css-edit.php');
-	# add_theme_page(__('Thesis Custom Programming', 'thesis_openhook'), __('Thesis Custom Programming', 'thesis_openhook'), 'edit_themes', dirname(__FILE__) . '/php-edit.php');
 }
 
 /**
