@@ -10,6 +10,8 @@ Customize your site with HTML, PHP, and Shortcodes, all from the convenience of 
 
 == Description ==
 
+**If you have upgraded from OpenHook 2.x.x and wish to preserve your customizations, run the Upgrade from OpenHook 2 script from the Settings -> OpenHook panel.**
+
 OpenHook takes the process of customizing <a href="http://get-thesis.com/">Thesis</a> and simplifies it.
 
 Where once you would need to open and modify your theme's custom functions file, you can now easily customize Thesis via your blog administration panel.
@@ -32,7 +34,7 @@ Alternatively, you can use WordPress' automatic plugin installer. Go ahead, it's
 
 = I upgraded from OpenHook 2.x.x; where did all of my customizations go? =
 
-OpenHook 3 does not automatically import pre-existing customizations. You will need to visit the OpenHook settings page accessible at Settings -> OpenHook; once there, you can use the "Upgrade from OpenHook 2" button to import your pre-existing customizations to the new schema.
+OpenHook 3 does not automatically import pre-existing customizations. You will need to visit the OpenHook settings page accessible at Settings -> OpenHook; once there, you can use the "Upgrade from OpenHook 2" button to import your pre-existing customizations to the new schema. You'll then need to activate the Thesis & WordPress action groups as needed from the same settings page.
 
 = I don't use Thesis; can I still use this plugin? =
 
@@ -64,10 +66,17 @@ OpenHook is a powerful tool for customizing your site; however, with great power
 
 == Upgrade Notice ==
 
+= 3.1 =
+If you had problems with version 3's general settings, this release should fix it right up for you. **If you are updating from 2.x.x, be sure to visit the Settings -> OpenHook page immediately after updating in order to upgrade your settings to the new schema.**
+
 = 3 =
 OpenHook 3 provides a leaner, cleaner interface for managing your customizations. If you are upgrading from 2.x.x, be sure to FIRST upgrade your options via Settings -> OpenHook; otherwise, you may find your customizations have vanished!
 
 == Changelog ==
+
+= 3.1 =
+* [fix] Rare issue where the general settings panel doesn't fully appear
+* [feature] Hooks with customizations are marked with asterisks in the dropdown select box
 
 = 3 =
 * Total rewrite of the plugin

@@ -1,9 +1,9 @@
 <?php
 /*
- * Plugin Name: OpenHook Customizations Manager
- * Plugin URI: http://rickbeckman.org/thesis-openhook/
+ * Plugin Name: The OpenHook Customizations Manager
+ * Plugin URI: http://rickbeckman.org/openhook/
  * Description: Easy access to the assorted hooks available in WordPress & Thesis.
- * Version: 3
+ * Version: 3.1
  * Author: Rick Beckman
  * Author URI: http://rickbeckman.org/
  * License: GNU General Public License v2.0 (or later)

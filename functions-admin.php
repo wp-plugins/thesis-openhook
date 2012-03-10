@@ -36,7 +36,7 @@ function openhook_add_admin_page_menu_links() {
 	$submenu[ 'thesis-options' ][ 500 ] = array( __( 'Thesis Hooks', 'openhook' ), 'delete_users', 'options-general.php?page=openhook&tab=thesis', __( 'Thesis Hooks', 'OH' ) );
 
 	# Add our primary options page; set it to a variable for use in targeting our admin style
-	$page = add_options_page( __( 'OpenHook Customization Manager', 'openhook' ), __( 'OpenHook', 'openhook' ), 'delete_users', 'openhook', 'openhook_setup_admin_page');
+	$page = add_options_page( __( 'The OpenHook Customizations Manager', 'openhook' ), __( 'OpenHook', 'openhook' ), 'delete_users', 'openhook', 'openhook_setup_admin_page');
 
 	add_action( 'admin_print_styles-' . $page, 'openhook_do_admin_css' );
 }
@@ -221,6 +221,9 @@ function openhook_generate_general_page() {
 	}
 
 	$options = get_option( 'openhook_general' );
+
+	$thesis_active = ( isset( $options[ 'active_actions' ][ 'openhook_thesis' ] ) && $options[ 'active_actions' ][ 'openhook_thesis' ] ) ? 1 : 0;
+	$wordpress_active = ( isset( $options[ 'active_actions' ][ 'openhook_wordpress' ] ) && $options[ 'active_actions' ][ 'openhook_wordpress' ] ) ? 1 : 0;
 ?>
 <script>
 function confirmUpgrade()
@@ -236,16 +239,16 @@ function confirmUninstall()
 	return confirm("<?php echo esc_js( __( 'Are you sure you want to delete all OpenHook 3 settings? This action is irreversible!', 'openhook' ) ); ?>");
 }
 </script>
-<p><?php printf( __( 'Here are just a few settings to tailor your OpenHook experience. Note that no custom actions will be processed unless you enable them below.', 'openhook'), 'http://bit.ly/GetGenesis', 'http://get-thesis.com/' ); ?></p>
+<p><?php _e( 'Here are just a few settings to tailor your OpenHook experience. Note that no custom actions will be processed unless you enable them below.', 'openhook' ); ?></p>
 <form method="post" action="options.php">
 	<?php settings_fields( OPENHOOK_SETTINGS_GENERAL ); ?>
 	<table class="form-table">
 		<tr>
 			<th scope="row"><?php _e( 'Active action groups', 'openhook' ); ?></th>
 			<td>
-				<label><input type="checkbox" name="openhook_general[active_actions][openhook_thesis]" value="1"<?php checked( 1, $options[ 'active_actions' ][ 'openhook_thesis'] ); ?> /> Thesis</label> <?php printf( __('(Don&rsquo;t have Thesis? <a href="%s">Get it today</a>!)', 'openhook' ), 'http://get_thesis.com/' ); ?><br />
+				<label><input type="checkbox" name="openhook_general[active_actions][openhook_thesis]" value="1"<?php checked( 1, $thesis_active ); ?> /> Thesis</label> <?php printf( __('(Don&rsquo;t have Thesis? <a href="%s">Get it today</a>!)', 'openhook' ), 'http://get_thesis.com/' ); ?><br />
 				<span class="description"><small><?php _e( 'Currently supporting all action hooks present in Thesis 1.8.4.', 'openhook' ); ?></small></span><br />
-				<label><input type="checkbox" name="openhook_general[active_actions][openhook_wordpress]" value="1"<?php checked( 1, $options[ 'active_actions' ][ 'openhook_wordpress'] ); ?> /> WordPress</label><br />
+				<label><input type="checkbox" name="openhook_general[active_actions][openhook_wordpress]" value="1"<?php checked( 1, $wordpress_active ); ?> /> WordPress</label><br />
 				<span class="description"><?php _e( 'OpenHook allows customizing hooks in multiple contexts. To save on processing power, it will only process the hooks you want. Disabling the hook contexts does not delete your saved customizations.', 'openhook' ); ?></span>
 			</td>
 		</tr>
