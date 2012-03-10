@@ -34,6 +34,7 @@ function openhook_add_admin_page_menu_links() {
 	# Sneak shortcuts to various hook menus into appropriate places in the existing WordPress & theme menus
 	$submenu[ 'themes.php' ][ 500 ] = array( __( 'WordPress Hooks', 'openhook' ), 'delete_users', 'options-general.php?page=openhook&tab=wordpress', __( 'WordPress Hooks', 'OH' ) );
 	$submenu[ 'thesis-options' ][ 500 ] = array( __( 'Thesis Hooks', 'openhook' ), 'delete_users', 'options-general.php?page=openhook&tab=thesis', __( 'Thesis Hooks', 'OH' ) );
+	$submenu[ 'tools.php' ][ 500 ] = array( 'phpinfo()', 'delete_users', 'options-general.php?page=openhook&tab=phpinfo', 'phpinfo()' );
 
 	# Add our primary options page; set it to a variable for use in targeting our admin style
 	$page = add_options_page( __( 'The OpenHook Customizations Manager', 'openhook' ), __( 'OpenHook', 'openhook' ), 'delete_users', 'openhook', 'openhook_setup_admin_page');
@@ -329,7 +330,7 @@ function openhook_generate_hook_page( $context ) {
 	<p><?php _e( 'You can freely swap between hooks without losing your customizations. When you are finished customizing, the save button will save all hook customizations at once.', 'openhook' ); ?></p>
 	<p>
 		<input type="submit" class="button-primary" value="<?php _e( 'Save Changes', 'OH' ); ?>" style="float: left;" />
-		<label style="float: right; text-align: right;"><?php _e( 'Hook selection:', 'openhook' ); ?> <?php openhook_build_hook_select_selector( $hooks ); ?></label>
+		<label style="float: right; text-align: right;"><?php _e( 'Hook selection:', 'openhook' ); ?> <?php openhook_build_hook_select_selector( $hooks, $options ); ?></label>
 	</p>
 	<div class="clear"></div>
 <?php
@@ -362,13 +363,13 @@ function openhook_build_hook_forms( $hook, $options, $context ) {
 		<p class="description"><?php _e( 'Add whatever customizations you can dream up to this hook!', 'openhook' ); ?></p>
 		<textarea rows="10" cols="50" name="openhook_<?php echo $context; ?>[<?php echo $hook[ 'name' ]; ?>][action]"><?php echo esc_textarea( $action ); ?></textarea>
 		<p>
-			<label><input type="checkbox" name="openhook_<?php echo $context; ?>[<?php echo $hook[ 'name' ]; ?>][php]" value="1"<?php checked( '1', $php ); ?> /> <?php _e( 'Process <abbr title="PHP: Hypertext Preprocessor">PHP</abbr> on this hook?', 'openhook'); ?></label><br />
+			<label><input type="checkbox" name="openhook_<?php echo $context; ?>[<?php echo $hook[ 'name' ]; ?>][php]" value="1"<?php checked( '1', $php ); ?> /> <?php _e( 'Process <abbr title="PHP: Hypertext Preprocessor">PHP</abbr> on this hook? (Your code must be wrapped in <code>&lt;?php ?&gt;</code> tags)', 'openhook'); ?></label><br />
 			<label><input type="checkbox" name="openhook_<?php echo $context; ?>[<?php echo $hook[ 'name' ]; ?>][shortcodes]" value="1"<?php checked( '1', $shortcodes ); ?> /> <?php _e( 'Process shortcodes on this hook?', 'openhook'); ?></label><br />
 			<label><input type="checkbox" name="openhook_<?php echo $context; ?>[<?php echo $hook[ 'name' ]; ?>][disable]" value="1"<?php checked( '1', $disable ); ?> /> <?php _e( 'Disable this action? This will keep your action saved, but will prevent it from being processed.', 'openhook' ); ?></label>
 		</p>
 	<?php if ( isset( $hook[ 'unhook' ] ) ) : ?>
-		<h4><?php _e( 'Manage Default Actions', 'openhook' ); ?></h4>
-		<p class="description"><?php _e( 'The following actions may be attached to this hook; you may disable them if you would like. (They may have already been disabled via other means, such as by a plugin. The following settings apply even if you have disabled the custom action using the above setting.', 'openhook' ); ?></p>
+		<h4><?php _e( 'Remove Default Actions', 'openhook' ); ?></h4>
+		<p class="description"><?php _e( 'The following actions may be attached to this hook; selecting them below will remove them from this hook so that you may use them elsewhere, if you so choose. They may have already been disabled via other means, such as by a plugin. The following settings apply even if you have disabled the custom action using the above setting.', 'openhook' ); ?></p>
 <?php
 			foreach ( $hook[ 'unhook' ] as $action ) {
 				$unhook = ( isset( $options[ $hook[ 'name' ] ][ 'unhook' ][ $action[ 'name' ] ] ) && $options[ $hook[ 'name' ] ][ 'unhook' ][ $action[ 'name' ] ] ) ? 1 : 0;

@@ -79,11 +79,14 @@ OpenHook 3 provides a leaner, cleaner interface for managing your customizations
 
 = 3.2 =
 * [feature] Hooks with customizations are marked with asterisks in the dropdown select box
+* [change] Add link to phpinfo() under Tools menu
+* [change] Verbiage for unhooking updated
 * [fix] Many undefined variable errors
+* [fix] Slashes are now properly stripped when upgrading from 2.x.x
+* [fix] Default Thesis 404 content can now be properly removed
 
 = 3.1 =
 * [fix] Rare issue where the general settings panel doesn't fully appear
-
 = 3 =
 * Total rewrite of the plugin
 * [feature] phpinfo() panel
