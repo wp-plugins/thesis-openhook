@@ -1,0 +1,325 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenHook 3\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-03-10 13:46-0500\n"
+"PO-Revision-Date: 2012-03-10 13:47-0500\n"
+"Last-Translator: Rick Beckman <rick.beckman@gmail.com>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-KeywordsList: __;_e\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-SearchPath-0: ..\n"
+
+#: ../functions-admin.php:35
+#: ../functions-admin.php:65
+msgid "WordPress Hooks"
+msgstr ""
+
+#: ../functions-admin.php:36
+#: ../functions-admin.php:64
+msgid "Thesis Hooks"
+msgstr ""
+
+#: ../functions-admin.php:40
+msgid "The OpenHook Customizations Manager"
+msgstr ""
+
+#: ../functions-admin.php:40
+msgid "OpenHook"
+msgstr ""
+
+#: ../functions-admin.php:63
+msgid "General"
+msgstr ""
+
+#: ../functions-admin.php:67
+msgid "Contact"
+msgstr ""
+
+#: ../functions-admin.php:104
+msgid "OpenHook Customizations Manager"
+msgstr ""
+
+#: ../functions-admin.php:138
+#, php-format
+msgid "&copy; Copyright %1$s Rick Beckman. <a href=\"%2$s\">Open source software</a>."
+msgstr ""
+
+#: ../functions-admin.php:170
+msgid "Select a hook to customize"
+msgstr ""
+
+#: ../functions-admin.php:189
+msgid "Plugin"
+msgstr ""
+
+#: ../functions-admin.php:191
+msgid "OpenHook Homepage"
+msgstr ""
+
+#: ../functions-admin.php:192
+msgid "Community Support"
+msgstr ""
+
+#: ../functions-admin.php:194
+msgid "Donation"
+msgstr ""
+
+#: ../functions-admin.php:196
+msgid "Developing OpenHook is a labor of love. Your donation, of any size, is greatly appreciated."
+msgstr ""
+
+#: ../functions-admin.php:197
+msgid "Miscellanea"
+msgstr ""
+
+#: ../functions-admin.php:200
+msgid "Follow me on Twitter"
+msgstr ""
+
+#: ../functions-admin.php:201
+msgid "Endorse me on Zerply"
+msgstr ""
+
+#: ../functions-admin.php:203
+msgid "Credits"
+msgstr ""
+
+#: ../functions-admin.php:205
+msgid "for the reason for this plugin to exist"
+msgstr ""
+
+#: ../functions-admin.php:206
+msgid "for inspiration &amp; initial code base"
+msgstr ""
+
+#: ../functions-admin.php:207
+msgid "for this great sidebar code"
+msgstr ""
+
+#: ../functions-admin.php:209
+msgid "Dedication"
+msgstr ""
+
+#: ../functions-admin.php:210
+msgid "OpenHook is proudly dedicated to the fantastic WordPress and Thesis communities, and to my wonderful family (Jessica, Sophia, and Anya)!"
+msgstr ""
+
+#: ../functions-admin.php:237
+msgid "Are you sure you want to migrate your OpenHook 2 settings to OpenHook 3? This will overwrite all current OpenHook 3 options."
+msgstr ""
+
+#: ../functions-admin.php:241
+msgid "Are you sure you want to delete all old OpenHook 2 settings? This action is irreversible!"
+msgstr ""
+
+#: ../functions-admin.php:245
+msgid "Are you sure you want to delete all OpenHook 3 settings? This action is irreversible!"
+msgstr ""
+
+#: ../functions-admin.php:248
+msgid "Here are just a few settings to tailor your OpenHook experience. Note that no custom actions will be processed unless you enable them below."
+msgstr ""
+
+#: ../functions-admin.php:253
+msgid "Active action groups"
+msgstr ""
+
+#: ../functions-admin.php:255
+#, php-format
+msgid "(Don&rsquo;t have Thesis? <a href=\"%s\">Get it today</a>!)"
+msgstr ""
+
+#: ../functions-admin.php:256
+msgid "Currently supporting all action hooks present in Thesis 1.8.4."
+msgstr ""
+
+#: ../functions-admin.php:258
+msgid "OpenHook allows customizing hooks in multiple contexts. To save on processing power, it will only process the hooks you want. Disabling the hook contexts does not delete your saved customizations."
+msgstr ""
+
+#: ../functions-admin.php:262
+#: ../functions-admin.php:332
+#: ../functions-admin.php:341
+msgid "Save Changes"
+msgstr ""
+
+#: ../functions-admin.php:264
+msgid "Manage Options"
+msgstr ""
+
+#: ../functions-admin.php:265
+msgid "Have you used previous versions of OpenHook? You have the option of importing your customizations into the OpenHook 3 structure; this will not remove your old options, allowing you to downgrade if desired. Note that upgrading from OpenHook 2 will overwrite your WordPress &amp; Thesis hook customizations made with OpenHook 3!"
+msgstr ""
+
+#: ../functions-admin.php:266
+msgid "Upgrade from OpenHook 2"
+msgstr ""
+
+#: ../functions-admin.php:267
+msgid "If you&rsquo;re satisfied with OpenHook 3, you may remove any legacy OpenHook options found in the database as well. Note that this is irreversible, and you should consider making a backup of your database (at the very least, a backup of your options table) prior to removing the legacy options."
+msgstr ""
+
+#: ../functions-admin.php:268
+msgid "Remove legacy options"
+msgstr ""
+
+#: ../functions-admin.php:269
+msgid "Want to start fresh with your customizations or wish to uninstall OpenHook? You can easily remove all of OpenHook 3&rsquo;s options with the following button. You are strongly encouraged to have a database backup available as this action is not reversible!"
+msgstr ""
+
+#: ../functions-admin.php:270
+msgid "Remove OpenHook 3 options"
+msgstr ""
+
+#: ../functions-admin.php:278
+msgid "Under the Hood: Your Server Details"
+msgstr ""
+
+#: ../functions-admin.php:279
+#, php-format
+msgid "When deciding what customizations to make to your site, it can be useful to know what your server supports. The below information describes your server environment. If your server is missing a feature you require, upgrade to a more customizable host, such as <a href=\"%1$s\">DreamHost</a> or (for you &uuml;ber geeks wanting total customizability) <a href=\"%2$s\">Linode</a>! Otherwise, consider contacting your own host to see if they can enable the feature(s) you want."
+msgstr ""
+
+#: ../functions-admin.php:299
+msgid "Feature request? Support request? Bug report? You&rsquo;re invited to get in touch with me!"
+msgstr ""
+
+#: ../functions-admin.php:330
+msgid "You can freely swap between hooks without losing your customizations. When you are finished customizing, the save button will save all hook customizations at once."
+msgstr ""
+
+#: ../functions-admin.php:333
+msgid "Hook selection:"
+msgstr ""
+
+#: ../functions-admin.php:362
+msgid "Lights, Camera, ACTION!"
+msgstr ""
+
+#: ../functions-admin.php:363
+msgid "Add whatever customizations you can dream up to this hook!"
+msgstr ""
+
+#: ../functions-admin.php:366
+msgid "Process <abbr title=\"PHP: Hypertext Preprocessor\">PHP</abbr> on this hook? (Your code must be wrapped in <code>&lt;?php ?&gt;</code> tags)"
+msgstr ""
+
+#: ../functions-admin.php:367
+msgid "Process shortcodes on this hook?"
+msgstr ""
+
+#: ../functions-admin.php:368
+msgid "Disable this action? This will keep your action saved, but will prevent it from being processed."
+msgstr ""
+
+#: ../functions-admin.php:371
+msgid "Remove Default Actions"
+msgstr ""
+
+#: ../functions-admin.php:372
+msgid "The following actions may be attached to this hook; selecting them below will remove them from this hook so that you may use them elsewhere, if you so choose. They may have already been disabled via other means, such as by a plugin. The following settings apply even if you have disabled the custom action using the above setting."
+msgstr ""
+
+#: ../functions-options.php:170
+msgid "You have successfully upgraded to OpenHook 3."
+msgstr ""
+
+#: ../functions-options.php:173
+#: ../functions-options.php:331
+msgid "You do not have permission to do this."
+msgstr ""
+
+#: ../functions-options.php:319
+msgid "Old options deleted."
+msgstr ""
+
+#: ../functions-options.php:327
+msgid "OpenHook has been uninstalled."
+msgstr ""
+
+#: ../hooks-thesis.php:29
+msgid "The default navigation menu"
+msgstr ""
+
+#: ../hooks-thesis.php:41
+msgid "Default header"
+msgstr ""
+
+#: ../hooks-thesis.php:77
+msgid "Displays links to the next or previous post"
+msgstr ""
+
+#: ../hooks-thesis.php:81
+msgid "Displays links to the next or previous pages of an archive listing"
+msgstr ""
+
+#: ../hooks-thesis.php:120
+msgid "Displays a list of tags applied to the post"
+msgstr ""
+
+#: ../hooks-thesis.php:124
+msgid "Displays a link to the comments of a post"
+msgstr ""
+
+#: ../hooks-thesis.php:178
+msgid "The Subscribe to Comments plugin subscription checkbox"
+msgstr ""
+
+#: ../hooks-thesis.php:190
+msgid "Default output for the archives template"
+msgstr ""
+
+#: ../hooks-thesis.php:199
+msgid "Default sample output for the custom template"
+msgstr ""
+
+#: ../hooks-thesis.php:211
+msgid "Displays default 404 error page title"
+msgstr ""
+
+#: ../hooks-thesis.php:220
+msgid "Displays default 404 error page content"
+msgstr ""
+
+#: ../hooks-thesis.php:259
+msgid "Displays DIYthemes attribution &amp; link"
+msgstr ""
+
+#: ../hooks-wordpress.php:20
+msgid "Executes within your site&rsquo;s <code>head</code> section. Useful for outputting, for example, meta tags."
+msgstr ""
+
+#: ../hooks-wordpress.php:24
+msgid "Many themes support the automatic addition of <code>link</code> tags pointing to your site&rsquo;s primary &amp; comments feeds. Disable to prevent this behavior."
+msgstr ""
+
+#: ../hooks-wordpress.php:29
+msgid "Similar to <code>feed_links</code>, except the <code>link</code> tags output by this hook point to secondary feeds, such as category feeds."
+msgstr ""
+
+#: ../hooks-wordpress.php:34
+msgid "Is used to queue &amp; output various scripts. Disabling this prevents most scripts from appearing in your header, allowing you to manage them all manually, if you so choose."
+msgstr ""
+
+#: ../hooks-wordpress.php:40
+#, php-format
+msgid "Is used to output a <code>meta</code> tag crediting WordPress as the software powering your site. Removing this is a form of <a href=\"%s\">security through obscurity</a>."
+msgstr ""
+
+#: ../hooks-wordpress.php:46
+msgid "Executed either within the footer section (<code>div#footer</code> or <code>footer</code>) or immediately before the closing <code>html</code> tag, this hook is commonly used to output stats tracking scripts or other asyncronously loaded JavaScript."
+msgstr ""
+
+#: ../hooks-wordpress.php:50
+msgid "Is used to queue &amp; output barious scripts. Disabling this prevents most scripts from appearing in your footer, allowing you to manage them all manually, if you so choose."
+msgstr ""
+
+#: ../index.php:34
+#, php-format
+msgid "The constant %s is defined which creates a security risk."
+msgstr ""
+
