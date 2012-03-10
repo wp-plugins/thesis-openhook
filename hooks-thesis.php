@@ -215,8 +215,8 @@ function openhook_thesis_hooks() {
 		'thesis_hook_404_content' => array(
 			'name' => 'thesis_hook_404_content',
 			'unhook' => array(
-				'thesis_hook_404_content' => array(
-					'name' => 'thesis_hook_404_content',
+				'thesis_404_content' => array(
+					'name' => 'thesis_404_content',
 					'desc' => __( 'Displays default 404 error page content', 'openhook' ),
 				),
 			),

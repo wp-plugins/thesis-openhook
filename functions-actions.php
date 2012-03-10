@@ -55,8 +55,8 @@ function openhook_execute_action() {
 
 	# Nice names for our options
 	$action = $options[ $hook ][ 'action' ];
-	$php = $options[ $hook ][ 'php' ];
-	$shortcodes = $options[ $hook ][ 'shortcodes' ];
+	$php = isset( $options[ $hook ][ 'php' ] ) ? 1 : 0;
+	$shortcodes = isset( $options[ $hook ][ 'shortcodes' ] ) ? 1 : 0;
 
 	# Process shortcodes if needed
 	$value = $shortcodes ? do_shortcode( $action ) : $action;

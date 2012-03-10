@@ -1,4 +1,4 @@
-=== OpenHook Customization Manager ===
+=== The OpenHook Customizations Manager ===
 Contributors: KingdomGeek
 Donate link: https://www.wepay.com/donations/openhook
 Tags: theme, customization, functions, display, Thesis, diythemes, hooks, actions, thesiswp, phpinfo, wp_head, wp_footer
@@ -66,6 +66,9 @@ OpenHook is a powerful tool for customizing your site; however, with great power
 
 == Upgrade Notice ==
 
+= 3.2 =
+**If you are updating from 2.x.x, be sure to visit the Settings -> OpenHook page immediately after updating in order to upgrade your settings to the new schema.**
+
 = 3.1 =
 If you had problems with version 3's general settings, this release should fix it right up for you. **If you are updating from 2.x.x, be sure to visit the Settings -> OpenHook page immediately after updating in order to upgrade your settings to the new schema.**
 
@@ -74,10 +77,16 @@ OpenHook 3 provides a leaner, cleaner interface for managing your customizations
 
 == Changelog ==
 
+= 3.2 =
+* [feature] Hooks with customizations are marked with asterisks in the dropdown select box
+* [change] Add link to phpinfo() under Tools menu
+* [change] Verbiage for unhooking updated
+* [fix] Many undefined variable errors
+* [fix] Slashes are now properly stripped when upgrading from 2.x.x
+* [fix] Default Thesis 404 content can now be properly removed
+
 = 3.1 =
 * [fix] Rare issue where the general settings panel doesn't fully appear
-* [feature] Hooks with customizations are marked with asterisks in the dropdown select box
-
 = 3 =
 * Total rewrite of the plugin
 * [feature] phpinfo() panel
