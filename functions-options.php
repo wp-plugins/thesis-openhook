@@ -19,13 +19,18 @@ if ( ! function_exists( 'add_action' ) ) {
 function openhook_get_relevant_options() {
 	$option = get_option( 'openhook_general' );
 	$relevant_options = $option[ 'active_actions' ];
-
+	$thesis = get_option( 'openhook_thesis' );
+	$wordpress = get_option( 'openhook_wordpress' );
 	$return = array();
 
-	if ( isset( $relevant_options[ 'openhook_wordpress' ] ) && $relevant_options[ 'openhook_wordpress' ] )
-		$return = array_merge( $return, get_option( 'openhook_wordpress' ) );
-	if ( isset( $relevant_options[ 'openhook_thesis' ] ) && $relevant_options[ 'openhook_thesis' ] )
-		$return = array_merge( $return, get_option( 'openhook_thesis' ) );
+	if ( isset( $relevant_options[ 'openhook_wordpress' ] ) && $relevant_options[ 'openhook_wordpress' ] ) {
+		if ( is_array( $wordpress ) )
+			$return = array_merge( $return, $wordpress );
+	}
+	if ( isset( $relevant_options[ 'openhook_thesis' ] ) && $relevant_options[ 'openhook_thesis' ] ) {
+		if ( is_array( $thesis ) )
+			$return = array_merge( $return, $thesis );
+	}
 
 	return $return;
 }

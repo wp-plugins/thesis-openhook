@@ -3,7 +3,7 @@
  * Plugin Name: The OpenHook Customizations Manager
  * Plugin URI: http://rickbeckman.org/openhook/
  * Description: Easy access to the assorted hooks available in WordPress & Thesis.
- * Version: 3.2.1
+ * Version: 3.3
  * Author: Rick Beckman
  * Author URI: http://rickbeckman.org/
  * License: GNU General Public License v2.0 (or later)
@@ -48,5 +48,13 @@ include( OPENHOOK_PLUGIN_DIR . 'hooks-wordpress.php' );
 if ( is_admin() )
 	include( OPENHOOK_PLUGIN_DIR . 'functions-admin.php' );
 
-# Process our hooks
-add_action( 'init', 'openhook_execute_hooks' );
+# The meat & potatoes of OpenHook processes on the frontend only
+if ( ! is_admin() ) {
+	# Process our hooks
+	add_action( 'init', 'openhook_execute_hooks' );
+
+	# Handle hook visualization
+	$options = get_option( 'openhook_general' );
+	if ( isset( $options[ 'visualize_hooks' ] ) && $options[ 'visualize_hooks' ] )
+		add_action( 'init', 'openhook_setup_hook_visualization' );
+}

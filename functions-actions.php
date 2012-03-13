@@ -11,6 +11,39 @@ if ( ! function_exists( 'add_action' ) ) {
 }
 
 /**
+ * Setup hook visualizations
+ *
+ * @since 3.3
+ */
+function openhook_setup_hook_visualization() {
+	if ( current_user_can( OPENHOOK_ACCESS_ROLE ) ) {
+		$wordpress_hooks = openhook_wordpress_hooks();
+		$thesis_hooks = openhook_thesis_hooks();
+		$all_hooks = array_merge( (array) $wordpress_hooks, (array) $thesis_hooks );
+
+		wp_register_style( 'openhook-visualization', OPENHOOK_PLUGIN_URL . 'style-visualization.css', array(), '1.0.0', 'screen' );
+
+		wp_enqueue_style( 'openhook-visualization' );
+
+		foreach ( $all_hooks as $hook ) {
+			add_action( $hook[ 'name' ], 'openhook_do_hook_visualization', 1 );
+		}
+	}
+}
+
+/**
+ * Output hook name/visualization
+ *
+ * @since 3.3
+ */
+function openhook_do_hook_visualization() {
+	$current_action = current_filter();
+
+	if ( $current_action != 'wp_head' )
+		echo '<span class="openhook">' . $current_action . '</span>';
+}
+
+/**
  * Determine which actions to take for each of our hooks
  */
 function openhook_execute_hooks() {

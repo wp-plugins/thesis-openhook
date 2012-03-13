@@ -8,7 +8,7 @@ if ( ! function_exists( 'add_action' ) ) {
 	@header( 'Status: 403 Forbidden' );
 	@header( 'Connection: Close' );
 	@exit;
-}
+} 
 
 /**
  * An array of available WordPress hooks

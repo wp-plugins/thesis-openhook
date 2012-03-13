@@ -215,14 +215,14 @@ function openhook_do_admin_sidebar() {
  * Generate general options
  */
 function openhook_generate_general_page() {
-	if ( isset( $_GET[ 'action' ] ) ) {
+	if ( isset( $_POST ) ) {
 		define( 'OPENHOOK_SAFEGUARD', true );
 
-		if ( $_GET[ 'action' ] == 'cleanup_openhook' )
+		if ( ! empty( $_REQUEST[ 'cleanup_openhook' ] ) )
 			openhook_delete_options( 'legacy' );
-		if ( $_GET[ 'action' ] == 'upgrade_openhook' )
+		if ( ! empty( $_REQUEST[ 'upgrade_openhook' ] ) )
 			openhook_import_old_options();
-		if ( $_GET[ 'action' ] == 'uninstall_openhook' )
+		if ( ! empty( $_REQUEST[ 'uninstall_openhook' ] ) )
 			openhook_delete_options();
 	}
 
@@ -230,6 +230,7 @@ function openhook_generate_general_page() {
 
 	$thesis_active = ( isset( $options[ 'active_actions' ][ 'openhook_thesis' ] ) && $options[ 'active_actions' ][ 'openhook_thesis' ] ) ? 1 : 0;
 	$wordpress_active = ( isset( $options[ 'active_actions' ][ 'openhook_wordpress' ] ) && $options[ 'active_actions' ][ 'openhook_wordpress' ] ) ? 1 : 0;
+	$visualize_hooks = ( isset( $options[ 'visualize_hooks' ] ) && $options [ 'visualize_hooks' ] ) ? 1 : 0;
 ?>
 <script>
 function confirmUpgrade()
@@ -258,16 +259,24 @@ function confirmUninstall()
 				<span class="description"><?php _e( 'OpenHook allows customizing hooks in multiple contexts. To save on processing power, it will only process the hooks you want. Disabling the hook contexts does not delete your saved customizations.', 'openhook' ); ?></span>
 			</td>
 		</tr>
+		<tr>
+			<th scope="row"><?php _e( 'Visualize hooks', 'openhook' ); ?></th>
+			<td>
+				<label><input type="checkbox" name="openhook_general[visualize_hooks]" value="1"<?php checked( 1, $visualize_hooks ); ?> /> <?php _e( 'Visualize hooks', 'openhook' ); ?></label><br />
+				<span class="description"><?php _e( 'Turning on hook visualization will output the name of each hook in use on your site in a colored box, allowing you to get a better idea of where a hook will execute at. Hook visualizations will only appear to logged in users who have the ability to access OpenHook settings.', 'openhook' ); ?></span>
+			</td>
+		</tr>
 	</table>
 	<p class="submit"><input type="submit" class="button-primary" value="<?php _e( 'Save Changes', 'openhook' ); ?>" /></p>
 </form>
 <h3><?php _e( 'Manage Options', 'openhook' ); ?></h3>
+<form method="post" action="options-general.php?page=openhook&tab=general">
 <p><?php _e( 'Have you used previous versions of OpenHook? You have the option of importing your customizations into the OpenHook 3 structure; this will not remove your old options, allowing you to downgrade if desired. Note that upgrading from OpenHook 2 will overwrite your WordPress &amp; Thesis hook customizations made with OpenHook 3!', 'openhook' ); ?></p>
-<p><a onclick="return confirmUpgrade();" href="<?php echo admin_url( 'options-general.php?page=openhook&tab=general&action=upgrade_openhook' ); ?>" class="button-secondary"><?php _e( 'Upgrade from OpenHook 2', 'openhook' ); ?></a></p>
+<p><input class="button-secondary" onclick="return confirmUpgrade();" type="submit" name="upgrade_openhook" value="<?php esc_attr_e( 'Upgrade from OpenHook 2', 'openhook' ); ?>" /></p>
 <p><?php _e( 'If you&rsquo;re satisfied with OpenHook 3, you may remove any legacy OpenHook options found in the database as well. Note that this is irreversible, and you should consider making a backup of your database (at the very least, a backup of your options table) prior to removing the legacy options.', 'openhook' ); ?></p>
-<p><a onclick="return confirmCleanUp();" href="<?php echo admin_url( 'options-general.php?page=openhook&tab=general&action=cleanup_openhook' ); ?>" class="button-secondary"><?php _e( 'Remove legacy options', 'openhook' ); ?></a></p>
-<p><?php _e( 'Want to start fresh with your customizations or wish to uninstall OpenHook? You can easily remove all of OpenHook 3&rsquo;s options with the following button. You are strongly encouraged to have a database backup available as this action is not reversible!', 'openhook' ); ?></p>
-<p><a onclick="return confirmUninstall();" href="<?php echo admin_url( 'options-general.php?page=openhook&tab=general&action=uninstall_openhook' ); ?>" class="button-secondary"><?php _e( 'Remove OpenHook 3 options', 'openhook' ); ?></a></p>
+<p><input class="button-secondary" onclick="return confirmCleanUp();" type="submit" name="cleanup_openhook" value="<?php esc_attr_e( 'Remove legacy options', 'openhook' ); ?>" /></p>
+<p><?php _e( 'Want to start fresh with your customizations or wish to uninstall OpenHook? You can easily remove all of OpenHook&rsquo;s options with the following button. You are strongly encouraged to have a database backup available as this action is not reversible!', 'openhook' ); ?></p>
+<p><input class="button-secondary" onclick="return confirmUninstall();" type="submit" name="uninstall_openhook" value="<?php esc_attr_e( 'Remove all OpenHook options', 'openhook' ); ?>" /></p>
 <?php
 }
 
@@ -296,15 +305,15 @@ function openhook_generate_phpinfo_page() {
  */
 function openhook_generate_contact_page() {
 ?>
-	<p><?php _e( 'Feature request? Support request? Bug report? You&rsquo;re invited to get in touch with me!', 'openhook' ); ?></p>
-	<ul>
-		<li>Email: <a href="mailto:rick.beckman@gmail.com">rick.beckman@gmail.com</a></li>
-		<li>Twitter: <a href="http://twitter.com/BrazenlyGeek">@BrazenlyGeek</a></li>
-	</ul>
-	<script>
-		id = 126606;
-	</script>
-	<script src="http://kontactr.com/wp.js"></script>
+<p><?php _e( 'Feature request? Support request? Bug report? You&rsquo;re invited to get in touch with me!', 'openhook' ); ?></p>
+<p><?php printf( __( 'Prior to submitting a bug report, remember the immortal advice: Don&rsquo;t panic! Help me help you by submitting <a href="%s">the best possible bug reports</a> you can.', 'openhook' ), 'http://www.chiark.greenend.org.uk/~sgtatham/bugs.html' ); ?>
+<ul>
+	<li>Twitter: <a href="http://twitter.com/BrazenlyGeek">@BrazenlyGeek</a></li>
+</ul>
+<script>
+	id = 126606;
+</script>
+<script src="http://kontactr.com/wp.js"></script>
 <?php
 }
 
@@ -323,6 +332,15 @@ function openhook_generate_hook_page( $context ) {
 
 	# Output necessary JavaScript
 	openhook_do_hook_panel_js( $hooks );
+
+	# Get general options
+	$general_options = get_option( 'openhook_general' );
+	$actions_active = ( isset( $general_options[ 'active_actions' ][ "openhook_$context" ] ) && $general_options[ 'active_actions' ][ "openhook_$context" ] ) ? 1 : 0;
+
+	if ( ! $actions_active ) { ?>
+	<div id='openhook-warning' class='updated fade'><p><?php printf( __( '%1$s actions are currently <strong>disabled</strong>. When you are ready for your customizations to appear on your site, please enable the %1$s action groups in the <a href="%2$s">general OpenHook settings</a>.', 'openhook' ), str_replace( 'Wordpress', 'WordPress', ucfirst( $context ) ), admin_url( 'options-general.php?page=openhook' ) ); ?></p></div>
+	<?php
+	}
 ?>
 <form method="post" action="options.php">
 	<?php settings_fields( "openhook_settings_$context" ); ?>
