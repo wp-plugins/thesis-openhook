@@ -16,7 +16,7 @@ if ( ! function_exists( 'add_action' ) ) {
  * @since 3.3
  */
 function openhook_setup_hook_visualization() {
-	if ( current_user_can( OPENHOOK_ACCESS_ROLE ) ) {
+	if ( current_user_can( 'delete_users' ) ) {
 		$wordpress_hooks = openhook_wordpress_hooks();
 		$thesis_hooks = openhook_thesis_hooks();
 		$all_hooks = array_merge( (array) $wordpress_hooks, (array) $thesis_hooks );
