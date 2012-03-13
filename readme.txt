@@ -4,7 +4,7 @@ Donate link: https://www.wepay.com/donations/openhook
 Tags: theme, customization, functions, display, Thesis, diythemes, hooks, actions, thesiswp, phpinfo, wp_head, wp_footer
 Requires at least: 3.3.1
 Tested up to: 3.3.1
-Stable tag: 3.3
+Stable tag: 3.2.1
 
 Customize your site with HTML, PHP, and Shortcodes, all from the convenience of your admin panel.
 
