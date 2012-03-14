@@ -4,7 +4,7 @@ Donate link: https://www.wepay.com/donations/openhook
 Tags: theme, customization, functions, display, Thesis, diythemes, hooks, actions, thesiswp, phpinfo, wp_head, wp_footer
 Requires at least: 3.3.1
 Tested up to: 3.3.1
-Stable tag: 3.3
+Stable tag: 3.3.1
 
 Customize your site with HTML, PHP, and Shortcodes, all from the convenience of your admin panel.
 
@@ -66,10 +66,13 @@ OpenHook is a powerful tool for customizing your site; however, with great power
 
 == Upgrade Notice ==
 
-= 3.3 =
+= 3.3.1 =
 **If you are updating from 2.x.x, be sure to visit the Settings -> OpenHook page immediately after updating in order to upgrade your settings to the new schema.**
 
 == Changelog ==
+
+= 3.3.1 =
+* [fix] thesis_hook_after_post_box restored. Hat tip: Doug Foster
 
 = 3.3 =
 * [feature] Hook visualization (Based upon http://headwaythemes.com/headway-hooks-visualized/)
