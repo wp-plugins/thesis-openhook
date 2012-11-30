@@ -1,0 +1,393 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenHook 3\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-11-29 21:17-0500\n"
+"PO-Revision-Date: 2012-11-29 21:17-0500\n"
+"Last-Translator: Rick Beckman <rick.beckman@gmail.com>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-KeywordsList: __;_e\n"
+"X-Poedit-Basepath: .\n"
+"X-Generator: Poedit 1.5.4\n"
+"X-Poedit-SearchPath-0: ..\n"
+
+#: ../index.php:27
+#, php-format
+msgid "The constant %s is defined which creates a security risk."
+msgstr ""
+
+#: ../index.php:207
+msgid "WordPress Hooks"
+msgstr ""
+
+#: ../index.php:208
+msgid "Thesis Hooks"
+msgstr ""
+
+#: ../index.php:212
+msgid "The OpenHook Customizations Manager"
+msgstr ""
+
+#: ../index.php:212 ../index.php:276
+msgid "OpenHook"
+msgstr ""
+
+#: ../index.php:235
+msgid "General"
+msgstr ""
+
+#: ../index.php:236
+msgid "Thesis 1.8.5"
+msgstr ""
+
+#: ../index.php:237
+msgid "WordPress"
+msgstr ""
+
+#: ../index.php:239
+msgid "Contact"
+msgstr ""
+
+#: ../index.php:310
+#, php-format
+msgid ""
+"&copy; Copyright %1$s Rick Beckman. <a href=\"%2$s\">Open source software</"
+"a>."
+msgstr ""
+
+#: ../index.php:342
+msgid "Select a hook to customize"
+msgstr ""
+
+#: ../index.php:361
+msgid "Plugin"
+msgstr ""
+
+#: ../index.php:363
+msgid "OpenHook Homepage"
+msgstr ""
+
+#: ../index.php:364
+msgid "Community Support"
+msgstr ""
+
+#: ../index.php:366
+msgid "Support Development"
+msgstr ""
+
+#: ../index.php:368
+msgid ""
+"Developing OpenHook is a labor of love. Your donation, of any size, is "
+"greatly appreciated."
+msgstr ""
+
+#: ../index.php:369
+msgid "Credits"
+msgstr ""
+
+#: ../index.php:371
+msgid "for the reason for this plugin to exist"
+msgstr ""
+
+#: ../index.php:372
+msgid "for inspiration &amp; initial code base"
+msgstr ""
+
+#: ../index.php:373
+msgid "for this great sidebar code"
+msgstr ""
+
+#: ../index.php:402
+msgid ""
+"Are you sure you want to migrate your OpenHook 2 settings to OpenHook 3? "
+"This will overwrite all current OpenHook 3 options."
+msgstr ""
+
+#: ../index.php:406
+msgid ""
+"Are you sure you want to delete all old OpenHook 2 settings? This action is "
+"irreversible!"
+msgstr ""
+
+#: ../index.php:410
+msgid ""
+"Are you sure you want to delete all OpenHook 3 settings? This action is "
+"irreversible!"
+msgstr ""
+
+#: ../index.php:414
+msgid ""
+"Here are just a few settings to tailor your OpenHook experience. Note that "
+"no custom actions will be processed unless you enable them below."
+msgstr ""
+
+#: ../index.php:418
+msgid "Active hook groups"
+msgstr ""
+
+#: ../index.php:422
+msgid ""
+"OpenHook allows customizing several different themes&apos; hooks. To save on "
+"processing power, it will only process the hooks you specify here by "
+"enabling them on the themes of your choice. Disabling the hook groups does "
+"not delete your saved customizations."
+msgstr ""
+
+#: ../index.php:426 ../index.php:428
+msgid "Visualize hooks"
+msgstr ""
+
+#: ../index.php:429
+msgid ""
+"Turning on hook visualization will output the name of each hook in use on "
+"your site in a colored box, allowing you to get a better idea of where a "
+"hook will execute at. Hook visualizations will only appear to logged in "
+"users who have the ability to access OpenHook settings."
+msgstr ""
+
+#: ../index.php:433
+#, php-format
+msgid ""
+"What about <a href=\"%1$s\"><strong>Thesis 2</strong></a>? Hooks in Thesis 2 "
+"are dynamically defined, making providing a definitive list of hooks to "
+"customize difficult. However, you don&apos;t have to wait for developers to "
+"create &amp; charge you for the &ldquo;boxes&rdquo; you need to customize "
+"your site! OpenHook has your back with <strong>OpenBox</strong>, a box "
+"without limits. It is <a href=\"%2$s\">installed for you already</a> and is "
+"ready for use in the Thesis 2 skin editor."
+msgstr ""
+
+#: ../index.php:434 ../index.php:514 ../index.php:523
+msgid "Save Changes"
+msgstr ""
+
+#: ../index.php:436
+msgid "Manage Options"
+msgstr ""
+
+#: ../index.php:438
+msgid ""
+"Have you used previous versions of OpenHook? You have the option of "
+"importing your customizations into the OpenHook 3 structure; this will not "
+"remove your old options, allowing you to downgrade if desired. Note that "
+"upgrading from OpenHook 2 will overwrite your WordPress &amp; Thesis hook "
+"customizations made with OpenHook 3!"
+msgstr ""
+
+#: ../index.php:440
+msgid ""
+"If you&rsquo;re satisfied with OpenHook 3, you may remove any legacy "
+"OpenHook options found in the database as well. Note that this is "
+"irreversible, and you should consider making a backup of your database (at "
+"the very least, a backup of your options table) prior to removing the legacy "
+"options."
+msgstr ""
+
+#: ../index.php:442
+msgid ""
+"Want to start fresh with your customizations or wish to uninstall OpenHook? "
+"You can easily remove all of OpenHook&rsquo;s options with the following "
+"button. You are strongly encouraged to have a database backup available as "
+"this action is not reversible!"
+msgstr ""
+
+#: ../index.php:451
+msgid "Your Server Details"
+msgstr ""
+
+#: ../index.php:452
+#, php-format
+msgid ""
+"When deciding what customizations to make to your site, it can be useful to "
+"know what your server supports. The below information describes your server "
+"environment. If your server is missing a feature you require, upgrade to a "
+"more powerful host, such as <a href=\"%1$s\">DreamHost</a>! Otherwise, "
+"consider contacting your own host to see if they can enable the feature(s) "
+"you want."
+msgstr ""
+
+#: ../index.php:472
+msgid ""
+"Feature request? Support request? Bug report? You&rsquo;re invited to get in "
+"touch with me!"
+msgstr ""
+
+#: ../index.php:473
+#, php-format
+msgid ""
+"Prior to submitting a bug report, remember the immortal advice: Don&rsquo;t "
+"panic! Help me help you by submitting <a href=\"%s\">the best possible bug "
+"reports</a> you can."
+msgstr ""
+
+#: ../index.php:505
+#, php-format
+msgid ""
+"%1$s actions are currently <strong>disabled</strong>. When you are ready for "
+"your customizations to appear on your site, please enable the %1$s action "
+"groups in the <a href=\"%2$s\">general OpenHook settings</a>."
+msgstr ""
+
+#: ../index.php:512
+msgid ""
+"You can freely swap between hooks without losing your customizations. When "
+"you are finished customizing, the save button will save all hook "
+"customizations at once."
+msgstr ""
+
+#: ../index.php:515
+msgid "Hook selection:"
+msgstr ""
+
+#: ../index.php:544
+msgid "Lights, Camera, ACTION!"
+msgstr ""
+
+#: ../index.php:545
+msgid "Add whatever customizations you can dream up to this hook!"
+msgstr ""
+
+#: ../index.php:548
+msgid ""
+"Process <abbr title=\"PHP: Hypertext Preprocessor\">PHP</abbr> on this hook? "
+"(Your code must be wrapped in <code>&lt;?php ?&gt;</code> tags)"
+msgstr ""
+
+#: ../index.php:549
+msgid "Process shortcodes on this hook?"
+msgstr ""
+
+#: ../index.php:550
+msgid ""
+"Disable this action? This will keep your action saved, but will prevent it "
+"from being processed."
+msgstr ""
+
+#: ../index.php:553
+msgid "Remove Default Actions"
+msgstr ""
+
+#: ../index.php:554
+msgid ""
+"The following actions may be attached to this hook; selecting them below "
+"will remove them from this hook so that you may use them elsewhere, if you "
+"so choose. They may have already been disabled via other means, such as by a "
+"plugin. The following settings apply even if you have disabled the custom "
+"action using the above setting."
+msgstr ""
+
+#: ../index.php:780
+msgid "You have successfully upgraded to OpenHook 3."
+msgstr ""
+
+#: ../index.php:783 ../index.php:941
+msgid "You do not have permission to do this."
+msgstr ""
+
+#: ../index.php:929
+msgid "Old options deleted."
+msgstr ""
+
+#: ../index.php:937
+msgid "OpenHook has been uninstalled."
+msgstr ""
+
+#: ../index.php:961
+msgid "The default navigation menu"
+msgstr ""
+
+#: ../index.php:973
+msgid "Default header"
+msgstr ""
+
+#: ../index.php:1009
+msgid "Displays links to the next or previous post"
+msgstr ""
+
+#: ../index.php:1013
+msgid "Displays links to the next or previous pages of an archive listing"
+msgstr ""
+
+#: ../index.php:1055
+msgid "Displays a list of tags applied to the post"
+msgstr ""
+
+#: ../index.php:1059
+msgid "Displays a link to the comments of a post"
+msgstr ""
+
+#: ../index.php:1113
+msgid "The Subscribe to Comments plugin subscription checkbox"
+msgstr ""
+
+#: ../index.php:1125
+msgid "Default output for the archives template"
+msgstr ""
+
+#: ../index.php:1134
+msgid "Default sample output for the custom template"
+msgstr ""
+
+#: ../index.php:1146
+msgid "Displays default 404 error page title"
+msgstr ""
+
+#: ../index.php:1155
+msgid "Displays default 404 error page content"
+msgstr ""
+
+#: ../index.php:1194
+msgid "Displays DIYthemes attribution &amp; link"
+msgstr ""
+
+#: ../index.php:1210
+msgid ""
+"Executes within your site&rsquo;s <code>head</code> section. Useful for "
+"outputting, for example, meta tags."
+msgstr ""
+
+#: ../index.php:1214
+msgid ""
+"Many themes support the automatic addition of <code>link</code> tags "
+"pointing to your site&rsquo;s primary &amp; comments feeds. Disable to "
+"prevent this behavior."
+msgstr ""
+
+#: ../index.php:1219
+msgid ""
+"Similar to <code>feed_links</code>, except the <code>link</code> tags output "
+"by this hook point to secondary feeds, such as category feeds."
+msgstr ""
+
+#: ../index.php:1224
+msgid ""
+"Is used to queue &amp; output various scripts. Disabling this prevents most "
+"scripts from appearing in your header, allowing you to manage them all "
+"manually, if you so choose."
+msgstr ""
+
+#: ../index.php:1230
+#, php-format
+msgid ""
+"Is used to output a <code>meta</code> tag crediting WordPress as the "
+"software powering your site. Removing this is a form of <a href=\"%s"
+"\">security through obscurity</a>."
+msgstr ""
+
+#: ../index.php:1236
+msgid ""
+"Executed either within the footer section (<code>div#footer</code> or "
+"<code>footer</code>) or immediately before the closing <code>html</code> "
+"tag, this hook is commonly used to output stats tracking scripts or other "
+"asyncronously loaded JavaScript."
+msgstr ""
+
+#: ../index.php:1240
+msgid ""
+"Is used to queue &amp; output barious scripts. Disabling this prevents most "
+"scripts from appearing in your footer, allowing you to manage them all "
+"manually, if you so choose."
+msgstr ""
