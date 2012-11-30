@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenHook 3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-03-13 00:23-0500\n"
-"PO-Revision-Date: 2012-03-13 00:23-0500\n"
+"POT-Creation-Date: 2012-11-29 21:16-0500\n"
+"PO-Revision-Date: 2012-11-29 21:18-0500\n"
 "Last-Translator: Rick Beckman <rick.beckman@gmail.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -11,15 +11,14 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Poedit-KeywordsList: __;_e\n"
 "X-Poedit-Basepath: .\n"
+"X-Generator: Poedit 1.5.4\n"
 "X-Poedit-SearchPath-0: ..\n"
 
-#: ../functions-admin.php:35
-#: ../functions-admin.php:65
+#: ../functions-admin.php:35 ../functions-admin.php:65
 msgid "WordPress Hooks"
 msgstr ""
 
-#: ../functions-admin.php:36
-#: ../functions-admin.php:64
+#: ../functions-admin.php:36 ../functions-admin.php:64
 msgid "Thesis Hooks"
 msgstr ""
 
@@ -45,7 +44,9 @@ msgstr ""
 
 #: ../functions-admin.php:138
 #, php-format
-msgid "&copy; Copyright %1$s Rick Beckman. <a href=\"%2$s\">Open source software</a>."
+msgid ""
+"&copy; Copyright %1$s Rick Beckman. <a href=\"%2$s\">Open source software</"
+"a>."
 msgstr ""
 
 #: ../functions-admin.php:170
@@ -69,7 +70,9 @@ msgid "Donation"
 msgstr ""
 
 #: ../functions-admin.php:196
-msgid "Developing OpenHook is a labor of love. Your donation, of any size, is greatly appreciated."
+msgid ""
+"Developing OpenHook is a labor of love. Your donation, of any size, is "
+"greatly appreciated."
 msgstr ""
 
 #: ../functions-admin.php:197
@@ -105,23 +108,33 @@ msgid "Dedication"
 msgstr ""
 
 #: ../functions-admin.php:210
-msgid "OpenHook is proudly dedicated to the fantastic WordPress and Thesis communities, and to my wonderful family (Jessica, Sophia, and Anya)!"
+msgid ""
+"OpenHook is proudly dedicated to the fantastic WordPress and Thesis "
+"communities, and to my wonderful family (Jessica, Sophia, and Anya)!"
 msgstr ""
 
 #: ../functions-admin.php:238
-msgid "Are you sure you want to migrate your OpenHook 2 settings to OpenHook 3? This will overwrite all current OpenHook 3 options."
+msgid ""
+"Are you sure you want to migrate your OpenHook 2 settings to OpenHook 3? "
+"This will overwrite all current OpenHook 3 options."
 msgstr ""
 
 #: ../functions-admin.php:242
-msgid "Are you sure you want to delete all old OpenHook 2 settings? This action is irreversible!"
+msgid ""
+"Are you sure you want to delete all old OpenHook 2 settings? This action is "
+"irreversible!"
 msgstr ""
 
 #: ../functions-admin.php:246
-msgid "Are you sure you want to delete all OpenHook 3 settings? This action is irreversible!"
+msgid ""
+"Are you sure you want to delete all OpenHook 3 settings? This action is "
+"irreversible!"
 msgstr ""
 
 #: ../functions-admin.php:249
-msgid "Here are just a few settings to tailor your OpenHook experience. Note that no custom actions will be processed unless you enable them below."
+msgid ""
+"Here are just a few settings to tailor your OpenHook experience. Note that "
+"no custom actions will be processed unless you enable them below."
 msgstr ""
 
 #: ../functions-admin.php:254
@@ -138,20 +151,25 @@ msgid "Currently supporting all action hooks present in Thesis 1.8.4."
 msgstr ""
 
 #: ../functions-admin.php:259
-msgid "OpenHook allows customizing hooks in multiple contexts. To save on processing power, it will only process the hooks you want. Disabling the hook contexts does not delete your saved customizations."
+msgid ""
+"OpenHook allows customizing hooks in multiple contexts. To save on "
+"processing power, it will only process the hooks you want. Disabling the "
+"hook contexts does not delete your saved customizations."
 msgstr ""
 
-#: ../functions-admin.php:263
-#: ../functions-admin.php:265
+#: ../functions-admin.php:263 ../functions-admin.php:265
 msgid "Visualize hooks"
 msgstr ""
 
 #: ../functions-admin.php:266
-msgid "Turning on hook visualization will output the name of each hook in use on your site in a colored box, allowing you to get a better idea of where a hook will execute at. Hook visualizations will only appear to logged in users who have the ability to access OpenHook settings."
+msgid ""
+"Turning on hook visualization will output the name of each hook in use on "
+"your site in a colored box, allowing you to get a better idea of where a "
+"hook will execute at. Hook visualizations will only appear to logged in "
+"users who have the ability to access OpenHook settings."
 msgstr ""
 
-#: ../functions-admin.php:270
-#: ../functions-admin.php:350
+#: ../functions-admin.php:270 ../functions-admin.php:350
 #: ../functions-admin.php:359
 msgid "Save Changes"
 msgstr ""
@@ -161,15 +179,29 @@ msgid "Manage Options"
 msgstr ""
 
 #: ../functions-admin.php:274
-msgid "Have you used previous versions of OpenHook? You have the option of importing your customizations into the OpenHook 3 structure; this will not remove your old options, allowing you to downgrade if desired. Note that upgrading from OpenHook 2 will overwrite your WordPress &amp; Thesis hook customizations made with OpenHook 3!"
+msgid ""
+"Have you used previous versions of OpenHook? You have the option of "
+"importing your customizations into the OpenHook 3 structure; this will not "
+"remove your old options, allowing you to downgrade if desired. Note that "
+"upgrading from OpenHook 2 will overwrite your WordPress &amp; Thesis hook "
+"customizations made with OpenHook 3!"
 msgstr ""
 
 #: ../functions-admin.php:276
-msgid "If you&rsquo;re satisfied with OpenHook 3, you may remove any legacy OpenHook options found in the database as well. Note that this is irreversible, and you should consider making a backup of your database (at the very least, a backup of your options table) prior to removing the legacy options."
+msgid ""
+"If you&rsquo;re satisfied with OpenHook 3, you may remove any legacy "
+"OpenHook options found in the database as well. Note that this is "
+"irreversible, and you should consider making a backup of your database (at "
+"the very least, a backup of your options table) prior to removing the legacy "
+"options."
 msgstr ""
 
 #: ../functions-admin.php:278
-msgid "Want to start fresh with your customizations or wish to uninstall OpenHook? You can easily remove all of OpenHook&rsquo;s options with the following button. You are strongly encouraged to have a database backup available as this action is not reversible!"
+msgid ""
+"Want to start fresh with your customizations or wish to uninstall OpenHook? "
+"You can easily remove all of OpenHook&rsquo;s options with the following "
+"button. You are strongly encouraged to have a database backup available as "
+"this action is not reversible!"
 msgstr ""
 
 #: ../functions-admin.php:287
@@ -178,25 +210,43 @@ msgstr ""
 
 #: ../functions-admin.php:288
 #, php-format
-msgid "When deciding what customizations to make to your site, it can be useful to know what your server supports. The below information describes your server environment. If your server is missing a feature you require, upgrade to a more customizable host, such as <a href=\"%1$s\">DreamHost</a> or (for you &uuml;ber geeks wanting total customizability) <a href=\"%2$s\">Linode</a>! Otherwise, consider contacting your own host to see if they can enable the feature(s) you want."
+msgid ""
+"When deciding what customizations to make to your site, it can be useful to "
+"know what your server supports. The below information describes your server "
+"environment. If your server is missing a feature you require, upgrade to a "
+"more customizable host, such as <a href=\"%1$s\">DreamHost</a> or (for you "
+"&uuml;ber geeks wanting total customizability) <a href=\"%2$s\">Linode</a>! "
+"Otherwise, consider contacting your own host to see if they can enable the "
+"feature(s) you want."
 msgstr ""
 
 #: ../functions-admin.php:308
-msgid "Feature request? Support request? Bug report? You&rsquo;re invited to get in touch with me!"
+msgid ""
+"Feature request? Support request? Bug report? You&rsquo;re invited to get in "
+"touch with me!"
 msgstr ""
 
 #: ../functions-admin.php:309
 #, php-format
-msgid "Prior to submitting a bug report, remember the immortal advice: Don&rsquo;t panic! Help me help you by submitting <a href=\"%s\">the best possible bug reports</a> you can."
+msgid ""
+"Prior to submitting a bug report, remember the immortal advice: Don&rsquo;t "
+"panic! Help me help you by submitting <a href=\"%s\">the best possible bug "
+"reports</a> you can."
 msgstr ""
 
 #: ../functions-admin.php:341
 #, php-format
-msgid "%1$s actions are currently <strong>disabled</strong>. When you are ready for your customizations to appear on your site, please enable the %1$s action groups in the <a href=\"%2$s\">general OpenHook settings</a>."
+msgid ""
+"%1$s actions are currently <strong>disabled</strong>. When you are ready for "
+"your customizations to appear on your site, please enable the %1$s action "
+"groups in the <a href=\"%2$s\">general OpenHook settings</a>."
 msgstr ""
 
 #: ../functions-admin.php:348
-msgid "You can freely swap between hooks without losing your customizations. When you are finished customizing, the save button will save all hook customizations at once."
+msgid ""
+"You can freely swap between hooks without losing your customizations. When "
+"you are finished customizing, the save button will save all hook "
+"customizations at once."
 msgstr ""
 
 #: ../functions-admin.php:351
@@ -212,7 +262,9 @@ msgid "Add whatever customizations you can dream up to this hook!"
 msgstr ""
 
 #: ../functions-admin.php:384
-msgid "Process <abbr title=\"PHP: Hypertext Preprocessor\">PHP</abbr> on this hook? (Your code must be wrapped in <code>&lt;?php ?&gt;</code> tags)"
+msgid ""
+"Process <abbr title=\"PHP: Hypertext Preprocessor\">PHP</abbr> on this hook? "
+"(Your code must be wrapped in <code>&lt;?php ?&gt;</code> tags)"
 msgstr ""
 
 #: ../functions-admin.php:385
@@ -220,7 +272,9 @@ msgid "Process shortcodes on this hook?"
 msgstr ""
 
 #: ../functions-admin.php:386
-msgid "Disable this action? This will keep your action saved, but will prevent it from being processed."
+msgid ""
+"Disable this action? This will keep your action saved, but will prevent it "
+"from being processed."
 msgstr ""
 
 #: ../functions-admin.php:389
@@ -228,15 +282,19 @@ msgid "Remove Default Actions"
 msgstr ""
 
 #: ../functions-admin.php:390
-msgid "The following actions may be attached to this hook; selecting them below will remove them from this hook so that you may use them elsewhere, if you so choose. They may have already been disabled via other means, such as by a plugin. The following settings apply even if you have disabled the custom action using the above setting."
+msgid ""
+"The following actions may be attached to this hook; selecting them below "
+"will remove them from this hook so that you may use them elsewhere, if you "
+"so choose. They may have already been disabled via other means, such as by a "
+"plugin. The following settings apply even if you have disabled the custom "
+"action using the above setting."
 msgstr ""
 
 #: ../functions-options.php:175
 msgid "You have successfully upgraded to OpenHook 3."
 msgstr ""
 
-#: ../functions-options.php:178
-#: ../functions-options.php:336
+#: ../functions-options.php:178 ../functions-options.php:336
 msgid "You do not have permission to do this."
 msgstr ""
 
@@ -297,36 +355,55 @@ msgid "Displays DIYthemes attribution &amp; link"
 msgstr ""
 
 #: ../hooks-wordpress.php:20
-msgid "Executes within your site&rsquo;s <code>head</code> section. Useful for outputting, for example, meta tags."
+msgid ""
+"Executes within your site&rsquo;s <code>head</code> section. Useful for "
+"outputting, for example, meta tags."
 msgstr ""
 
 #: ../hooks-wordpress.php:24
-msgid "Many themes support the automatic addition of <code>link</code> tags pointing to your site&rsquo;s primary &amp; comments feeds. Disable to prevent this behavior."
+msgid ""
+"Many themes support the automatic addition of <code>link</code> tags "
+"pointing to your site&rsquo;s primary &amp; comments feeds. Disable to "
+"prevent this behavior."
 msgstr ""
 
 #: ../hooks-wordpress.php:29
-msgid "Similar to <code>feed_links</code>, except the <code>link</code> tags output by this hook point to secondary feeds, such as category feeds."
+msgid ""
+"Similar to <code>feed_links</code>, except the <code>link</code> tags output "
+"by this hook point to secondary feeds, such as category feeds."
 msgstr ""
 
 #: ../hooks-wordpress.php:34
-msgid "Is used to queue &amp; output various scripts. Disabling this prevents most scripts from appearing in your header, allowing you to manage them all manually, if you so choose."
+msgid ""
+"Is used to queue &amp; output various scripts. Disabling this prevents most "
+"scripts from appearing in your header, allowing you to manage them all "
+"manually, if you so choose."
 msgstr ""
 
 #: ../hooks-wordpress.php:40
 #, php-format
-msgid "Is used to output a <code>meta</code> tag crediting WordPress as the software powering your site. Removing this is a form of <a href=\"%s\">security through obscurity</a>."
+msgid ""
+"Is used to output a <code>meta</code> tag crediting WordPress as the "
+"software powering your site. Removing this is a form of <a href=\"%s"
+"\">security through obscurity</a>."
 msgstr ""
 
 #: ../hooks-wordpress.php:46
-msgid "Executed either within the footer section (<code>div#footer</code> or <code>footer</code>) or immediately before the closing <code>html</code> tag, this hook is commonly used to output stats tracking scripts or other asyncronously loaded JavaScript."
+msgid ""
+"Executed either within the footer section (<code>div#footer</code> or "
+"<code>footer</code>) or immediately before the closing <code>html</code> "
+"tag, this hook is commonly used to output stats tracking scripts or other "
+"asyncronously loaded JavaScript."
 msgstr ""
 
 #: ../hooks-wordpress.php:50
-msgid "Is used to queue &amp; output barious scripts. Disabling this prevents most scripts from appearing in your footer, allowing you to manage them all manually, if you so choose."
+msgid ""
+"Is used to queue &amp; output barious scripts. Disabling this prevents most "
+"scripts from appearing in your footer, allowing you to manage them all "
+"manually, if you so choose."
 msgstr ""
 
 #: ../index.php:34
 #, php-format
 msgid "The constant %s is defined which creates a security risk."
 msgstr ""
-
