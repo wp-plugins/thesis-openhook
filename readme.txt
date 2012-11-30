@@ -1,10 +1,10 @@
-=== The OpenHook Customizations Manager ===
-Contributors: KingdomGeek
+=== OpenHook ===
+Contributors: BrazenlyGeek, KingdomGeek
 Donate link: https://www.wepay.com/donations/openhook
-Tags: theme, customization, functions, display, Thesis, diythemes, hooks, actions, thesiswp, phpinfo, wp_head, wp_footer
+Tags: theme, PHP, code, customization, functions, display, Thesis, diythemes, hooks, actions, thesiswp, phpinfo, wp_head, wp_footer
 Requires at least: 3.3.1
-Tested up to: 3.3.1
-Stable tag: 3.3.1
+Tested up to: 3.4.2
+Stable tag: 3.4
 
 Customize your site with HTML, PHP, and Shortcodes, all from the convenience of your admin panel.
 
@@ -17,6 +17,8 @@ OpenHook takes the process of customizing <a href="http://get-thesis.com/">Thesi
 Where once you would need to open and modify your theme's custom functions file, you can now easily customize Thesis via your blog administration panel.
 
 Not only can arbitrary HTML, CSS, JavaScript, and even PHP or shortcodes be inserted into any of Thesis' hooks, you can also easily remove most of the hooked default elements within Thesis with the click of a button!
+
+For users of Thesis 2, OpenHook provides OpenBox, which is automatically added to Thesis 2's box management screen. Simply enable OpenBox there, and you'll be able to use OpenBox in Thesis 2's skin editor. OpenBox allows for complete freedom: HTML, CSS, JavaScript, and PHP (wrapped in proper PHP tags) may be entered into instances of OpenBox for nearly complete customization of Thesis 2!
 
 OpenHook is based heavily upon <a href="http://xentek.net/code/wordpress/plugins/k2-hook-up/">K2 Hook Up</a> by Eric Marden, and so I definitely appreciate his laying the ground work! Hundreds (thousands?) of Thesis users have benefited from OpenHook, and without Eric's plugin to inspire me, there would be no OpenHook as we know it today! Thanks, Eric!
 
@@ -66,10 +68,15 @@ OpenHook is a powerful tool for customizing your site; however, with great power
 
 == Upgrade Notice ==
 
-= 3.3.1 =
+= 3.4 =
 **If you are updating from 2.x.x, be sure to visit the Settings -> OpenHook page immediately after updating in order to upgrade your settings to the new schema.**
 
 == Changelog ==
+
+= 3.4 =
+* [feature] OpenBox - a box added to Thesis 2's box management, allowing for arbitrary code in Thesis 2's skin editor
+* [change] OpenHook is now programmed as a class to allow its code to be self-contained. More code refinements will be coming
+* [change] Plugin is now named simply "OpenHook." Viva la simplicity!
 
 = 3.3.1 =
 * [fix] thesis_hook_after_post_box restored. Hat tip: Doug Foster
