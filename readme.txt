@@ -1,26 +1,37 @@
 === OpenHook ===
 Contributors: BrazenlyGeek, KingdomGeek
 Donate link: https://www.wepay.com/donations/openhook
-Tags: theme, PHP, code, customization, functions, display, Thesis, diythemes, hooks, actions, thesiswp, phpinfo, wp_head, wp_footer
+Tags: actions, code, customization, display, DIYthemes, functions, Headway, hooks, PHP, phpinfo, shortcodes, theme, Thesis, thesiswp
 Requires at least: 3.3.1
-Tested up to: 3.4.2
-Stable tag: 3.4
+Tested up to: 3.5
+Stable tag: 4.0
+License: GPLv3 or later
 
-Customize your site with HTML, PHP, and Shortcodes, all from the convenience of your admin panel.
+Infinite customization in infinite combinations.
 
 == Description ==
 
-**If you have upgraded from OpenHook 2.x.x and wish to preserve your customizations, run the Upgrade from OpenHook 2 script from the Settings -> OpenHook panel.**
+Editing files is so passé. An increasing number of themes come equipped with a myriad of _hooks_ — points within its code which can receive user customizations, known as _actions_ — which can be customized without modifying any files directly.
 
-OpenHook takes the process of customizing <a href="http://get-thesis.com/">Thesis</a> and simplifies it.
+OpenHook brings the world of hooks & actions to the mainstream, providing an easy to use admin interface in which you can customize your site without limit, whether you're using HTML or PHP!
 
-Where once you would need to open and modify your theme's custom functions file, you can now easily customize Thesis via your blog administration panel.
+***Features***
 
-Not only can arbitrary HTML, CSS, JavaScript, and even PHP or shortcodes be inserted into any of Thesis' hooks, you can also easily remove most of the hooked default elements within Thesis with the click of a button!
-
-For users of Thesis 2, OpenHook provides OpenBox, which is automatically added to Thesis 2's box management screen. Simply enable OpenBox there, and you'll be able to use OpenBox in Thesis 2's skin editor. OpenBox allows for complete freedom: HTML, CSS, JavaScript, and PHP (wrapped in proper PHP tags) may be entered into instances of OpenBox for nearly complete customization of Thesis 2!
-
-OpenHook is based heavily upon <a href="http://xentek.net/code/wordpress/plugins/k2-hook-up/">K2 Hook Up</a> by Eric Marden, and so I definitely appreciate his laying the ground work! Hundreds (thousands?) of Thesis users have benefited from OpenHook, and without Eric's plugin to inspire me, there would be no OpenHook as we know it today! Thanks, Eric!
+* Quick access to all hooks present in Thesis 1.8.5
+* Quick access to all hooks present in Headway
+* Quick access to the header & footer hooks of WordPress
+* All hooks can be customized with text, HTML, PHP, or shortcodes
+* All hooks can be selectively disabled
+* A variety of actions already present in Thesis 1.8.5 and WordPress can be selectively disabled
+* Hook visualization allows you to see exactly where each hook is fired on the front-end of your site
+* OpenBox, a PHP-friendly "box" for Thesis 2
+* New shortcodes
+    * [email], for masking email addresses from some spam robots
+    * [global], which makes use of custom fields on a draft page in order to provide a library of reusable strings
+    * [php], an admin-only shortcode for including PHP code within posts
+* Ability to disable _all_ shortcodes
+* Display of `phpinfo()` in the admin panel
+* Options management, including tools to upgrade from OpenHook 2 and to uninstall (delete) all OpenHook options
 
 == Installation ==
 
@@ -32,23 +43,40 @@ After you have downloaded the file and extracted the `thesis-openhook/` director
 
 Alternatively, you can use WordPress' automatic plugin installer. Go ahead, it's easier!
 
+== Upgrade Notice ==
+
+= 4.0 =
+Now providing support for the theme Headway as well as adding several custom shortcodes! Numerous more minor changes have been made, so dive in and check 'em out!
+
+= 3 =
+OpenHook 3 provides a leaner, cleaner interface for managing your customizations. If you are upgrading from 2.x.x, be sure to FIRST upgrade your options via Settings -> OpenHook; otherwise, you may find your customizations have vanished!
+
+== Screenshots ==
+
+1. An example of one of the many hooks to which OpenHook provides access. This is one of WordPress'.
+2. How the Headway theme page of OpenHook looks. There is a toggle on the General page to choose to view all pages at once.
+3. A snapshot of the shortcodes page.
+4. How OpenBox appears on Thesis' box management screen.
+5. An example of OpenBox in action in Thesis' skin editor.
+
 == Frequently Asked Questions ==
 
 = I upgraded from OpenHook 2.x.x; where did all of my customizations go? =
 
-OpenHook 3 does not automatically import pre-existing customizations. You will need to visit the OpenHook settings page accessible at Settings -> OpenHook; once there, you can use the "Upgrade from OpenHook 2" button to import your pre-existing customizations to the new schema. You'll then need to activate the Thesis & WordPress action groups as needed from the same settings page.
+OpenHook 3.0+ does not automatically import pre-existing customizations. You will need to visit the OpenHook settings page accessible at Settings -> OpenHook; once there, you can use the "Upgrade from OpenHook 2" button to import your pre-existing customizations to the new schema. You'll then need to activate the Thesis & WordPress action groups as needed from the same settings page.
 
-= I don't use Thesis; can I still use this plugin? =
+= I don't use one of the supported themes; can I still use this plugin? =
 
-Of course! However, what you are able to do with OpenHook will be limited. Still, you will have access to WordPress' few public-facing hooks, as well as the `phpinfo()` panel.
+Of course! However, what you are able to do with OpenHook will be limited. Still, you will have access to WordPress' few public-facing hooks, the new shortcodes, and the `phpinfo()` panel.
 
-= Where can I get Thesis? =
+= Where can I get the supported themes? =
 
-Thesis can be purchased at <a href="http://get-thesis.com/">DIYthemes</a> Membership to the support board alone is worth the price.
+* Thesis can be purchased at <a href="http://get-thesis.com/">DIYthemes</a>.
+* Headway can be purchased at <a href="http://headway.openhook.net/">Headway Themes</a>.
 
 = What about the code in my theme's custom functions file? =
 
-If you have already modified your Thesis installation via `custom_functions.php`, you are welcome to port those changes into OpenHook to manage all of your changes in one place.
+If you have already modified your theme's installation via `functions.php`, `custom_functions.php`, or some other file, you are welcome to port those changes into OpenHook to manage all of your changes in one place.
 
 Note that your blog will use both your theme's custom functions and OpenHook, so the two are complementary.
 
@@ -56,22 +84,26 @@ Likewise, your theme's custom functions file will be processed *after* OpenHook,
 
 = Why can't I edit my custom files with OpenHook? =
 
-Prior to version 2.3, OpenHook provided panels for editing custom CSS & custom functions files. Thesis now provides those features by default, and so there's no reason for OpenHook to provide the same thing.
+Prior to version 2.3, OpenHook provided panels for editing Thesis' custom CSS & custom functions files. Thesis now provides those features by default, and so there's no reason for OpenHook to provide the same thing.
 
 = Why can only certain users on my site access OpenHook? =
 
-Do to the powerful nature of OpenHook, access is restricted only to the highest level of users (i.e., those with the ability to delete other users).
+Do to the powerful nature of OpenHook, access is restricted only to the highest level of users (i.e., those with the authority to edit files from within WordPress).
 
 = What are the security risks involved in using OpenHook? =
 
 OpenHook is a powerful tool for customizing your site; however, with great power comes, ahem, great responsibility. You are able to use any (ANY!) PHP code within your OpenHook-managed customizations; any other administrators on your site with access to OpenHook can do the same. The freedom allowed means that database credentials could be displayed, your database could be deleted, or your entire site could be defaced. These risks exist with the built-in theme and plugin file editor present in WordPress as well as with directly having access to your theme's custom functions file. Therefore, while OpenHook certainly can be dangerous, if you have only trusted administrators on your site, you have nothing to worry about.
 
-== Upgrade Notice ==
-
-= 3.4 =
-**If you are updating from 2.x.x, be sure to visit the Settings -> OpenHook page immediately after updating in order to upgrade your settings to the new schema.**
-
 == Changelog ==
+
+= 4.0 =
+* [feature] Now supporting Headway theme hooks!
+* [feature] Shortcodes manager introduced!
+* [feature] Users can now choose whether all hook panels are displayed or just one at a time
+* [shortcode] PHP - Arbitrary PHP code in your posts! (Admin users only.)
+* [shortcode] Email - Encodes email addresses for use in posts to thrwart harvesters
+* [shortcode] Global - Take advantage of custom fields on a draft post to create a library of strings which may be used in any post
+* [improved] Various code optimizations
 
 = 3.4 =
 * [feature] OpenBox - a box added to Thesis 2's box management, allowing for arbitrary code in Thesis 2's skin editor
@@ -100,6 +132,7 @@ OpenHook is a powerful tool for customizing your site; however, with great power
 
 = 3.1 =
 * [fix] Rare issue where the general settings panel doesn't fully appear
+
 = 3 =
 * Total rewrite of the plugin
 * [feature] phpinfo() panel
