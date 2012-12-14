@@ -4,7 +4,7 @@ Donate link: https://www.wepay.com/donations/openhook
 Tags: actions, code, customization, display, DIYthemes, functions, Headway, hooks, PHP, phpinfo, shortcodes, theme, Thesis, thesiswp
 Requires at least: 3.3.1
 Tested up to: 3.5
-Stable tag: 4.0
+Stable tag: 4.0.1
 License: GPLv3 or later
 
 Infinite customization in infinite combinations.
@@ -95,6 +95,9 @@ Do to the powerful nature of OpenHook, access is restricted only to the highest 
 OpenHook is a powerful tool for customizing your site; however, with great power comes, ahem, great responsibility. You are able to use any (ANY!) PHP code within your OpenHook-managed customizations; any other administrators on your site with access to OpenHook can do the same. The freedom allowed means that database credentials could be displayed, your database could be deleted, or your entire site could be defaced. These risks exist with the built-in theme and plugin file editor present in WordPress as well as with directly having access to your theme's custom functions file. Therefore, while OpenHook certainly can be dangerous, if you have only trusted administrators on your site, you have nothing to worry about.
 
 == Changelog ==
+
+= 4.0.1 =
+* [fix] Fixed broken class calls in options management functions
 
 = 4.0 =
 * [feature] Now supporting Headway theme hooks!
