@@ -2,8 +2,8 @@
 /*
 Name: OpenBox
 Author: Rick Beckman
-Version: 2.2
-Description: OpenBox gives you the freedom to add any markup or programming, whether HTML, CSS, JS, or even PHP, to any location on your site. Simply add an OpenBox to your Skin, add your custom code to the box, and enjoy! Warning: OpenBox is *awesome* in that it provides you complete and unfettered access to your site via simple text boxes. If you do not know what you are doing, you *can* break things; therefore, you are strongly recommended to have a test installation of your site, upon which you may test all of your custom code before placing it on your live site.
+Version: 2.3
+Description: OpenBox gives you the freedom to add any markup or programming, whether HTML, CSS, JS, or even PHP, to any location on your site. Simply add an OpenBox to your Skin, add your custom code to the box, and enjoy! Warning: OpenBox is *awesome* in that it provides you complete and unfettered access to your site via simple text boxes. If you do not know what you are doing, you *can* break things; therefore, you are strongly recommended to have a test installation of your site, upon which you may test all of your custom code before placing it on your live site. Remember: After you place OpenBox into your Thesis template, you can edit the OpenBox content itself via the Thesis Skin Content page.
 Class: openbox
 */
 
