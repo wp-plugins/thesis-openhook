@@ -67,6 +67,16 @@ OpenHook 3 provides a leaner, cleaner interface for managing your customizations
 
 == Frequently Asked Questions ==
 
+= How does OpenBox work in Thesis 2.1.x? =
+
+First, ensure you have enabled OpenBox in the Thesis 2.1.x "boxes" screen (OpenBox should be checkmarked and you'll need to press the save button).
+
+Second, visit the Thesis skin editor. Add instances of OpenBox from the boxes dropdown menu, and drag them into your skin template wherever you would like them to be. I recommend opening each instance of OpenBox (via the gear icon) and giving it a unique name so that they are not all "OpenBox."
+
+Finally, once you have saved your template, return to the regular admin panel and visit Thesis' skin content page. On this page,  you'll be shown a list of all of the custom boxes, including OpenBoxes, you've added to your template, at which point you can edit them to your liking.
+
+Yes, this is convoluted, and for that I apologize; fortunately, it isn't my fault.
+
 = I upgraded from OpenHook 2.x.x; where did all of my customizations go? =
 
 OpenHook 3 and newer does not automatically import pre-existing customizations. You will need to visit the OpenHook settings page accessible at Settings -> OpenHook; once there, you can use the "Upgrade from OpenHook 2" button to import your pre-existing customizations to the new schema. You'll then need to activate the Thesis & WordPress action groups as needed from the same settings page.
@@ -112,7 +122,7 @@ OpenHook is a powerful tool for customizing your site; however, with great power
 * [changed] Optimized various bits of code, bringing it inline with WP coding standards
 
 = 4.0.1 =
-* [fixe] Fixed broken class calls in options management functions
+* [fixed] Fixed broken class calls in options management functions
 
 = 4.0 =
 * [added] Now supporting Headway theme hooks!
