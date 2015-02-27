@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: hooks, Headway, PHP, phpinfo, shortcodes, Thesis, Flat, THA, Theme Hook Alliance
 Requires at least: 3.3.1
 Tested up to: 4.1.1
-Stable tag: 4.0.1
+Stable tag: 4.1
 License: GPLv3 or later
 
 Infinite customization in infinite combinations. Wanna play hooky?
