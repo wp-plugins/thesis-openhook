@@ -7,20 +7,20 @@ Tested up to: 4.1.1
 Stable tag: 4.2.0
 License: GPLv3 or later
 
-Infinite customization in infinite combinations. Wanna play hooky?
+Add customizations to any hook in WordPress and any hook-enabled theme or plugin from within your admin panel! Wanna play hooky?
 
 == Description ==
 
 ★ As featured in [The Girl's Guide to Web Design](http://girlsguidecourses.com/)! ★
 
-Editing files is so passé. An increasing number of themes come equipped with a myriad of _hooks_ — points within its code which can receive user customizations, known as _actions_ — which can be customized without modifying any files directly.
+If you aren't altogether comfortable with editing PHP files to customize your site, OpenHook is for you! An increasing number of themes & plugins come equipped with a myriad of _hooks_ — points within their code which can receive user customizations, known as _actions_ — which can be customized from within your WordPress admin panel using OpenHook!
 
-OpenHook brings the world of hooks & actions to the mainstream, providing an easy to use admin interface in which you can customize your site without limit, whether you're using HTML or PHP!
+OpenHook brings the world of hooks & actions to the mainstream, providing an easy to use admin interface in which you can customize your site without limit, whether you're using HTML/CSS/JavaScript or PHP!
 
 ***Features***
 
 * Customize the hooks present in your favorite themes!
-	* NEW! Define any hook you want within OpenHook and add an action to it! In addition to the following themes which OpenHook supports explicitly, you can now use OpenHook to customize ANY hook (even something as arcane as `theme_hook_before_meta_987`) in ANY theme that has ANY hooks, from WordPress' bare minimum hooks to hooks that are dynamically created and are as infinitely diverse as your site can be!
+	* NEW! Define any hook you want within OpenHook and add an action to it! In addition to the following themes which OpenHook supports explicitly, you can now use OpenHook to customize ANY hook (even something as arcane as `theme_hook_before_meta_987`) in ANY theme or plugin that has ANY hooks, from WordPress' bare minimum hooks to hooks that are dynamically created and are as infinitely diverse as your site can be!
     * [Flat](http://wordpress.org/extend/themes/flat)
     * [Headway](http://headwaythemes.com/)
     * [K2](https://wordpress.org/themes/k2/) (actions created with the K2 Hook Up plugin can be imported)
@@ -28,7 +28,7 @@ OpenHook brings the world of hooks & actions to the mainstream, providing an eas
     * Any theme that supports [Theme Hook Alliance](https://github.com/zamoose/themehookalliance/) hooks
 * OpenBox, a PHP-friendly "box" for Thesis 2
 * Quick access to the header & footer hooks of WordPress
-* All hooks can be customized with text, HTML, PHP, or shortcodes
+* All hooks can be customized with text, HTML/CSS/JavaScript, PHP, or shortcodes
 * All actions can be selectively disabled
 * A variety of actions already present in Flat, Thesis 1.8.x, and WordPress can be selectively disabled
 * Hook visualization allows you to see exactly where each hook is fired on the front-end of your site
@@ -39,6 +39,7 @@ OpenHook brings the world of hooks & actions to the mainstream, providing an eas
 * Ability to disable _all_ shortcodes
 * Display of `phpinfo()` in the admin panel
 * Options management, including tools to upgrade from OpenHook 2 and to uninstall (delete) all OpenHook options
+* Only users with the `edit_themes` permission may access OpenHook or its features. If enabled by such a user, other users may use `[email]` or `[global]` shortcodes in their entries as well.
 
 == Changelog ==
 
@@ -202,19 +203,15 @@ Of course! However, what you are able to do with OpenHook will be limited. Still
 
 = What about the code in my theme's custom functions file? =
 
-If you have already modified your theme's installation via `functions.php`, `custom_functions.php`, or some other file, you are welcome to port those changes into OpenHook to manage all of your changes in one place.
+If you have already modified your theme's installation via `functions.php`, `custom_functions.php`, or some other similar file, you are welcome to port those changes into OpenHook to manage all of your changes in one place.
 
 Note that your blog will use both your theme's custom functions and OpenHook, so the two are complementary.
 
 Likewise, your theme's custom functions file will be processed *after* OpenHook, so you can override OpenHook via the custom functions file, if you need to.
 
-= Why can't I edit my custom files with OpenHook? =
-
-Prior to version 2.3, OpenHook provided panels for editing Thesis' custom CSS & custom functions files. Thesis now provides those features by default, and so there's no reason for OpenHook to provide the same thing.
-
 = Why can only certain users on my site access OpenHook? =
 
-Do to the powerful nature of OpenHook, access is restricted only to the highest level of users (i.e., those with the authority to edit files from within WordPress).
+Do to the powerful nature of OpenHook, access is restricted only to the highest level of users (i.e., those with the `edit_themes` permission).
 
 = What are the security risks involved in using OpenHook? =
 
@@ -222,4 +219,4 @@ OpenHook is a powerful tool for customizing your site; however, with great power
 
 = Why is K2 included? =
 
-K2 is a pretty old WordPress theme -- an abandoned one, for all I can tell. However, it was the first theme that ever had a "hooks" plugin made for it -- K2 Hook Up, which the first version of OpenHook was based upon. The K2 theme is included to honor its place in WordPress history. OpenHook now allows access to all of its hooks, including one which K2 Hook Up didn't!
+K2 is a pretty old WordPress theme -- an abandoned one, for all I can tell. However, it was the first theme that ever had a "hooks" plugin made for it -- K2 Hook Up, which the first version of OpenHook was based upon. The K2 theme is included to honor its place in WordPress history. OpenHook now allows access to all of its hooks, including one which K2 Hook Up didn't! I would also love to see a theme developer pick up K2 and update it for today's users. It's a great theme that shouldn't fade away completely.

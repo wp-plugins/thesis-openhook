@@ -2,7 +2,7 @@
 /*
  * Plugin Name: OpenHook
  * Plugin URI: http://www.rickbeckman.com/
- * Description: OpenHook opens the door to future-proof customization of WordPress every hook-enabled theme by storing your customizations safely in your database. OpenHook also provides a handful of useful shortcodes for even more customization possibility!
+ * Description: OpenHook opens the door to future-proof customization of WordPress and every hook-enabled theme or plugin by storing your custom actions safely in your database. OpenHook also provides a handful of useful shortcodes for even more customization possibility!
  * Version: 4.2.0
  * Author: Rick Beckman
  * Author URI: http://rickbeckman.com/
