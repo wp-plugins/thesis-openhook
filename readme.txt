@@ -52,7 +52,7 @@ As of 4.2.0, this change log adheres to [semantic versioning standards](http://s
 * [added] Access to the WordPress hook `comment_form`
 * [added] Include FB like button in admin panel sidebar
 * [fixed] Contact form link now works
-* [fixed] Asterisk denoting that a hook has customizations added to it are now more accurate
+* [fixed] Asterisks denoting that a hook has customizations added to it are now more accurate
 * [fixed] OpenHook version and the Flat & THA hook options are now properly deleted when deleting OpenHook options
 * [fixed] `OpenHook::upgrade()`'s "is an upgraded needed?" checks now actually work, preventing upgrade code from processing on every page load
 * [fixed] More `WP_DEBUG` notices taken care of
